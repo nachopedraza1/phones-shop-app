@@ -1,4 +1,3 @@
-import { MainLayout } from '@/components/layouts';
 
 export const metadata = {
   title: 'Home | App',
@@ -7,9 +6,11 @@ export const metadata = {
 
 const HomePage: React.FC = () => {
   return (
-    <MainLayout>
-      <div>HomePage</div>
-    </MainLayout>
+    <div className="container mx-auto">
+      <div>
+        <div>HomePage</div>
+      </div>
+    </div>
   )
 }
 
