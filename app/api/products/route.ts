@@ -1,12 +1,27 @@
 import db from "@/database/connection";
 import { MeliResponse } from "@/interfaces/MercadoLibre";
 import axios from "axios";
+import { ResultSetHeader } from "mysql2";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
 
     try {
-        const [products] = await db.query('SELECT * FROM Products');
+        const [products] = await db.query(`
+        SELECT Products.id AS product_id,
+       Products.name AS product_name,
+       Products.price AS product_price,
+       Rating.negative AS product_rating_negative,
+       Rating.neutral AS product_rating_neutral,
+       Rating.positive AS product_rating_positive,
+       Installments.quantity AS product_installments_quantity,
+       Installments.amount AS product_installments_amount,
+       Installments.rate AS product_installments_rate
+            FROM Products
+            LEFT JOIN Rating ON Products.id = Rating.productId
+            LEFT JOIN Installments ON Products.id = Installments.productId;
+
+        `);
         return NextResponse.json(products)
     } catch (error) {
         console.log(error);
@@ -34,17 +49,47 @@ export async function POST(req: Request) {
             installments: product.installments,
         }));
 
+        for (const product of products) {
 
+            const [result] = await db.query(`
+            INSERT INTO Products(meli_id, name, price, prod_condition, thumbnail, thumbnail_id, totalSold, brand, category)
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                [
+                    product.meli_id,
+                    product.name,
+                    product.price,
+                    product.condition,
+                    product.thumbnail,
+                    product.thumbnail_id,
+                    product.totalSold,
+                    product.brand,
+                    'fundas'
+                ]);
 
-        const [result, fields] = await db.execute(`
-        INSERT INTO Products(meli_id,name,price,prod_condition,thumbnail,thumbnail_id,totalSold,brand,category)
-        VALUES('4f123241','notebook',200,'new','thumb213','thumb213',20,'dasdw','phones')
-        `);
+            const productId = (result as ResultSetHeader).insertId;
 
+            await db.query(`
+            INSERT INTO Installments(quantity, amount, rate, productId)
+            VALUES(?, ?, ?, ?)`,
+                [
+                    product.installments.quantity,
+                    product.installments.amount,
+                    product.installments.rate,
+                    productId
+                ]);
 
-        const insertedProductId = result.insertId;
+            await db.query(`
+            INSERT INTO Rating(negative, neutral, positive, productId)
+            VALUES(?, ?, ?, ?)`,
+                [
+                    product.ratings.negative,
+                    product.ratings.neutral,
+                    product.ratings.positive,
+                    productId
+                ]);
+        }
 
-        return NextResponse.json({result,fields})
+        return NextResponse.json({})
     } catch (error) {
         console.log(error);
         return NextResponse.json({ message: 'ERROR' })
