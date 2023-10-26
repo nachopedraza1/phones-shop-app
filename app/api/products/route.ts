@@ -96,19 +96,3 @@ export async function POST(req: Request) {
     }
 }
 
-
-/* for (const product of products) {
-    await db.query(`
-    INSERT INTO Products(meli_id,name,price,prod_condition,thumbnail,thumbnail_id,totalSold,brand,category)
-    VALUES(${product.meli_id},
-        ${product.name},
-        ${product.price},
-        ${product.condition},
-        ${product.thumbnail},
-        ${product.thumbnail_id},
-        ${product.totalSold},
-        ${product.brand},
-        'fundas')
-    `);
-} */
-
