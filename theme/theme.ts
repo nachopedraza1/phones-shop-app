@@ -5,7 +5,10 @@ const poppins = Poppins({ weight: ['200', '300', '400'], subsets: ['latin'], dis
 
 export const appTheme = createTheme({
     palette: {
-        mode: 'light'
+        mode: 'light',
+        primary: {
+            main: '#21003d'
+        }
     },
     typography: {
         fontFamily: poppins.style.fontFamily,
@@ -15,7 +18,22 @@ export const appTheme = createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: 30,
-                    background:'#f9f9f9'
+                    background: '#f9f9f9'
+                }
+            }
+        },
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    textTransform: 'none',
+                    fontWeight: 600
+                }
+            }
+        },
+        MuiAppBar: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: 'white'
                 }
             }
         }

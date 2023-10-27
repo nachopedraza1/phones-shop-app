@@ -9,22 +9,21 @@ export async function GET(req: Request) {
     try {
         const [products] = await db.query(`
         SELECT Products.id AS product_id,
-       Products.name AS product_name,
-       Products.price AS product_price,
-       Products.prod_condition as product_condition,
-       Products.brand AS product_brand,
-       Products.thumbnail AS product_thumbnail,
-       Products.totalSold AS product_totalSold,
-       Rating.negative AS product_rating_negative,
-       Rating.neutral AS product_rating_neutral,
-       Rating.positive AS product_rating_positive,
-       Installments.quantity AS product_installments_quantity,
-       Installments.amount AS product_installments_amount,
-       Installments.rate AS product_installments_rate
-            FROM Products
-            LEFT JOIN Rating ON Products.id = Rating.productId
-            LEFT JOIN Installments ON Products.id = Installments.productId;
-
+        Products.name AS product_name,
+        Products.price AS product_price,
+        Products.prod_condition as product_condition,
+        Products.brand AS product_brand,
+        Products.thumbnail AS product_thumbnail,
+        Products.totalSold AS product_totalSold,
+        Rating.negative AS product_rating_negative,
+        Rating.neutral AS product_rating_neutral,
+        Rating.positive AS product_rating_positive,
+        Installments.quantity AS product_installments_quantity,
+        Installments.amount AS product_installments_amount,
+        Installments.rate AS product_installments_rate
+        FROM Products
+        LEFT JOIN Rating ON Products.id = Rating.productId
+        LEFT JOIN Installments ON Products.id = Installments.productId;
         `);
         return NextResponse.json(products)
     } catch (error) {
