@@ -12,6 +12,9 @@ export const appTheme = createTheme({
     },
     typography: {
         fontFamily: poppins.style.fontFamily,
+        h5: {
+            fontWeight: 600
+        }
     },
     components: {
         MuiOutlinedInput: {
@@ -34,6 +37,14 @@ export const appTheme = createTheme({
             styleOverrides: {
                 root: {
                     backgroundColor: 'white'
+                }
+            }
+        },
+        MuiLink: {
+            styleOverrides: {
+                root: {
+                    textDecoration: 'none',
+                    color:'black'
                 }
             }
         }
