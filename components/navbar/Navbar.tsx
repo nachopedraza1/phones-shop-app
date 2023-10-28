@@ -18,8 +18,8 @@ export const Navbar: React.FC = () => {
     }
 
     return (
-        <AppBar>
-            <Grid container direction='column'>
+        <header>
+            <Grid className="navbar">
                 <Grid bgcolor='#21003d'>
                     <Container maxWidth='xl'>
                         <Grid container justifyContent='space-between' alignItems='center' padding={0.7}>
@@ -148,41 +148,42 @@ export const Navbar: React.FC = () => {
                         </Grid>
                     </Container>
 
-                    <AppBar className={`megamenu ${openMegamenu && 'open-mega'}`}>
-                        <Grid container onMouseLeave={() => setOpenMegamenu(false)}>
-                            <Grid container justifyContent='center' alignItems='center' gap={3}>
 
-                                <Grid item textAlign='center'>
-                                    <Image src={resultsMenu?.image.url!} width={resultsMenu?.image.width} height={resultsMenu?.image.height} alt={resultsMenu?.type!} />
-                                    <Typography variant="h5">
-                                        {resultsMenu?.type}
-                                    </Typography>
-                                </Grid>
+                    <Grid
+                        className={`megamenu ${openMegamenu && 'open-mega'}`}
+                        onMouseLeave={() => setOpenMegamenu(false)}
+                    >
 
-                                <Divider flexItem variant="middle" orientation="vertical" />
-
-                                <Grid item xs={7} display='flex' flexDirection='column' flexWrap='wrap' justifyContent='center' height='200px'>
-                                    <Typography fontWeight={600}>Productos</Typography>
-                                    <Divider sx={{ maxWidth: 150 }} />
-                                    {
-                                        resultsMenu?.models.map(item => (
-                                            <Grid item>
-                                                <MuiLink component={Link} href='/' sx={{ color: 'black', '&:hover': { color: '#00c8ff' } }}>
-                                                    {item}
-                                                </MuiLink>
-                                            </Grid>
-                                        ))
-                                    }
-                                    <MuiLink component={Link} href='/' sx={{ fontWeight: 600, color: 'black', '&:hover': { color: '#00c8ff' } }}>
-                                        Ver todos
-                                    </MuiLink>
-                                </Grid>
-                            </Grid>
+                        <Grid item textAlign='center'>
+                            <Image src={resultsMenu?.image.url!} width={resultsMenu?.image.width} height={resultsMenu?.image.height} alt={resultsMenu?.type!} />
+                            <Typography variant="h5">
+                                {resultsMenu?.type}
+                            </Typography>
                         </Grid>
-                    </AppBar>
+
+                        <Divider flexItem variant="middle" orientation="vertical" />
+
+                        <Grid item xs={7} display='flex' flexDirection='column' flexWrap='wrap' justifyContent='center' height='200px'>
+                            <Typography fontWeight={600}>Productos</Typography>
+                            <Divider sx={{ maxWidth: 150 }} />
+                            {
+                                resultsMenu?.models.map(item => (
+                                    <Grid item>
+                                        <MuiLink component={Link} href='/' sx={{ color: 'black', '&:hover': { color: '#00c8ff' } }}>
+                                            {item}
+                                        </MuiLink>
+                                    </Grid>
+                                ))
+                            }
+                            <MuiLink component={Link} href='/' sx={{ fontWeight: 600, color: 'black', '&:hover': { color: '#00c8ff' } }}>
+                                Ver todos
+                            </MuiLink>
+                        </Grid>
+                    </Grid>
+
 
                 </Grid>
             </Grid >
-        </AppBar>
+        </header>
     )
 }
