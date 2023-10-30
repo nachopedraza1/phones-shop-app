@@ -42,6 +42,21 @@ const HomePage: NextPage = () => {
           ))
         }
       </Grid>
+      
+      <Grid container justifyContent='space-between' mt={2} rowGap={2} >
+        {
+          carrousel.map(item => (
+            <Grid item xs={item.width} position={'relative'} height={item.height}>
+              <Image src={item.image}
+                alt={item.alt}
+                style={{ borderRadius: '10px', objectFit: "cover" }}
+                fill
+              />
+            </Grid>
+          ))
+        }
+      </Grid>
+      
 
       <Grid container mt={3}>
         <Grid item xs={12} display='flex' alignItems='center' justifyContent='space-between' mb={2}>

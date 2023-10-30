@@ -3,8 +3,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { Container, Grid, TextField, Typography, Toolbar, Button, Divider, AppBar, IconButton, Link as MuiLink } from '@mui/material';
+import { Container, Grid, TextField, Typography, Button, Divider, IconButton, Link as MuiLink, AppBar } from '@mui/material';
 import { Megamenu, megamenu } from "@/utils/constants";
+
+interface Props {
+    window?: () => Window;
+    children: React.ReactElement;
+}
 
 export const Navbar: React.FC = () => {
 
@@ -18,8 +23,8 @@ export const Navbar: React.FC = () => {
     }
 
     return (
-        <header>
-            <Grid className="navbar">
+        <Grid position='relative'>
+            <AppBar>
                 <Grid bgcolor='#21003d'>
                     <Container maxWidth='xl'>
                         <Grid container justifyContent='space-between' alignItems='center' padding={0.7}>
@@ -33,10 +38,9 @@ export const Navbar: React.FC = () => {
 
                 <Container maxWidth='xl'>
                     <Grid container justifyContent='space-between' alignItems='center' paddingTop={2} paddingBottom={2}>
-
                         <Grid item display='flex' alignItems='center' xs={2}>
                             <Image src='/logo.png' alt="trustpilot" width={60} height={50} />
-                            <Typography variant="h6" fontWeight={600}  ml={1}> Phonecting </Typography>
+                            <Typography variant="h6" fontWeight={600} ml={1}> Phonecting </Typography>
                         </Grid>
 
                         <Grid item xs={5}>
@@ -56,7 +60,7 @@ export const Navbar: React.FC = () => {
                             />
                         </Grid>
 
-                        <Grid item >
+                        <Grid item>
                             <Grid container justifyContent='end' gap={1}>
 
                                 <Button
@@ -111,80 +115,76 @@ export const Navbar: React.FC = () => {
                                 </IconButton>
                             </Grid>
                         </Grid>
+                    </Grid>
 
+                    <Grid container alignItems='center' bgcolor='#f9f9f9' paddingTop={1} paddingBottom={1}>
+                        <Grid item xs={8}>
+                            <Grid container gap={4}>
+                                <MuiLink component={Link} href='/' fontWeight={600} onMouseEnter={() => handleOpenMega('iPhones')}>
+                                    iPhones
+                                </MuiLink>
+                                <MuiLink component={Link} href='/' fontWeight={600} onMouseEnter={() => handleOpenMega('iPads')}>
+                                    iPads
+                                </MuiLink>
+                                <MuiLink component={Link} href='/' fontWeight={600} onMouseEnter={() => handleOpenMega('MacBooks')}>
+                                    MacBooks
+                                </MuiLink>
+                                <MuiLink component={Link} href='/' fontWeight={600} onMouseEnter={() => handleOpenMega('AppleWatch')}>
+                                    AppleWatch
+                                </MuiLink>
+                                <MuiLink component={Link} href='/' fontWeight={600} onMouseEnter={() => handleOpenMega('HomePod')}>
+                                    HomePods
+                                </MuiLink>
+                                <MuiLink component={Link} href='/' fontWeight={600} onMouseEnter={() => setOpenMegamenu(false)}>
+                                    Accesorios
+                                </MuiLink>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={4} textAlign='end'>
+                            <Button variant="contained" size="small">
+                                Offers
+                            </Button>
+                        </Grid>
                     </Grid>
                 </Container>
-
-                <Grid container bgcolor='#f9f9f9' paddingTop={1} paddingBottom={1} position='relative'>
-
-                    <Container maxWidth='xl'>
-                        <Grid container alignItems='center'>
-                            <Grid item xs={8}>
-                                <Grid container gap={4}>
-                                    <MuiLink component={Link} href='/' fontWeight={600} onMouseEnter={() => handleOpenMega('iPhones')}>
-                                        iPhones
-                                    </MuiLink>
-                                    <MuiLink component={Link} href='/' fontWeight={600} onMouseEnter={() => handleOpenMega('iPads')}>
-                                        iPads
-                                    </MuiLink>
-                                    <MuiLink component={Link} href='/' fontWeight={600} onMouseEnter={() => handleOpenMega('MacBooks')}>
-                                        MacBooks
-                                    </MuiLink>
-                                    <MuiLink component={Link} href='/' fontWeight={600} onMouseEnter={() => handleOpenMega('AppleWatch')}>
-                                        AppleWatch
-                                    </MuiLink>
-                                    <MuiLink component={Link} href='/' fontWeight={600} onMouseEnter={() => handleOpenMega('HomePod')}>
-                                        HomePods
-                                    </MuiLink>
-                                    <MuiLink component={Link} href='/' fontWeight={600} onMouseEnter={() => setOpenMegamenu(false)}>
-                                        Accesorios
-                                    </MuiLink>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={4} textAlign='end'>
-                                <Button variant="contained" size="small">
-                                    Offers
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </Container>
+            </AppBar>
 
 
-                    <Grid
-                        className={`megamenu ${openMegamenu && 'open-mega'}`}
-                        onMouseLeave={() => setOpenMegamenu(false)}
-                    >
+            <Grid container bgcolor='#f9f9f9' paddingTop={1} paddingBottom={1} position='relative'>
 
-                        <Grid item textAlign='center'>
-                            <Image src={resultsMenu?.image.url!} width={resultsMenu?.image.width} height={resultsMenu?.image.height} alt={resultsMenu?.type!} />
-                            <Typography variant="h5">
-                                {resultsMenu?.type}
-                            </Typography>
-                        </Grid>
+                <Grid
+                    className={`megamenu ${openMegamenu && 'open-mega'}`}
+                    onMouseLeave={() => setOpenMegamenu(false)}
+                >
 
-                        <Divider flexItem variant="middle" orientation="vertical" />
-
-                        <Grid item xs={7} display='flex' flexDirection='column' flexWrap='wrap' justifyContent='center' height='200px'>
-                            <Typography fontWeight={600}>Productos</Typography>
-                            <Divider sx={{ maxWidth: 150 }} />
-                            {
-                                resultsMenu?.models.map(item => (
-                                    <Grid item>
-                                        <MuiLink component={Link} href='/' sx={{ color: 'black', '&:hover': { color: '#00c8ff' } }}>
-                                            {item}
-                                        </MuiLink>
-                                    </Grid>
-                                ))
-                            }
-                            <MuiLink component={Link} href='/' sx={{ fontWeight: 600, color: 'black', '&:hover': { color: '#00c8ff' } }}>
-                                Ver todos
-                            </MuiLink>
-                        </Grid>
+                    <Grid item textAlign='center'>
+                        <Image src={resultsMenu?.image.url!} width={resultsMenu?.image.width} height={resultsMenu?.image.height} alt={resultsMenu?.type!} />
+                        <Typography variant="h5">
+                            {resultsMenu?.type}
+                        </Typography>
                     </Grid>
 
+                    <Divider flexItem variant="middle" orientation="vertical" />
 
+                    <Grid item xs={7} display='flex' flexDirection='column' flexWrap='wrap' justifyContent='center' height='200px'>
+                        <Typography fontWeight={600}>Productos</Typography>
+                        <Divider sx={{ maxWidth: 150 }} />
+                        {
+                            resultsMenu?.models.map(item => (
+                                <Grid item>
+                                    <MuiLink component={Link} href='/' sx={{ color: 'black', '&:hover': { color: '#00c8ff' } }}>
+                                        {item}
+                                    </MuiLink>
+                                </Grid>
+                            ))
+                        }
+                        <MuiLink component={Link} href='/' sx={{ fontWeight: 600, color: 'black', '&:hover': { color: '#00c8ff' } }}>
+                            Ver todos
+                        </MuiLink>
+                    </Grid>
                 </Grid>
-            </Grid >
-        </header>
+            </Grid>
+        </Grid>
+
     )
 }
