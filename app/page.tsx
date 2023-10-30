@@ -44,28 +44,28 @@ const HomePage: NextPage = () => {
           />
         </Grid>
         <Grid item xs={2.9} position={'relative'} height={120}>
-          <Image src='https://www.gizmochina.com/wp-content/uploads/2021/10/macbook-pro-2021-renders-3-1024x576.jpg'
+          <Image src='https://i.pinimg.com/564x/16/cb/95/16cb9581bebe2365ee88d0b5c81c992b.jpg'
             alt="Your Image Description"
             style={{ borderRadius: '10px', objectFit: "cover" }}
             fill
           />
         </Grid>
         <Grid item xs={2.9} position={'relative'} height={120}>
-          <Image src='https://www.gizmochina.com/wp-content/uploads/2021/10/macbook-pro-2021-renders-3-1024x576.jpg'
+          <Image src='https://i.pinimg.com/564x/36/9b/c3/369bc3be09b8f8bf7039225b3029fc69.jpg'
             alt="Your Image Description"
             style={{ borderRadius: '10px', objectFit: "cover" }}
             fill
           />
         </Grid>
         <Grid item xs={2.9} position={'relative'} height={120}>
-          <Image src='https://www.gizmochina.com/wp-content/uploads/2021/10/macbook-pro-2021-renders-3-1024x576.jpg'
+          <Image src='https://i.pinimg.com/564x/d7/99/5c/d7995c04fdee19527327cd8e80bf9815.jpg'
             alt="Your Image Description"
             style={{ borderRadius: '10px', objectFit: "cover" }}
             fill
           />
         </Grid>
         <Grid item xs={2.9} position={'relative'} height={120}>
-          <Image src='https://www.gizmochina.com/wp-content/uploads/2021/10/macbook-pro-2021-renders-3-1024x576.jpg'
+          <Image src='https://i.pinimg.com/564x/93/2d/e1/932de1b5674511802ab2c6067eccffba.jpg'
             alt="Your Image Description"
             style={{ borderRadius: '10px', objectFit: "cover" }}
             fill
