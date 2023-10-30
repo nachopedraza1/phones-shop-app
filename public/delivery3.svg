@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>gold-coin</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Product-Page-Desktop-V2" transform="translate(-956.000000, -689.000000)" fill="#FFDB00">
+            <g id="Product-Details" transform="translate(929.000000, 213.000000)">
+                <g id="USPs" transform="translate(2.000000, 408.000000)">
+                    <g id="gold-coin" transform="translate(25.000000, 68.000000)">
+                        <circle id="Oval" stroke="#000000" cx="9" cy="9" r="8.4375"></circle>
+                        <polygon id="Path" stroke="#111111" points="9 4.79925 10.21725 7.26525 12.9375 7.660125 10.96875 9.579375 11.433375 12.2895 9 11.00925 6.566625 12.2895 7.03125 9.579375 5.0625 7.660125 7.78275 7.26525"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

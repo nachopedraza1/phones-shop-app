@@ -36,7 +36,7 @@ export async function POST(req: Request) {
 
     try {
 
-        const { data } = await axios.get<MeliResponse>('https://api.mercadolibre.com/sites/MLA/search?q=fundas iphone ringke&limit=30');
+        const { data } = await axios.get<MeliResponse>('https://api.mercadolibre.com/sites/MLA/search?q=iphone 14&limit=5');
 
         const products = data.results.map(product => ({
             meli_id: product.id,
@@ -66,7 +66,7 @@ export async function POST(req: Request) {
                     product.thumbnail_id,
                     product.totalSold,
                     product.brand,
-                    'fundas'
+                    'iphones'
                 ]);
 
             const productId = (result as ResultSetHeader).insertId;
