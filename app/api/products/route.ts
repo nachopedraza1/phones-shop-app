@@ -1,17 +1,26 @@
 import db from "@/database/connection";
 import { MeliResponse } from "@/interfaces/MercadoLibre";
+import { MySqlProduct } from "@/interfaces/Response";
 import axios from "axios";
-import { ResultSetHeader } from "mysql2";
-import { NextResponse } from "next/server";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
+
+    const searchParams = req.nextUrl.searchParams;
+
+    const limit = parseInt(searchParams.get('limit')!) || 10;
+    const category = searchParams.get('category');
+    const random = searchParams.get('random');
 
     try {
-        const [products] = await db.query(`
-        SELECT Products.id AS product_id,
+
+        const query = `
+        SELECT 
+        Products.id AS product_id,
         Products.name AS product_name,
         Products.price AS product_price,
-        Products.prod_condition as product_condition,
+        Products.prod_condition AS product_condition,
         Products.brand AS product_brand,
         Products.thumbnail AS product_thumbnail,
         Products.totalSold AS product_totalSold,
@@ -23,9 +32,34 @@ export async function GET(req: Request) {
         Installments.rate AS product_installments_rate
         FROM Products
         LEFT JOIN Rating ON Products.id = Rating.productId
-        LEFT JOIN Installments ON Products.id = Installments.productId;
-        `);
-        return NextResponse.json(products)
+        LEFT JOIN Installments ON Products.id = Installments.productId
+        ${category ? `WHERE Products.category = ?` : ''}
+        ${random ? `ORDER BY RAND()` : ''}
+        LIMIT ?`;
+
+        const [products] = await db.query<MySqlProduct[] & RowDataPacket[][]>(query, [category, limit]);
+
+        const formattedResponse = products.map(product => ({
+            product_id: product.product_id,
+            product_name: product.product_name,
+            product_price: product.product_price,
+            product_condition: product.product_condition,
+            product_brand: product.product_brand,
+            product_thumbnail: product.product_thumbnail,
+            product_totalSold: product.product_totalSold,
+            product_rating: {
+                negative: product.product_rating_negative,
+                neutral: product.product_rating_neutral,
+                positive: product.product_rating_positive,
+            },
+            product_installments: {
+                quantity: product.product_installments_quantity,
+                amount: product.product_installments_amount,
+                rate: product.product_installments_rate,
+            },
+        }))
+
+        return NextResponse.json(formattedResponse)
     } catch (error) {
         console.log(error);
         return NextResponse.json({ message: 'ERROR' })

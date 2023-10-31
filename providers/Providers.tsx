@@ -1,6 +1,7 @@
 
 import { appTheme } from '@/theme/theme';
 import { ThemeProvider, CssBaseline } from '@mui/material'
+import { SWRConfig } from 'swr'
 
 interface Props {
     children: React.ReactNode;
@@ -8,9 +9,15 @@ interface Props {
 
 export const Providers = (Props: Props) => {
     return (
-        <ThemeProvider theme={appTheme}>
-            <CssBaseline />
-            {Props.children}
-        </ThemeProvider>
+        <SWRConfig
+            value={{
+                fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
+            }}
+        >
+            <ThemeProvider theme={appTheme}>
+                <CssBaseline />
+                {Props.children}
+            </ThemeProvider>
+        </SWRConfig>
     )
 }

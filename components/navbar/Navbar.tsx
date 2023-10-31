@@ -40,7 +40,7 @@ export const Navbar: React.FC = () => {
                     <Grid container justifyContent='space-between' alignItems='center' paddingTop={2} paddingBottom={2}>
                         <Grid item display='flex' alignItems='center' xs={2}>
                             <Image src='/logo.png' alt="trustpilot" width={60} height={50} />
-                            <Typography variant="h6" fontWeight={600} ml={1}> Phonecting </Typography>
+                            <Typography variant="h6" fontWeight={600} ml={1} color={'black'}> Phonecting </Typography>
                         </Grid>
 
                         <Grid item xs={5}>
