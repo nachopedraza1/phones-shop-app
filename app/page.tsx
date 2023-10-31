@@ -1,17 +1,20 @@
-"use client";
-
 import Image from "next/image";
-import { NextPage } from "next";
+import { Metadata, NextPage } from "next";
 import { Box, Grid, Typography } from '@mui/material';
 import { MainLayout } from "@/components/layouts";
 import { carrousel, categories } from "@/utils/constants";
+
+export const metadata: Metadata = {
+  title: 'Testing'
+}
+
 
 const HomePage: NextPage = () => {
 
   return (
     <MainLayout>
-      <Grid container justifyContent='space-between'>
-        <Typography fontWeight={600}> E-liquids UK Online Shop </Typography>
+      <Grid container justifyContent='space-between' pt={20}>
+        <Typography fontWeight={600}> Phonecting Online Shop </Typography>
         <Grid item display='flex'>
           <img src="/delivery2.svg" />
           <Typography color='#008257' fontWeight={600} mx={1}>Free fast delivery</Typography>
@@ -29,10 +32,10 @@ const HomePage: NextPage = () => {
         </Grid>
       </Grid>
 
-      <Grid container justifyContent='space-between' mt={2} rowGap={2} >
+      <Grid container justifyContent='space-between' mt={2} rowGap={2}>
         {
           carrousel.map(item => (
-            <Grid item xs={item.width} position={'relative'} height={item.height}>
+            <Grid item xs={item.width} position={'relative'} height={item.height} key={item.image}>
               <Image src={item.image}
                 alt={item.alt}
                 style={{ borderRadius: '10px', objectFit: "cover" }}
@@ -42,21 +45,6 @@ const HomePage: NextPage = () => {
           ))
         }
       </Grid>
-      
-      <Grid container justifyContent='space-between' mt={2} rowGap={2} >
-        {
-          carrousel.map(item => (
-            <Grid item xs={item.width} position={'relative'} height={item.height}>
-              <Image src={item.image}
-                alt={item.alt}
-                style={{ borderRadius: '10px', objectFit: "cover" }}
-                fill
-              />
-            </Grid>
-          ))
-        }
-      </Grid>
-      
 
       <Grid container mt={3}>
         <Grid item xs={12} display='flex' alignItems='center' justifyContent='space-between' mb={2}>
@@ -65,7 +53,7 @@ const HomePage: NextPage = () => {
         </Grid>
         {
           categories.map(category => (
-            <Grid item xs={2} textAlign='center'>
+            <Grid item xs={2} textAlign='center' key={category.name}>
               <Image src={category.image}
                 alt={category.alt}
                 height={category.height}

@@ -171,7 +171,7 @@ export const Navbar: React.FC = () => {
                         <Divider sx={{ maxWidth: 150 }} />
                         {
                             resultsMenu?.models.map(item => (
-                                <Grid item>
+                                <Grid item key={item}>
                                     <MuiLink component={Link} href='/' sx={{ color: 'black', '&:hover': { color: '#00c8ff' } }}>
                                         {item}
                                     </MuiLink>
