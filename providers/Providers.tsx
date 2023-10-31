@@ -1,4 +1,4 @@
-
+"use client";
 import { appTheme } from '@/theme/theme';
 import { ThemeProvider, CssBaseline } from '@mui/material'
 import { SWRConfig } from 'swr'

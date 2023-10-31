@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { categories } from '@/utils/constants';
 import { Box, Grid, Typography } from '@mui/material';
 
-export const Categories: React.FC = () => {
+const Categories: React.FC = () => {
     return (
         <Grid container mt={3}>
             <Grid item xs={12} display='flex' alignItems='center' justifyContent='space-between' mb={2}>
@@ -24,3 +24,5 @@ export const Categories: React.FC = () => {
         </Grid>
     )
 }
+
+export default Categories;

@@ -11,7 +11,7 @@ interface Props {
     children: React.ReactElement;
 }
 
-export const Navbar: React.FC = () => {
+const Navbar: React.FC = () => {
 
     const [openMegamenu, setOpenMegamenu] = useState<boolean>(false);
     const [resultsMenu, setResultsMenu] = useState<Megamenu>();
@@ -188,3 +188,5 @@ export const Navbar: React.FC = () => {
 
     )
 }
+
+export default Navbar;

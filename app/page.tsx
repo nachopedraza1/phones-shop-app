@@ -3,11 +3,12 @@ import { Metadata, NextPage } from "next";
 
 import { carrousel } from "@/utils/constants";
 import { Grid, Typography } from '@mui/material';
-import { MainLayout } from "@/components/layouts";
-import { Categories, LatestProducts } from "@/components";
+import LatestProducts from "@/components/LatestProducts";
+import MainLayout from "@/components/layouts/MainLayout";
+import Categories from "@/components/Categories";
 
 export const metadata: Metadata = {
-  title: 'Testing'
+  title: 'Home'
 }
 
 const HomePage: NextPage = () => {
