@@ -1,8 +1,7 @@
-
+import Navbar from '@/components/navbar/Navbar';
 import { Container } from '@mui/material';
-import Navbar from '../navbar/Navbar';
 
-const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Main: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
         <>
             <Navbar />
@@ -14,4 +13,4 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     )
 }
 
-export default MainLayout;
+export default Main;

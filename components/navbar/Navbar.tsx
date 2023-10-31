@@ -1,15 +1,10 @@
 "use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { Container, Grid, TextField, Typography, Button, Divider, IconButton, Link as MuiLink, AppBar } from '@mui/material';
 import { Megamenu, megamenu } from "@/utils/constants";
 
-interface Props {
-    window?: () => Window;
-    children: React.ReactElement;
-}
 
 const Navbar: React.FC = () => {
 

@@ -13,6 +13,11 @@ export async function GET(req: NextRequest) {
     const category = searchParams.get('category');
     const random = searchParams.get('random');
 
+    const params: (string | number)[] = [];
+
+    if (category) { params.push(category); }
+    params.push(limit);
+
     try {
 
         const query = `
@@ -33,11 +38,12 @@ export async function GET(req: NextRequest) {
         FROM Products
         LEFT JOIN Rating ON Products.id = Rating.productId
         LEFT JOIN Installments ON Products.id = Installments.productId
-        ${category ? `WHERE Products.category = ?` : ''}
-        ${random ? `ORDER BY RAND()` : ''}
+        WHERE 1 = 1
+        ${category ? 'AND Products.category = ?' : ''}
+        ${random ? 'ORDER BY RAND()' : ''}
         LIMIT ?`;
 
-        const [products] = await db.query<MySqlProduct[] & RowDataPacket[][]>(query, [category, limit]);
+        const [products] = await db.query<MySqlProduct[] & RowDataPacket[][]>(query, params);
 
         const formattedResponse = products.map(product => ({
             product_id: product.product_id,
@@ -86,45 +92,45 @@ export async function POST(req: Request) {
             installments: product.installments,
         }));
 
-        for (const product of products) {
-
-            const [result] = await db.query(`
-            INSERT INTO Products(meli_id, name, price, prod_condition, thumbnail, thumbnail_id, totalSold, brand, category)
-            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                [
-                    product.meli_id,
-                    product.name,
-                    product.price,
-                    product.condition,
-                    product.thumbnail,
-                    product.thumbnail_id,
-                    product.totalSold,
-                    product.brand,
-                    'iphones'
-                ]);
-
-            const productId = (result as ResultSetHeader).insertId;
-
-            await db.query(`
-            INSERT INTO Installments(quantity, amount, rate, productId)
-            VALUES(?, ?, ?, ?)`,
-                [
-                    product.installments.quantity,
-                    product.installments.amount,
-                    product.installments.rate,
-                    productId
-                ]);
-
-            await db.query(`
-            INSERT INTO Rating(negative, neutral, positive, productId)
-            VALUES(?, ?, ?, ?)`,
-                [
-                    product.ratings.negative,
-                    product.ratings.neutral,
-                    product.ratings.positive,
-                    productId
-                ]);
-        }
+        /*    for (const product of products) {
+   
+               const [result] = await db.query(`
+               INSERT INTO Products(meli_id, name, price, prod_condition, thumbnail, thumbnail_id, totalSold, brand, category)
+               VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                   [
+                       product.meli_id,
+                       product.name,
+                       product.price,
+                       product.condition,
+                       product.thumbnail,
+                       product.thumbnail_id,
+                       product.totalSold,
+                       product.brand,
+                       'iphones'
+                   ]);
+   
+               const productId = (result as ResultSetHeader).insertId;
+   
+               await db.query(`
+               INSERT INTO Installments(quantity, amount, rate, productId)
+               VALUES(?, ?, ?, ?)`,
+                   [
+                       product.installments.quantity,
+                       product.installments.amount,
+                       product.installments.rate,
+                       productId
+                   ]);
+   
+               await db.query(`
+               INSERT INTO Rating(negative, neutral, positive, productId)
+               VALUES(?, ?, ?, ?)`,
+                   [
+                       product.ratings.negative,
+                       product.ratings.neutral,
+                       product.ratings.positive,
+                       productId
+                   ]);
+           } */
 
         return NextResponse.json({})
     } catch (error) {

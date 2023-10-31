@@ -1,11 +1,12 @@
 import Image from "next/image";
 import { Metadata, NextPage } from "next";
 
-import { carrousel } from "@/utils/constants";
-import { Grid, Typography } from '@mui/material';
-import LatestProducts from "@/components/LatestProducts";
-import MainLayout from "@/components/layouts/MainLayout";
+import Main from "@/components/layouts/Main";
 import Categories from "@/components/Categories";
+import LatestProducts from "@/components/LatestProducts";
+
+import { carrousel } from "@/utils";
+import { Grid, Typography } from '@mui/material';
 
 export const metadata: Metadata = {
   title: 'Home'
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 const HomePage: NextPage = () => {
 
   return (
-    <MainLayout>
+    <Main>
       <Grid container justifyContent='space-between' pt={20}>
         <Typography fontWeight={600}> Phonecting Online Shop </Typography>
         <Grid item display='flex'>
@@ -53,7 +54,7 @@ const HomePage: NextPage = () => {
 
       <LatestProducts />
 
-    </MainLayout >
+    </Main >
   )
 }
 
