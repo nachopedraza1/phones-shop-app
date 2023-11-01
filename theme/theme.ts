@@ -44,9 +44,26 @@ export const appTheme = createTheme({
             styleOverrides: {
                 root: {
                     textDecoration: 'none',
-                    color:'black'
+                    color: 'black'
                 }
             }
-        }
+        },
+        MuiCardHeader: {
+            styleOverrides: {
+                root: {
+                    minHeight: 86.5,
+                    "& .MuiCardHeader-content": {
+                        overflow: "hidden"
+                    }
+                }
+            }
+        },
+        MuiCardContent: {
+            styleOverrides: {
+                root: {
+                    minHeight: 170
+                }
+            }
+        },
     }
 });

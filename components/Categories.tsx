@@ -17,7 +17,7 @@ const Categories: React.FC = () => {
                             height={category.height}
                             width={category.width}
                         />
-                        <Typography variant="h6" fontWeight={600} mb={1}> iPhones </Typography>
+                        <Typography variant="h6" fontWeight={600} mb={1}>  {category.name} </Typography>
                     </Grid>
                 ))
             }

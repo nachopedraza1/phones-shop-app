@@ -1,19 +1,18 @@
 "use client"
 import useSWR from 'swr';
-import { Box, Grid, Typography } from '@mui/material';
+import { Products } from '@/interfaces/Response';
 
 import CardProduct from './CardProduct';
-
-import { Products } from '@/interfaces/Response';
+import CardProductLoading from './CardProductLoading';
+import { Box, Grid, Typography } from '@mui/material';
 
 
 const LatestProducts: React.FC = () => {
 
-    const { data, isLoading } = useSWR<Products[]>('http://localhost:3000/api/products?limit=2&category=fundas', {
+    const { data, isLoading } = useSWR<Products[]>('http://localhost:3000/api/products?limit=4&category=iphones&random=true', {
         revalidateOnFocus: false,
-        revalidateOnMount: false,
-        revalidateOnReconnect: false
     });
+
 
     return (
         <Grid container mt={3}>
@@ -22,13 +21,23 @@ const LatestProducts: React.FC = () => {
                 <Box width='80%' height={2} bgcolor='#e6e9e8'></Box>
             </Grid>
 
-            {
-                !isLoading &&
-                data?.map(product => (
-                    <CardProduct product={product} />
-                ))
-            }
-        </Grid>
+            <Grid container justifyContent='space-between'>
+                {
+                    isLoading ?
+                        [...Array(4)].map(item => (
+                            <Grid item xs={12} sm={5.9} md={2.9} key={item} >
+                                <CardProductLoading />
+                            </Grid>
+                        ))
+                        :
+                        data?.map(product => (
+                            <Grid item xs={12} sm={5.9} md={2.9} key={product.product_name}>
+                                <CardProduct product={product} />
+                            </Grid>
+                        ))
+                }
+            </Grid>
+        </Grid >
     )
 }
 

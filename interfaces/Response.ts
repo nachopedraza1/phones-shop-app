@@ -6,6 +6,7 @@ export interface MySqlProduct {
     product_condition:             string;
     product_brand:                 string;
     product_thumbnail:             string;
+    product_thumbnail_id:          string;
     product_totalSold:             number;
     product_rating_negative:       number;
     product_rating_neutral:        number;
@@ -22,6 +23,7 @@ export interface Products {
     product_condition:    string;
     product_brand:        string;
     product_thumbnail:    string;
+    product_thumbnail_id: string;
     product_totalSold:    number;
     product_rating:       ProductRating;
     product_installments: ProductInstallments;

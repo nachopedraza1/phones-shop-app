@@ -28,6 +28,7 @@ export async function GET(req: NextRequest) {
         Products.prod_condition AS product_condition,
         Products.brand AS product_brand,
         Products.thumbnail AS product_thumbnail,
+        Products.thumbnail_id AS product_thumbnail_id,
         Products.totalSold AS product_totalSold,
         Rating.negative AS product_rating_negative,
         Rating.neutral AS product_rating_neutral,
@@ -52,6 +53,7 @@ export async function GET(req: NextRequest) {
             product_condition: product.product_condition,
             product_brand: product.product_brand,
             product_thumbnail: product.product_thumbnail,
+            product_thumbnail_id: product.product_thumbnail_id,
             product_totalSold: product.product_totalSold,
             product_rating: {
                 negative: product.product_rating_negative,
