@@ -3,7 +3,7 @@ import { RowDataPacket } from "mysql2";
 import axios from "axios";
 
 import db from "@/database/connection";
-import { MeliResponse } from "@/interfaces/MeliProducts";
+import { MeliProducts } from "@/interfaces/MeliProducts";
 import { MySqlProduct } from "@/interfaces/Response";
 
 export async function GET(req: NextRequest) {
@@ -14,30 +14,17 @@ export async function GET(req: NextRequest) {
     const category = searchParams.get('category');
     const random = searchParams.get('random');
 
-    const params: (string | number)[] = [];
+    let params: (string | number)[] = [];
 
-    if (category) { params.push(category); }
+    if (category) {
+        params.push(category);
+    }
     params.push(limit);
 
     try {
 
         const query = `
-        SELECT 
-        Products.id AS product_id,
-        Products.meli_id AS product_meli_id,
-        Products.name AS product_name,
-        Products.price AS product_price,
-        Products.prod_condition AS product_condition,
-        Products.brand AS product_brand,
-        Products.thumbnail AS product_thumbnail,
-        Products.thumbnail_id AS product_thumbnail_id,
-        Products.totalSold AS product_totalSold,
-        Rating.negative AS product_rating_negative,
-        Rating.neutral AS product_rating_neutral,
-        Rating.positive AS product_rating_positive,
-        Installments.quantity AS product_installments_quantity,
-        Installments.amount AS product_installments_amount,
-        Installments.rate AS product_installments_rate
+        SELECT *
         FROM Products
         LEFT JOIN Rating ON Products.id = Rating.productId
         LEFT JOIN Installments ON Products.id = Installments.productId
@@ -49,31 +36,31 @@ export async function GET(req: NextRequest) {
         const [products] = await db.query<MySqlProduct[] & RowDataPacket[][]>(query, params);
 
         const formattedResponse = products.map(product => ({
-            product_id: product.product_id,
-            product_meli_id: product.product_meli_id,
-            product_name: product.product_name,
-            product_price: product.product_price,
-            product_condition: product.product_condition,
-            product_brand: product.product_brand,
-            product_thumbnail: product.product_thumbnail,
-            product_thumbnail_id: product.product_thumbnail_id,
-            product_totalSold: product.product_totalSold,
-            product_rating: {
-                negative: product.product_rating_negative,
-                neutral: product.product_rating_neutral,
-                positive: product.product_rating_positive,
+            id: product.id,
+            meli_id: product.meli_id,
+            name: product.name,
+            price: product.price,
+            condition: product.condition,
+            brand: product.brand,
+            thumbnail: product.thumbnail,
+            thumbnail_id: product.thumbnail_id,
+            totalSold: product.totalSold,
+            rating: {
+                negative: product.negative,
+                neutral: product.neutral,
+                positive: product.positive,
             },
-            product_installments: {
-                quantity: product.product_installments_quantity,
-                amount: product.product_installments_amount,
-                rate: product.product_installments_rate,
+            installments: {
+                quantity: product.quantity,
+                amount: product.amount,
+                rate: product.rate,
             },
         }))
 
-        return NextResponse.json(formattedResponse)
+        return NextResponse.json(formattedResponse, { status: 200 })
     } catch (error) {
         console.log(error);
-        return NextResponse.json({ message: 'ERROR' })
+        return NextResponse.json({ message: 'ERROR' }, { status: 400 })
     }
 }
 
@@ -81,7 +68,7 @@ export async function POST(req: Request) {
 
     try {
 
-        const { data } = await axios.get<MeliResponse>('https://api.mercadolibre.com/sites/MLA/search?q=iphone 14&limit=5');
+        const { data } = await axios.get<MeliProducts>('https://api.mercadolibre.com/sites/MLA/search?q=iphone 14&limit=5');
 
         const products = data.results.map(product => ({
             meli_id: product.id,

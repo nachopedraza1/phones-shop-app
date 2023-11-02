@@ -22,9 +22,9 @@ const CardProduct: React.FC<{ product: Products }> = ({ product }) => {
         <Card sx={{ maxWidth: "100%" }} className="fadeIn">
             <CardHeader
                 title={
-                    <Tooltip title={imageLoad && product.product_name} placement="top" >
+                    <Tooltip title={imageLoad && product.name} placement="top" >
                         <Typography fontWeight={600} overflow='hidden' textOverflow={'ellipsis'}>
-                            {imageLoad ? product.product_name : <Skeleton height={20} width={'100%'} />}
+                            {imageLoad ? product.name : <Skeleton height={20} width={'100%'} />}
                         </Typography>
                     </Tooltip>
                 }
@@ -32,7 +32,7 @@ const CardProduct: React.FC<{ product: Products }> = ({ product }) => {
                 subheader={
                     <Rating
                         name="half-rating-read"
-                        value={imageLoad ? product.product_rating.positive * 5 : 0}
+                        value={imageLoad ? product.rating.positive * 5 : 0}
                         disabled={imageLoad ? false : true}
                         precision={0.5}
                         readOnly
@@ -51,7 +51,7 @@ const CardProduct: React.FC<{ product: Products }> = ({ product }) => {
                 loading="lazy"
                 height="194"
                 style={{ objectFit: 'contain' }}
-                image={`https://http2.mlstatic.com/D_NQ_NP_${product.product_thumbnail_id}-O.webp`}
+                image={`https://http2.mlstatic.com/D_NQ_NP_${product.thumbnail_id}-O.webp`}
                 alt="Paella dish"
             />
 
@@ -62,25 +62,25 @@ const CardProduct: React.FC<{ product: Products }> = ({ product }) => {
                             <Grid container alignItems='center'>
                                 <Grid item xs={12} md={12} xl={5}>
                                     <Typography variant="h5">
-                                        ${formatPrice(product.product_price)}
+                                        ${formatPrice(product.price)}
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12} md={12} xl={5}>
                                     <Typography color="text.secondary">
-                                        en {product.product_installments.quantity}x ${formatPrice(product.product_installments.amount)}
+                                        en {product.installments.quantity}x ${formatPrice(product.installments.amount)}
                                     </Typography>
                                 </Grid>
                             </Grid>
 
                             <Typography color="text.secondary">
-                                {product.product_totalSold} Vendidos últimos 90 días.
+                                {product.totalSold} Vendidos últimos 90 días.
                             </Typography>
 
                             <Typography color="#00a650" fontWeight={600}>
                                 Llega gratis mañana
                             </Typography>
 
-                            <Button variant="contained" fullWidth sx={{ mt: 1 }} onClick={() => navigateProduct(product.product_meli_id)}>
+                            <Button variant="contained" fullWidth sx={{ mt: 1 }} onClick={() => navigateProduct(product.meli_id)}>
                                 COMPRAR
                             </Button>
                         </>

@@ -22,7 +22,7 @@ const ImagesProduct: React.FC<{ images: Picture[] }> = ({ images }) => {
                     ))
                 }
             </Grid>
-            <Grid item xs={4} position={'relative'}>
+            <Grid item xs={5} position={'relative'}>
                 <Image src={images[0].url} alt={'Phonecting'} fill style={{ objectFit: 'contain' }} />
             </Grid>
         </>

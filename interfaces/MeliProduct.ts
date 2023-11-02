@@ -1,28 +1,27 @@
-export interface MeliProductResponse {
+export interface MeliProduct {
+    code: number;
+    body: Body;
+}
+
+export interface Body {
     id:                               string;
     site_id:                          string;
     title:                            string;
-    subtitle:                         null;
     seller_id:                        number;
     category_id:                      string;
-    official_store_id:                number;
+    official_store_id:                null;
     price:                            number;
     base_price:                       number;
     original_price:                   null;
     currency_id:                      string;
     initial_quantity:                 number;
-    available_quantity:               number;
-    sold_quantity:                    number;
-    sale_terms:                       SaleTerm[];
+    sale_terms:                       Attribute[];
     buying_mode:                      string;
     listing_type_id:                  string;
-    start_time:                       Date;
-    stop_time:                        Date;
     condition:                        string;
     permalink:                        string;
     thumbnail_id:                     string;
     thumbnail:                        string;
-    secure_thumbnail:                 string;
     pictures:                         Picture[];
     video_id:                         null;
     descriptions:                     any[];
@@ -35,7 +34,6 @@ export interface MeliProductResponse {
     location:                         Location;
     coverage_areas:                   any[];
     attributes:                       Attribute[];
-    warnings:                         any[];
     listing_source:                   string;
     variations:                       any[];
     status:                           string;
@@ -45,36 +43,22 @@ export interface MeliProductResponse {
     catalog_product_id:               string;
     domain_id:                        string;
     parent_item_id:                   null;
-    differential_pricing:             null;
     deal_ids:                         any[];
     automatic_relist:                 boolean;
     date_created:                     Date;
     last_updated:                     Date;
     health:                           null;
     catalog_listing:                  boolean;
-    channels:                         string[];
 }
 
 export interface Attribute {
-    id:                   string;
-    name:                 string;
-    value_id:             null | string;
-    value_name:           null | string;
-    value_struct:         Struct | null;
-    values:               Value[];
-    attribute_group_id:   AttributeGroupID;
-    attribute_group_name: AttributeGroupName;
-    value_type:           ValueType;
-}
-
-export enum AttributeGroupID {
-    Empty = "",
-    Others = "OTHERS",
-}
-
-export enum AttributeGroupName {
-    Empty = "",
-    Otros = "Otros",
+    id:            string;
+    name:          string;
+    value_id:      null | string;
+    value_name:    string;
+    values:        Value[];
+    value_type:    ValueType;
+    value_struct?: Struct | null;
 }
 
 export interface Struct {
@@ -92,7 +76,7 @@ export enum ValueType {
 
 export interface Value {
     id:     null | string;
-    name:   null | string;
+    name:   string;
     struct: Struct | null;
 }
 
@@ -106,16 +90,6 @@ export interface Picture {
     size:       string;
     max_size:   string;
     quality:    string;
-}
-
-export interface SaleTerm {
-    id:           string;
-    name:         string;
-    value_id:     null | string;
-    value_name:   string;
-    value_struct: Struct | null;
-    values:       Value[];
-    value_type:   ValueType;
 }
 
 export interface SellerAddress {

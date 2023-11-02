@@ -31,7 +31,7 @@ const LatestProducts: React.FC = () => {
                         ))
                         :
                         data?.map(product => (
-                            <Grid item xs={12} sm={5.9} md={2.9} key={product.product_name}>
+                            <Grid item xs={12} sm={5.9} md={2.9} key={product.name}>
                                 <CardProduct product={product} />
                             </Grid>
                         ))
