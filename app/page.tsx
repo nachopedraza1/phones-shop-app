@@ -16,7 +16,7 @@ const HomePage: NextPage = () => {
 
   return (
     <Main>
-      <Grid container justifyContent='space-between' pt={20}>
+      <Grid container justifyContent='space-between'>
         <Typography fontWeight={600}> Phonecting Online Shop </Typography>
         <Grid item display='flex'>
           <img src="/delivery2.svg" />

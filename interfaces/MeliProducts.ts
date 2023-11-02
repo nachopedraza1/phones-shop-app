@@ -197,3 +197,4 @@ export interface Shipping {
     benefits:      null;
     promise:       null;
 }
+

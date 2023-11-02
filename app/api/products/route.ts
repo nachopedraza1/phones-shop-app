@@ -1,9 +1,10 @@
-import db from "@/database/connection";
-import { MeliResponse } from "@/interfaces/MercadoLibre";
-import { MySqlProduct } from "@/interfaces/Response";
-import axios from "axios";
-import { ResultSetHeader, RowDataPacket } from "mysql2";
 import { NextRequest, NextResponse } from "next/server";
+import { RowDataPacket } from "mysql2";
+import axios from "axios";
+
+import db from "@/database/connection";
+import { MeliResponse } from "@/interfaces/MeliProducts";
+import { MySqlProduct } from "@/interfaces/Response";
 
 export async function GET(req: NextRequest) {
 
@@ -23,6 +24,7 @@ export async function GET(req: NextRequest) {
         const query = `
         SELECT 
         Products.id AS product_id,
+        Products.meli_id AS product_meli_id,
         Products.name AS product_name,
         Products.price AS product_price,
         Products.prod_condition AS product_condition,
@@ -48,6 +50,7 @@ export async function GET(req: NextRequest) {
 
         const formattedResponse = products.map(product => ({
             product_id: product.product_id,
+            product_meli_id: product.product_meli_id,
             product_name: product.product_name,
             product_price: product.product_price,
             product_condition: product.product_condition,

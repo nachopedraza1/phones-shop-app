@@ -1,6 +1,7 @@
 
 export interface MySqlProduct {
     product_id:                    number;
+    product_meli_id:               string;
     product_name:                  string;
     product_price:                 number;
     product_condition:             string;
@@ -18,6 +19,7 @@ export interface MySqlProduct {
 
 export interface Products {
     product_id:           number;
+    product_meli_id:      string;
     product_name:         string;
     product_price:        number;
     product_condition:    string;

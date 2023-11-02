@@ -1,13 +1,22 @@
+
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import { Products } from "@/interfaces/Response";
+import { formatPrice } from '../utils/formatPrice';
 
 import { Favorite } from "@mui/icons-material";
-import { Card, CardContent, CardHeader, CardMedia, IconButton, Rating, Skeleton, Tooltip, Typography, Container, Grid, Button } from '@mui/material';
-import { formatPrice } from '../utils/formatPrice';
+import { Card, CardContent, CardHeader, CardMedia, IconButton, Rating, Skeleton, Tooltip, Typography, Grid, Button } from '@mui/material';
 
 const CardProduct: React.FC<{ product: Products }> = ({ product }) => {
 
+    const router = useRouter();
+
     const [imageLoad, setImageLoad] = useState(false);
+
+    const navigateProduct = (slug: string) => {
+        router.push(`/products/${slug}`)
+    }
 
     return (
         <Card sx={{ maxWidth: "100%" }} className="fadeIn">
@@ -71,7 +80,7 @@ const CardProduct: React.FC<{ product: Products }> = ({ product }) => {
                                 Llega gratis mañana
                             </Typography>
 
-                            <Button variant="contained" fullWidth sx={{ mt: 1 }}>
+                            <Button variant="contained" fullWidth sx={{ mt: 1 }} onClick={() => navigateProduct(product.product_meli_id)}>
                                 COMPRAR
                             </Button>
                         </>

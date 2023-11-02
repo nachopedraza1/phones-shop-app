@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
     }
 
     return (
-        <Grid position='relative'>
+        <Grid position='relative' pb={20}>
             <AppBar>
                 <Grid bgcolor='#21003d'>
                     <Container maxWidth='xl'>
@@ -26,7 +26,7 @@ const Navbar: React.FC = () => {
                             <Typography fontSize={15} color='white'>
                                 info@e-liquids.com | 0121 272 2900
                             </Typography>
-                            <Image src='./trustpilot-logo.svg' alt="trustpilot" width={180} height={21} />
+                            <Image src='/trustpilot-logo.svg' alt="trustpilot" width={180} height={21} />
                         </Grid>
                     </Container>
                 </Grid>
