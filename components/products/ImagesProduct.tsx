@@ -9,8 +9,15 @@ const ImagesProduct: React.FC<{ images: Picture[] }> = ({ images }) => {
             <Grid item xs={1} display='flex' flexDirection='column' gap={2}>
                 {
                     images.slice(0, 5).map(img => (
-                        <Grid key={img.id} width={60} height={60} sx={{ border: '1px solid black', borderRadius: '5px' }}>
-                            <Image src={img.url} alt={'Phonecting'} width={50} height={50} style={{ objectFit: 'contain' }} />
+                        <Grid key={img.id}
+                            display='flex'
+                            justifyContent='center'
+                            alignItems='center'
+                            width={60}
+                            height={60}
+                            sx={{ border: '1px solid black', borderRadius: '5px' }}
+                        >
+                            <Image src={img.url} alt={'Phonecting'} width={55} height={55} style={{ objectFit: 'contain' }} />
                         </Grid>
                     ))
                 }
