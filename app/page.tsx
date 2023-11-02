@@ -2,8 +2,8 @@ import Image from "next/image";
 import { Metadata, NextPage } from "next";
 
 import Main from "@/components/layouts/Main";
-import Categories from "@/components/Categories";
-import LatestProducts from "@/components/LatestProducts";
+import Categories from "@/components/products/Categories";
+import LatestProducts from "@/components/products/LatestProducts";
 
 import { carrousel } from "@/utils";
 import { Grid, Typography } from '@mui/material';

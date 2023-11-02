@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { Products } from "@/interfaces/Response";
-import { formatPrice } from '../utils/formatPrice';
+import { formatPrice } from '../../utils/formatPrice';
 
 import { Favorite } from "@mui/icons-material";
 import { Card, CardContent, CardHeader, CardMedia, IconButton, Rating, Skeleton, Tooltip, Typography, Grid, Button } from '@mui/material';
