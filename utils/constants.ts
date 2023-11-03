@@ -178,5 +178,4 @@ export const categories = [
         height: 90,
         width: 90,
     },
-
 ];

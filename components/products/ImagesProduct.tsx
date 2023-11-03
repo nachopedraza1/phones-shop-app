@@ -9,8 +9,8 @@ const ImagesProduct: React.FC<{ images: Picture[] }> = ({ images }) => {
     const [imageActive, setImageActive] = useState(images[0].url);
 
     return (
-        <>
-            <Grid item xs={1} display='flex' flexDirection='column' gap={2}>
+        <Grid container>
+            <Grid item xs={2} display='flex' flexDirection='column' gap={2}>
                 {
                     images.slice(0, 5).map(img => (
                         <Grid key={img.id}
@@ -33,10 +33,15 @@ const ImagesProduct: React.FC<{ images: Picture[] }> = ({ images }) => {
                     ))
                 }
             </Grid>
-            <Grid item xs={5} position={'relative'}>
-                <Image src={imageActive} alt={'Phonecting'} fill style={{ objectFit: 'contain' }} />
+            <Grid item xs={10} position={'relative'}>
+                <Image
+                    loading="lazy"
+                    src={imageActive}
+                    alt={'Phonecting'}
+                    fill
+                    style={{ objectFit: 'contain' }} />
             </Grid>
-        </>
+        </Grid>
     )
 }
 
