@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
             meli_id: product.meli_id,
             name: product.name,
             price: product.price,
-            condition: product.condition,
+            condition: product.prod_condition,
             brand: product.brand,
             thumbnail: product.thumbnail,
             thumbnail_id: product.thumbnail_id,

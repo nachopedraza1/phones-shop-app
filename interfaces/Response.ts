@@ -4,7 +4,7 @@ export interface MySqlProduct {
     meli_id:               string;
     name:                  string;
     price:                 number;
-    condition:             string;
+    prod_condition:        string;
     brand:                 string;
     thumbnail:             string;
     thumbnail_id:          string;

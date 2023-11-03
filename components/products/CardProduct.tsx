@@ -2,11 +2,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+import RatingProduct from "./RatingProduct";
 import { Products } from "@/interfaces/Response";
-import { formatPrice } from '../../utils/formatPrice';
+import { formatPrice } from '@/utils/formatPrice';
 
 import { Favorite } from "@mui/icons-material";
-import { Card, CardContent, CardHeader, CardMedia, IconButton, Rating, Skeleton, Tooltip, Typography, Grid, Button } from '@mui/material';
+import { Card, CardContent, CardHeader, CardMedia, IconButton, Skeleton, Tooltip, Typography, Grid, Button } from '@mui/material';
 
 const CardProduct: React.FC<{ product: Products }> = ({ product }) => {
 
@@ -29,15 +30,7 @@ const CardProduct: React.FC<{ product: Products }> = ({ product }) => {
                     </Tooltip>
                 }
                 titleTypographyProps={{ noWrap: true }}
-                subheader={
-                    <Rating
-                        name="half-rating-read"
-                        value={imageLoad ? product.rating.positive * 5 : 0}
-                        disabled={imageLoad ? false : true}
-                        precision={0.5}
-                        readOnly
-                    />
-                }
+                subheader={<RatingProduct rating={product.rating.positive} />}
                 action={
                     <IconButton>
                         <Favorite />
