@@ -1,5 +1,5 @@
-import { Share, Favorite, MoreVert } from "@mui/icons-material";
-import { Card, CardActions, CardContent, CardHeader, IconButton, Rating, Skeleton, Typography } from "@mui/material";
+import { MoreVert } from "@mui/icons-material";
+import { Card, CardContent, CardHeader, IconButton, Rating, Skeleton, Typography } from "@mui/material";
 
 const CardProductLoading: React.FC = () => {
 

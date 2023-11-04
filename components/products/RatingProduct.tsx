@@ -4,7 +4,7 @@ const RatingProduct: React.FC<{ rating: number, showRate?: boolean }> = ({ ratin
     return (
         <Box display='flex' alignItems='center'>
             <Rating
-                sx={{ color: '#3483fa'}}
+                sx={{ color: 'primary.main'}}
                 value={rating * 5}
                 precision={0.5}
                 readOnly

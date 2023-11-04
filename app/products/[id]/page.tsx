@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import Link from "next/link";
 import axios from "axios";
 
 import db from "@/database/connection";
@@ -11,7 +10,8 @@ import WarrantyList from "@/components/products/WarrantyList";
 import RatingProduct from "@/components/products/RatingProduct";
 import ImagesProduct from "@/components/products/ImagesProduct";
 import SelectQuantity from "@/components/products/SelectQuantity";
-import { Breadcrumbs, Grid, Link as MuiLink, Typography } from '@mui/material';
+import CustomBreadcrumbs from "@/components/ui/CustomBreadcrumbs";
+import { Button, Grid, Typography } from '@mui/material';
 
 import { Attribute } from "@/interfaces/MeliProduct";
 import { MySqlProduct, Products } from "@/interfaces/Response";
@@ -78,28 +78,15 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
 
     return (
         <Main>
-            <Breadcrumbs aria-label="breadcrumb" separator="›">
-                <MuiLink component={Link} underline="hover" color="inherit" href="/">
-                    Inicio
-                </MuiLink>
-                <MuiLink
-                    component={Link}
-                    underline="hover"
-                    color="inherit"
-                    href="/material-ui/getting-started/installation/"
-                >
-                    Productos
-                </MuiLink>
-                <Typography color="text.primary"> {product.name} </Typography>
-            </Breadcrumbs>
+            <CustomBreadcrumbs productName={product.name} />
 
-            <Grid container mt={2}>
+            <Grid container mt={2} justifyContent='space-between' gap={1}>
 
                 <Grid item xs={5}>
                     <ImagesProduct images={productProps.pictures} />
                 </Grid>
 
-                <Grid item xs={4}>
+                <Grid item xs={3.5}>
                     <Typography color="text.secondary" fontSize={15}> {product.condition === 'new' ? 'Nuevo' : 'Usado'} | +{product.totalSold} vendidos </Typography>
                     <Typography variant="h5"> {product.name} </Typography>
 
@@ -110,11 +97,33 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
                         en {product.installments.quantity}x ${formatPrice(product.installments.amount)}
                     </Typography>
 
+                    <Typography color='#00a650' fontWeight={600}> Envío gratuito </Typography>
+
                     <SelectQuantity totalStock={productProps.stock} />
 
-                    {/* <Typography color='#00a650' fontWeight={600}> Envío gratuito </Typography> */}
+                    <Grid container gap={1} mt={1}>
+                        <Grid item xs={5.5}>
+                            <Button
+                                fullWidth
+                                variant="contained"
+                            >
+                                COMPRAR
+                            </Button>
+                        </Grid>
+                        <Grid item xs={5.5}>
+                            <Button
+                                fullWidth
+                                variant="outlined"
+                            >
+                                AGREGAR AL CARRITO
+                            </Button>
+                        </Grid>
+                    </Grid>
 
                     <WarrantyList warranty={productProps.warranty} />
+                </Grid>
+
+                <Grid item xs={3} border='1px solid #bfbfbf' borderRadius='10px' padding={2}>
 
                 </Grid>
             </Grid>

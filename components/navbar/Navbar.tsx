@@ -59,6 +59,7 @@ const Navbar: React.FC = () => {
                             <Grid container justifyContent='end' gap={1}>
 
                                 <Button
+                                    color="secondary"
                                     disableRipple
                                     startIcon={
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{ width: 25, height: 25 }}>
@@ -73,6 +74,7 @@ const Navbar: React.FC = () => {
                                 <Divider flexItem variant="middle" orientation="vertical" />
 
                                 <Button
+                                    color="secondary"
                                     disableRipple
                                     startIcon={
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" style={{ width: 20, height: 20, marginRight: 3 }}>
@@ -86,6 +88,7 @@ const Navbar: React.FC = () => {
                                 <Divider flexItem variant="middle" orientation="vertical" />
 
                                 <Button
+                                    color="secondary"
                                     disableRipple
                                     startIcon={
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{ width: 20, height: 20, marginRight: 3 }}>

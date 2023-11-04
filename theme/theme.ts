@@ -7,7 +7,10 @@ export const appTheme = createTheme({
     palette: {
         mode: 'light',
         primary: {
-            main: '#21003d'
+            main: '#3483fa'
+        },
+        secondary:{
+            main:'#21003d'
         }
     },
     typography: {

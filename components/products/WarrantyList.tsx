@@ -16,13 +16,13 @@ const warrantyes = [
 
 const WarrantyList: React.FC<{ warranty: string }> = ({ warranty }) => {
     return (
-        <Grid container direction='column' mt={1} gap={1}>
+        <Grid container direction='column' mt={2} gap={1}>
             {
                 warrantyes.map(item => (
                     <Grid display='flex' gap={1}>
                         {item.icon}
                         <Grid>
-                            <Typography color='#3483fa'>{item.title}</Typography>
+                            <Typography color='primary.main'>{item.title}</Typography>
                             <Typography>{item.description} </Typography>
                         </Grid>
                     </Grid>
@@ -31,7 +31,7 @@ const WarrantyList: React.FC<{ warranty: string }> = ({ warranty }) => {
             <Grid display='flex' gap={1}>
                 <EmojiEvents sx={{ color: 'text.secondary' }} />
                 <Grid>
-                    <Typography color='#3483fa'>{warranty}</Typography>
+                    <Typography color='primary.main'>{warranty}</Typography>
                 </Grid>
             </Grid>
         </Grid>

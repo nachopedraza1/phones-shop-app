@@ -28,7 +28,7 @@ const SelectQuantity: React.FC<{ totalStock: number }> = ({ totalStock }) => {
             >
                 Cantidad:
                 <Typography component='span' fontWeight={600}> 1 unidad </Typography>
-                <ExpandMore />
+                <ExpandMore color='primary' />
                 <Typography component='span' color='text.secondary'> ({totalStock} disponibles)</Typography>
             </Typography>
 
