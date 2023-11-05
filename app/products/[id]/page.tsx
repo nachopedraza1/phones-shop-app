@@ -9,8 +9,10 @@ import Main from "@/components/layouts/Main";
 import WarrantyList from "@/components/products/WarrantyList";
 import RatingProduct from "@/components/products/RatingProduct";
 import ImagesProduct from "@/components/products/ImagesProduct";
+import StatsProducts from "@/components/products/StatsProducts";
 import SelectQuantity from "@/components/products/SelectQuantity";
 import CustomBreadcrumbs from "@/components/ui/CustomBreadcrumbs";
+import RelatedProducts from "@/components/products/RelatedProducts";
 import { Button, Grid, Typography } from '@mui/material';
 
 import { Attribute } from "@/interfaces/MeliProduct";
@@ -39,6 +41,7 @@ const getProduct = async (id: string): Promise<Products> => {
         meli_id: product.meli_id,
         name: product.name,
         price: product.price,
+        category: product.category,
         condition: product.prod_condition,
         brand: product.brand,
         thumbnail: product.thumbnail,
@@ -80,7 +83,7 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
         <Main>
             <CustomBreadcrumbs productName={product.name} />
 
-            <Grid container mt={2} justifyContent='space-between' gap={1}>
+            <Grid container mt={2} justifyContent='space-between'>
 
                 <Grid item xs={5}>
                     <ImagesProduct images={productProps.pictures} />
@@ -92,7 +95,7 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
 
                     <RatingProduct rating={product.rating.positive} />
 
-                    <Typography variant="h4" mt={2}> ${formatPrice(product.price)} </Typography>
+                    <Typography variant="h4" mt={1}> ${formatPrice(product.price)} </Typography>
                     <Typography color="text.secondary">
                         en {product.installments.quantity}x ${formatPrice(product.installments.amount)}
                     </Typography>
@@ -102,7 +105,7 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
                     <SelectQuantity totalStock={productProps.stock} />
 
                     <Grid container gap={1} mt={1}>
-                        <Grid item xs={5.5}>
+                        <Grid item xs={5}>
                             <Button
                                 fullWidth
                                 variant="contained"
@@ -110,10 +113,11 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
                                 COMPRAR
                             </Button>
                         </Grid>
-                        <Grid item xs={5.5}>
+                        <Grid item xs={5}>
                             <Button
                                 fullWidth
                                 variant="outlined"
+                                sx={{ whiteSpace: 'nowrap' }}
                             >
                                 AGREGAR AL CARRITO
                             </Button>
@@ -123,8 +127,12 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
                     <WarrantyList warranty={productProps.warranty} />
                 </Grid>
 
-                <Grid item xs={3} border='1px solid #bfbfbf' borderRadius='10px' padding={2}>
+                <Grid item xs={3.5} border='1px solid #bfbfbf' borderRadius='10px' padding={2}>
+                    <RelatedProducts category={product.category} />
+                </Grid>
 
+                <Grid item xs={12}>
+                    <StatsProducts attributes={productProps.attributes} />
                 </Grid>
             </Grid>
         </Main>

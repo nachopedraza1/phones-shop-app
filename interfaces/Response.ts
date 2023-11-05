@@ -5,6 +5,7 @@ export interface MySqlProduct {
     name:                  string;
     price:                 number;
     prod_condition:        string;
+    category:              string;   
     brand:                 string;
     thumbnail:             string;
     thumbnail_id:          string;
@@ -23,6 +24,7 @@ export interface Products {
     name:         string;
     price:        number;
     condition:    string;
+    category:     string; 
     brand:        string;
     thumbnail:    string;
     thumbnail_id: string;

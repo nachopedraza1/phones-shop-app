@@ -40,7 +40,7 @@ const SelectQuantity: React.FC<{ totalStock: number }> = ({ totalStock }) => {
             >
                 {
                     [...Array(totalStock)].map((_, index) => (
-                        <MenuItem onClick={handleClose}>
+                        <MenuItem onClick={handleClose} key={index}>
                             {index + 1} {index + 1 > 1 ? 'unidades' : 'unidad'}
                         </MenuItem>
                     ))
