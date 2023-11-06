@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+    <g fill="none" fill-rule="evenodd">
+        <g fill-rule="nonzero">
+            <g transform="translate(-114 -400) translate(114 400)">
+                <circle cx="16" cy="16" r="16" fill="#000" fill-opacity=".04"/>
+                <path fill="#000" fill-opacity=".8" d="M19.428 8h-6.856c-.593 0-1.072.483-1.072 1.077v13.846c0 .594.479 1.076 1.072 1.076l6.856.001c.593 0 1.072-.483 1.072-1.077V9.077C20.5 8.483 20.021 8 19.428 8zm-6.856 1h6.856c.039 0 .072.033.072.077v13.846c0 .044-.033.077-.072.077h-6.856c-.039 0-.072-.034-.072-.077V9.077c0-.043.033-.076.072-.076z" transform="rotate(90 16 16)"/>
+                <path fill="#000" fill-opacity=".8" d="M9 16.65L14 16.65 14 15.25 9 15.25z" transform="rotate(90 11.5 15.95)"/>
+                <path fill="#000" fill-opacity=".8" d="M12 16.65L17 16.65 17 15.25 12 15.25z" transform="rotate(90 14.5 15.95)"/>
+                <path fill="#000" fill-opacity=".8" d="M15 16.65L20 16.65 20 15.25 15 15.25z" transform="rotate(90 17.5 15.95)"/>
+                <path fill="#000" fill-opacity=".8" d="M18 16.65L23 16.65 23 15.25 18 15.25z" transform="rotate(90 20.5 15.95)"/>
+                <path fill="#333" d="M23 14.5H25V17.5H23z"/>
+            </g>
+        </g>
+    </g>
+</svg>

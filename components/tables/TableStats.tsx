@@ -1,5 +1,4 @@
 'use client';
-import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, tableCellClasses } from '@mui/material';
 import { Attribute } from "@/interfaces/MeliProduct"
@@ -23,7 +22,7 @@ const TableStats: React.FC<{ attributes: Attribute[], title: string }> = ({ attr
     }));
 
     return (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ mt: 3}}>
             <Table>
                 <TableHead>
                     <TableRow>

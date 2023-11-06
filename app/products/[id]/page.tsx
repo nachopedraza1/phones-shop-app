@@ -12,12 +12,13 @@ import ImagesProduct from "@/components/products/ImagesProduct";
 import StatsProducts from "@/components/products/StatsProducts";
 import SelectQuantity from "@/components/products/SelectQuantity";
 import CustomBreadcrumbs from "@/components/ui/CustomBreadcrumbs";
+import PaymentMethods from "@/components/products/PaymentMethods";
 import RelatedProducts from "@/components/products/RelatedProducts";
 import { Button, Grid, Typography } from '@mui/material';
 
 import { Attribute } from "@/interfaces/MeliProduct";
 import { MySqlProduct, Products } from "@/interfaces/Response";
-import { MeliProduct, Picture } from "@/interfaces/MeliProduct";
+import { MeliProduct, Picture } from "@/interfaces/MeliProduct";;
 
 export const generateStaticParams = async () => {
     const products: Products[] = await fetch('http://localhost:3000/api/products').then(resp => resp.json());
@@ -100,12 +101,15 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
                         en {product.installments.quantity}x ${formatPrice(product.installments.amount)}
                     </Typography>
 
+                    {product.installments.rate === 0 &&
+                        <Typography color='#00a650'>Mismo precio en {product.installments.quantity} de ${formatPrice(product.installments.amount)} </Typography>
+                    }
                     <Typography color='#00a650' fontWeight={600}> Envío gratuito </Typography>
 
                     <SelectQuantity totalStock={productProps.stock} />
 
                     <Grid container gap={1} mt={1}>
-                        <Grid item xs={5}>
+                        <Grid item xs={5.5}>
                             <Button
                                 fullWidth
                                 variant="contained"
@@ -113,7 +117,7 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
                                 COMPRAR
                             </Button>
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={5.5}>
                             <Button
                                 fullWidth
                                 variant="outlined"
@@ -131,11 +135,15 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
                     <RelatedProducts category={product.category} />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={8.3}>
                     <StatsProducts attributes={productProps.attributes} />
                 </Grid>
+
+                <Grid item xs={3.5} mt={5}>
+                    <PaymentMethods />
+                </Grid>
             </Grid>
-        </Main>
+        </Main >
     )
 }
 

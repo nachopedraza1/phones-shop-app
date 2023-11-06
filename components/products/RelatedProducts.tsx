@@ -28,7 +28,7 @@ const RelatedProducts: React.FC<{ category: string }> = async ({ category }) => 
 
     return (
         <Grid container gap={2}>
-            <Typography > Productos relacionados </Typography>
+            <Typography variant="h6" > Productos relacionados </Typography>
             {
                 products.map(product => (
                     <Grid item xs={12} display='flex' key={product.id} p={1} justifyContent='space-between' boxShadow='0 1px 1px 0 rgba(0,0,0,.1)'>
