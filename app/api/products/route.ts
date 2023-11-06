@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { RowDataPacket } from "mysql2";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 import axios from "axios";
 
 import db from "@/database/connection";
@@ -84,7 +84,7 @@ export async function POST(req: Request) {
             installments: product.installments,
         }));
 
-        /*    for (const product of products) {
+           for (const product of products) {
    
                const [result] = await db.query(`
                INSERT INTO Products(meli_id, name, price, prod_condition, thumbnail, thumbnail_id, totalSold, brand, category)
@@ -122,7 +122,7 @@ export async function POST(req: Request) {
                        product.ratings.positive,
                        productId
                    ]);
-           } */
+           }
 
         return NextResponse.json({})
     } catch (error) {

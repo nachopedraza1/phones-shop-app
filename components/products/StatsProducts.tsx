@@ -1,6 +1,6 @@
 import Image from "next/image";
 import TableStats from "@/components/tables/TableStats";
-import { Grid, Typography } from "@mui/material";
+import { Divider, Grid, Typography } from "@mui/material";
 import { Attribute } from "@/interfaces/MeliProduct";
 
 const StatsProducts: React.FC<{ attributes: Attribute[] }> = ({ attributes }) => {
@@ -69,6 +69,8 @@ const StatsProducts: React.FC<{ attributes: Attribute[] }> = ({ attributes }) =>
 
     return (
         <Grid>
+            <Divider sx={{ mb: 2 }} />
+
             <Typography variant="h5"> Características de {productName} </Typography>
 
             <Grid container>

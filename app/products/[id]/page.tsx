@@ -135,13 +135,15 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
                     <RelatedProducts category={product.category} />
                 </Grid>
 
-                <Grid item xs={8.3}>
-                    <StatsProducts attributes={productProps.attributes} />
+                <Grid container justifyContent='space-between'>
+                    <Grid item xs={8.3}>
+                        <StatsProducts attributes={productProps.attributes} />
+                    </Grid>
+                    <Grid item xs={3.5} mt={5}>
+                        <PaymentMethods installments={product.installments} />
+                    </Grid>
                 </Grid>
 
-                <Grid item xs={3.5} mt={5}>
-                    <PaymentMethods />
-                </Grid>
             </Grid>
         </Main >
     )
