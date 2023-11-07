@@ -9,7 +9,7 @@ import { Box, Grid, Typography } from '@mui/material';
 
 const LatestProducts: React.FC = () => {
 
-    const { data, isLoading } = useSWR<Products[]>('http://localhost:3000/api/products?limit=4&category=iphones&random=true', {
+    const { data, isLoading } = useSWR<Products[]>('http://localhost:3000/api/products?limit=4&category=macbooks&random=true', {
         revalidateOnFocus: false,
     });
 

@@ -7,9 +7,11 @@ const PaymentMethods: React.FC<{ installments: ProductInstallments }> = ({ insta
     return (
         <Box border='1px solid #bfbfbf' borderRadius='10px' padding={2}>
             <Typography variant="h6"> Medios de pago </Typography>
-       
+
+            {
+                installments.rate === 0 &&
                 <Box display='flex' p={2} gap={1} bgcolor='#00a650' borderRadius={1}>
-                    <CreditCard sx={{color:'#fff'}} />
+                    <CreditCard sx={{ color: '#fff' }} />
                     <Typography color='#fff'>
                         ¡Pagá el mismo precio en
                         <Typography component='span' fontWeight={600} ml={1}>
@@ -17,7 +19,7 @@ const PaymentMethods: React.FC<{ installments: ProductInstallments }> = ({ insta
                         </Typography>
                     </Typography>
                 </Box>
-            
+            }
 
             <Typography mt={2}> Hasta 12 cuotas sin tarjeta </Typography>
             <Image src='/mercadocredito.svg' alt="mercadocredito" width={73} height={32} />

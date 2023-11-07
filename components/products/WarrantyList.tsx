@@ -19,7 +19,7 @@ const WarrantyList: React.FC<{ warranty: string }> = ({ warranty }) => {
         <Grid container direction='column' mt={2} gap={1}>
             {
                 warrantyes.map(item => (
-                    <Grid display='flex' gap={1}>
+                    <Grid display='flex' gap={1} key={item.title}>
                         {item.icon}
                         <Grid>
                             <Typography color='primary.main'>{item.title}</Typography>

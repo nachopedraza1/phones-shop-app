@@ -64,11 +64,16 @@ export async function GET(req: NextRequest) {
     }
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+
+    const params = req.nextUrl.searchParams;
+
+    const productTitle = params.get('product');
+    const limit = parseInt(params.get('limit')!) || 10;
 
     try {
 
-        const { data } = await axios.get<MeliProducts>('https://api.mercadolibre.com/sites/MLA/search?q=iphone 14&limit=5');
+        const { data } = await axios.get<MeliProducts>(`https://api.mercadolibre.com/sites/MLA/search?q=${productTitle}&limit=${limit}`);
 
         const products = data.results.map(product => ({
             meli_id: product.id,
@@ -84,45 +89,45 @@ export async function POST(req: Request) {
             installments: product.installments,
         }));
 
-           for (const product of products) {
-   
-               const [result] = await db.query(`
+        for (const product of products) {
+
+            const [result] = await db.query(`
                INSERT INTO Products(meli_id, name, price, prod_condition, thumbnail, thumbnail_id, totalSold, brand, category)
                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                   [
-                       product.meli_id,
-                       product.name,
-                       product.price,
-                       product.condition,
-                       product.thumbnail,
-                       product.thumbnail_id,
-                       product.totalSold,
-                       product.brand,
-                       'iphones'
-                   ]);
-   
-               const productId = (result as ResultSetHeader).insertId;
-   
-               await db.query(`
+                [
+                    product.meli_id,
+                    product.name,
+                    product.price,
+                    product.condition,
+                    product.thumbnail,
+                    product.thumbnail_id,
+                    product.totalSold,
+                    product.brand,
+                    'iphones'
+                ]);
+
+            const productId = (result as ResultSetHeader).insertId;
+
+            await db.query(`
                INSERT INTO Installments(quantity, amount, rate, productId)
                VALUES(?, ?, ?, ?)`,
-                   [
-                       product.installments.quantity,
-                       product.installments.amount,
-                       product.installments.rate,
-                       productId
-                   ]);
-   
-               await db.query(`
+                [
+                    product.installments.quantity,
+                    product.installments.amount,
+                    product.installments.rate,
+                    productId
+                ]);
+
+            await db.query(`
                INSERT INTO Rating(negative, neutral, positive, productId)
                VALUES(?, ?, ?, ?)`,
-                   [
-                       product.ratings.negative,
-                       product.ratings.neutral,
-                       product.ratings.positive,
-                       productId
-                   ]);
-           }
+                [
+                    product.ratings.negative,
+                    product.ratings.neutral,
+                    product.ratings.positive,
+                    productId
+                ]);
+        }
 
         return NextResponse.json({})
     } catch (error) {

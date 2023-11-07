@@ -67,6 +67,16 @@ const StatsProducts: React.FC<{ attributes: Attribute[] }> = ({ attributes }) =>
         atr.id === 'MAX_BATTERY_LIFE'
     ));
 
+    const displayAtributes = attributes.filter(atr =>
+        atr.id === 'DISPLAY_SIZE' ||
+        atr.id === 'DISPLAY_RESOLUTION_TYPE' ||
+        atr.id === 'DISPLAY_TECHNOLOGY' ||
+        atr.id === 'DISPLAY_TYPE' ||
+        atr.id === 'DISPLAY_PIXELS_PER_INCH' ||
+        atr.id === 'MAX_DISPLAY_BRIGHTNESS' ||
+        atr.id === 'WITH_TOUCHSCREEN_DISPLAY'
+    );
+
     return (
         <Grid>
             <Divider sx={{ mb: 2 }} />
@@ -102,12 +112,13 @@ const StatsProducts: React.FC<{ attributes: Attribute[] }> = ({ attributes }) =>
                     <TableStats attributes={generalAtributes} title='Características generales' />
                     <TableStats attributes={memoryAtributes} title='Memoria' />
                     <TableStats attributes={connectAtributes} title='Conectividad' />
+                    <TableStats attributes={specsAtributes} title='Especificaciones' />
                 </Grid>
                 <Grid item xs={5.8}>
+                    <TableStats attributes={displayAtributes} title='Pantalla' />
                     <TableStats attributes={simAtributes} title='Tarjeta SIM' />
                     <TableStats attributes={procesadorAtributes} title='Procesador' />
                     <TableStats attributes={sistemAtributes} title='Sistema Operativo' />
-                    <TableStats attributes={specsAtributes} title='Especificaciones' />
                 </Grid>
             </Grid>
         </Grid>

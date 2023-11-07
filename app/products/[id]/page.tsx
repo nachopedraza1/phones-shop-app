@@ -18,7 +18,7 @@ import { Button, Grid, Typography } from '@mui/material';
 
 import { Attribute } from "@/interfaces/MeliProduct";
 import { MySqlProduct, Products } from "@/interfaces/Response";
-import { MeliProduct, Picture } from "@/interfaces/MeliProduct";;
+import { MeliProduct, Picture } from "@/interfaces/MeliProduct";
 
 export const generateStaticParams = async () => {
     const products: Products[] = await fetch('http://localhost:3000/api/products').then(resp => resp.json());
