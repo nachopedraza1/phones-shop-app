@@ -103,7 +103,7 @@ export async function POST(req: NextRequest) {
                     product.thumbnail_id,
                     product.totalSold,
                     product.brand,
-                    'iphones'
+                    'ipads'
                 ]);
 
             const productId = (result as ResultSetHeader).insertId;

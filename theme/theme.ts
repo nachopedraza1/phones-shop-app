@@ -9,6 +9,9 @@ export const appTheme = createTheme({
         primary: {
             main: '#3483fa'
         },
+        background: {
+            default:'#ededed'
+        },
         secondary:{
             main:'#21003d'
         }

@@ -81,7 +81,7 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
     const productProps = await getAtributesProduct(id);
 
     return (
-        <Main>
+        <Main bgcolor="white">
             <CustomBreadcrumbs productName={product.name} />
 
             <Grid container mt={2} justifyContent='space-between'>
