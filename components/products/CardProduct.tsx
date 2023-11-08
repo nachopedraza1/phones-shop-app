@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+"use client"
 import { useRouter } from "next/navigation";
 
 import RatingProduct from "./RatingProduct";
@@ -13,8 +12,6 @@ const CardProduct: React.FC<{ product: Products }> = ({ product }) => {
 
     const router = useRouter();
 
-    const [imageLoad, setImageLoad] = useState(false);
-
     const navigateProduct = (slug: string) => {
         router.push(`/products/${slug}`)
     }
@@ -23,9 +20,9 @@ const CardProduct: React.FC<{ product: Products }> = ({ product }) => {
         <Card sx={{ maxWidth: "100%" }} className="fadeIn">
             <CardHeader
                 title={
-                    <Tooltip title={imageLoad && product.name} placement="top" >
+                    <Tooltip title={product.name} placement="top" >
                         <Typography fontWeight={600} overflow='hidden' textOverflow={'ellipsis'}>
-                            {imageLoad ? product.name : <Skeleton height={20} width={'100%'} />}
+                            {product.name}
                         </Typography>
                     </Tooltip>
                 }
@@ -39,7 +36,6 @@ const CardProduct: React.FC<{ product: Products }> = ({ product }) => {
             />
 
             <CardMedia
-                onLoad={() => setImageLoad(true)}
                 component="img"
                 loading="lazy"
                 height="194"
@@ -49,42 +45,30 @@ const CardProduct: React.FC<{ product: Products }> = ({ product }) => {
             />
 
             <CardContent>
-                {
-                    imageLoad ?
-                        <>
-                            <Grid container alignItems='center'>
-                                <Grid item xs={12} md={12} xl={5}>
-                                    <Typography variant="h5">
-                                        ${formatPrice(product.price)}
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={12} md={12} xl={5}>
-                                    <Typography color="text.secondary">
-                                        en {product.installments.quantity}x ${formatPrice(product.installments.amount)}
-                                    </Typography>
-                                </Grid>
-                            </Grid>
+                <Grid container alignItems='center'>
+                    <Grid item xs={12} md={12} xl={5}>
+                        <Typography variant="h5">
+                            ${formatPrice(product.price)}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} md={12} xl={5}>
+                        <Typography color="text.secondary">
+                            en {product.installments.quantity}x ${formatPrice(product.installments.amount)}
+                        </Typography>
+                    </Grid>
+                </Grid>
 
-                            <Typography color="text.secondary">
-                                {product.totalSold} Vendidos últimos 90 días.
-                            </Typography>
+                <Typography color="text.secondary">
+                    {product.totalSold} Vendidos últimos 90 días.
+                </Typography>
 
-                            <Typography color="#00a650" fontWeight={600}>
-                                Llega gratis mañana
-                            </Typography>
+                <Typography color="#00a650" fontWeight={600}>
+                    Llega gratis mañana
+                </Typography>
 
-                            <Button variant="contained" fullWidth sx={{ mt: 1 }} onClick={() => navigateProduct(product.meli_id)}>
-                                COMPRAR
-                            </Button>
-                        </>
-                        :
-                        <>
-                            <Skeleton height={20} width={'100%'} />
-                            <Skeleton height={20} width={'100%'} />
-                            <Skeleton height={20} width={'100%'} />
-                            <Skeleton height={20} width={'100%'} />
-                        </>
-                }
+                <Button variant="contained" fullWidth sx={{ mt: 1 }} onClick={() => navigateProduct(product.meli_id)}>
+                    COMPRAR
+                </Button>
             </CardContent>
 
         </Card >

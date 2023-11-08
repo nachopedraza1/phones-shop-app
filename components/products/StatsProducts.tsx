@@ -16,20 +16,25 @@ const StatsProducts: React.FC<{ attributes: Attribute[] }> = ({ attributes }) =>
 
     const memoryAtributes = attributes.filter(atr =>
         atr.id === 'RAM' ||
+        atr.id === 'RAM_MEMORY' ||
         atr.id === 'MEMORY_CARD_MAX_CAPACITY' ||
         atr.id === 'INTERNAL_MEMORY' ||
-        atr.id === 'WITH_MEMORY_CARD_SLOT'
+        atr.id === 'WITH_MEMORY_CARD_SLOT' ||
+        atr.id === 'RAM_MEMORY_TYPE' ||
+        atr.id === 'VIDEO_MEMORY'
     );
 
     const procesadorAtributes = attributes.filter(atr =>
         atr.id === 'PROCESSOR_MODEL' ||
-        atr.id === 'GPU_MODEL'
+        atr.id === 'GPU_MODEL' ||
+        atr.id === 'CORES_NUMBER'
     );
 
     const sistemAtributes = attributes.filter(atr =>
         atr.id === 'OPERATING_SYSTEM_NAME' ||
         atr.id === 'OS_ORIGINAL_VERSION' ||
-        atr.id === 'OS_LAST_COMPATIBLE_VERSION'
+        atr.id === 'OS_LAST_COMPATIBLE_VERSION' ||
+        atr.id === 'OS_NAME'
     );
 
     const simAtributes = attributes.filter(atr =>
@@ -48,12 +53,19 @@ const StatsProducts: React.FC<{ attributes: Attribute[] }> = ({ attributes }) =>
         atr.id === 'WITH_WIFI' ||
         atr.id === 'WITH_GPS' ||
         atr.id === 'WITH_BLUETOOTH' ||
-        atr.id === 'WITH_NFC'
+        atr.id === 'WITH_NFC' ||
+        atr.id === 'OPTICAL_DRIVES' ||
+        atr.id === 'VIDEO_PORTS' ||
+        atr.id === 'USB_PORTS' ||
+        atr.id === 'USB_TOTAL_PORTS_NUMBER'
     );
 
     const specsAtributes = attributes.filter(atr =>
         atr.id === 'RELEASE_MONTH' ||
-        atr.id === 'RELEASE_YEAR'
+        atr.id === 'RELEASE_YEAR' ||
+        atr.id === 'IS_ULTRABOOK' ||
+        atr.id === 'IS_2_IN_1' ||
+        atr.id === 'IS_GAMER'
     );
 
     const firstStats = attributes.filter(atr => (
@@ -64,17 +76,22 @@ const StatsProducts: React.FC<{ attributes: Attribute[] }> = ({ attributes }) =>
         atr.id === 'WITH_FACIAL_RECOGNITION' ||
         atr.id === 'DISPLAY_SIZE' ||
         atr.id === 'RAM' ||
+        atr.id === 'RAM_MEMORY' ||
         atr.id === 'MAX_BATTERY_LIFE'
     ));
 
     const displayAtributes = attributes.filter(atr =>
         atr.id === 'DISPLAY_SIZE' ||
         atr.id === 'DISPLAY_RESOLUTION_TYPE' ||
+        atr.id === 'DISPLAY_RESOLUTION' ||
         atr.id === 'DISPLAY_TECHNOLOGY' ||
         atr.id === 'DISPLAY_TYPE' ||
         atr.id === 'DISPLAY_PIXELS_PER_INCH' ||
         atr.id === 'MAX_DISPLAY_BRIGHTNESS' ||
-        atr.id === 'WITH_TOUCHSCREEN_DISPLAY'
+        atr.id === 'WITH_TOUCHSCREEN_DISPLAY' ||
+        atr.id === 'WITH_RETINA_DISPLAY' ||
+        atr.id === 'DISPLAY_REFRESH_RATE'
+
     );
 
     return (
@@ -94,6 +111,7 @@ const StatsProducts: React.FC<{ attributes: Attribute[] }> = ({ attributes }) =>
                                 {item.id === 'WITH_NFC' && <Image src='/nfcicon.svg' alt={item.name} width={32} height={32} />}
                                 {item.id === 'WITH_FACIAL_RECOGNITION' && <Image src='/facialicon.svg' alt={item.name} width={32} height={32} />}
                                 {item.id === 'RAM' && <Image src='/memoryicon.svg' alt={item.name} width={32} height={32} />}
+                                {item.id === 'RAM_MEMORY' && <Image src='/memoryicon.svg' alt={item.name} width={32} height={32} />}
                                 {item.id === 'DISPLAY_SIZE' && <Image src='/displaysizepcicon.svg' alt={item.name} width={32} height={32} />}
                                 {item.id === 'MAX_BATTERY_LIFE' && <Image src='/bateryicon.svg' alt={item.name} width={32} height={32} />}
                             </Grid>

@@ -22,7 +22,7 @@ const TableStats: React.FC<{ attributes: Attribute[], title: string }> = ({ attr
     }));
 
     return (
-        <TableContainer component={Paper} sx={{ mt: 3}}>
+        <TableContainer component={Paper} sx={{ mt: 3, display: attributes.length >= 1 ? '' : 'none' }}>
             <Table>
                 <TableHead>
                     <TableRow>
@@ -30,16 +30,17 @@ const TableStats: React.FC<{ attributes: Attribute[], title: string }> = ({ attr
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {attributes.map((row) => (
-                        <StyledTableRow key={row.name}>
-                            <StyledTableCell>
-                                {row.name}
-                            </StyledTableCell>
-                            <StyledTableCell>
-                                {row.value_name}
-                            </StyledTableCell>
-                        </StyledTableRow>
-                    ))}
+                    {
+                        attributes.map((row) => (
+                            <StyledTableRow key={row.name}>
+                                <StyledTableCell>
+                                    {row.name}
+                                </StyledTableCell>
+                                <StyledTableCell>
+                                    {row.value_name}
+                                </StyledTableCell>
+                            </StyledTableRow>
+                        ))}
                 </TableBody>
             </Table>
         </TableContainer>
