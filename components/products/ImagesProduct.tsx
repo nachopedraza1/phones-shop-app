@@ -10,7 +10,7 @@ const ImagesProduct: React.FC<{ images: Picture[] }> = ({ images }) => {
 
     return (
         <Grid container>
-            <Grid item xs={2} display='flex' flexDirection='column' gap={2}>
+            <Grid item xs={2} display='flex' flexDirection='column' gap={2} minHeight={364}>
                 {
                     images.slice(0, 5).map(img => (
                         <Grid key={img.id}

@@ -84,7 +84,7 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
         <Main bgcolor="white">
             <CustomBreadcrumbs productName={product.name} />
 
-            <Grid container mt={2} justifyContent='space-between'>
+            <Grid container mt={2} justifyContent='space-between' >
 
                 <Grid item xs={5}>
                     <ImagesProduct images={productProps.pictures} />
