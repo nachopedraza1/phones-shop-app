@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Box, Button, Divider, Grid, Typography } from "@mui/material";
+import RelatedProducts from "./RelatedProducts";
 
 const cards = [
     {
@@ -10,7 +11,7 @@ const cards = [
         color: ['#7d7e80', '#e3e4e5', '#f9d4c2']
     },
     {
-        title: 'MacBook Air de 13”',
+        title: 'MacBook Air de 13” y 15”',
         subtitle: 'Chip M1',
         description: 'Increíblemente delgada y rápida, para trabajar, jugar y crear en cualquier lugar.',
         image: '/mac2.png',
@@ -26,6 +27,7 @@ const cards = [
 ];
 
 const MacbooksCards: React.FC = () => {
+
     return (
         <Grid container justifyContent='center' alignItems='start' gap={3} mt={5}>
             <Grid item xs={12}>
@@ -43,6 +45,7 @@ const MacbooksCards: React.FC = () => {
                         textAlign='center'
                         alignItems='center'
                         gap={2}
+                        padding={2}
                         key={card.title}
                     >
                         <Box width={350} height={190} position='relative'>
@@ -62,7 +65,11 @@ const MacbooksCards: React.FC = () => {
                     </Grid>
                 ))
             }
-        </Grid >
+
+            <Grid container>
+                <RelatedProducts category='macbooks' direction="row" xs={3.8} />
+            </Grid>
+        </Grid>
     )
 }
 

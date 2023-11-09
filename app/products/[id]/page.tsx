@@ -132,7 +132,7 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
                 </Grid>
 
                 <Grid item xs={3.5} border='1px solid #bfbfbf' borderRadius='10px' padding={2}>
-                    <RelatedProducts category={product.category} />
+                    <RelatedProducts category={product.category} title="Productos relacionados" />
                 </Grid>
 
                 <Grid container justifyContent='space-between'>

@@ -95,7 +95,7 @@ const StatsProducts: React.FC<{ attributes: Attribute[] }> = ({ attributes }) =>
     );
 
     return (
-        <Grid>
+        <>
             <Divider sx={{ mb: 2 }} />
 
             <Typography variant="h5"> Características de {productName} </Typography>
@@ -139,7 +139,7 @@ const StatsProducts: React.FC<{ attributes: Attribute[] }> = ({ attributes }) =>
                     <TableStats attributes={sistemAtributes} title='Sistema Operativo' />
                 </Grid>
             </Grid>
-        </Grid>
+        </>
     )
 }
 

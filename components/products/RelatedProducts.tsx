@@ -1,55 +1,60 @@
+"use client"
+import useSWR from "swr";
 import Image from "next/image";
-
-import { RowDataPacket } from "mysql2";
-import db from "@/database/connection";
 import { formatPrice } from "@/utils/formatPrice";
-
-import { Grid, Typography } from "@mui/material";
-
-import { MySqlProduct } from "@/interfaces/Response";
+import { Card, Grid, Typography } from "@mui/material";
+import { Products } from "@/interfaces/Response";
 
 
-const getRelatedProducts = async (category: string): Promise<MySqlProduct[]> => {
-
-    const query = `
-    SELECT * FROM Products 
-    LEFT JOIN Installments ON Products.id = Installments.ProductId
-    WHERE Products.category = ?
-    LIMIT 3`;
-
-    const [products] = await db.query<MySqlProduct[] & RowDataPacket[][]>(query, [category])
-
-    return JSON.parse(JSON.stringify(products))
+interface Props {
+    limit?: number,
+    title?: string,
+    category: string,
+    direction?: 'column' | 'row',
+    xs?: number,
+    md?: number,
+    lg?: number,
 }
 
-const RelatedProducts: React.FC<{ category: string }> = async ({ category }) => {
 
-    const products = await getRelatedProducts(category);
+const RelatedProducts: React.FC<Props> = ({ category, title, direction = 'column', limit = 3, xs, md, lg }) => {
+
+    const { data, isLoading } = useSWR<Products[]>(`http://localhost:3000/api/products?category=${category}&limit=${limit}`)
 
     return (
-        <Grid container gap={2}>
-            <Typography variant="h6" > Productos relacionados </Typography>
+        <Grid container justifyContent='space-between' direction={direction}>
+            <Typography variant="h6"> {title} </Typography>
             {
-                products.map(product => (
-                    <Grid item xs={12} display='flex' key={product.id} p={1} justifyContent='space-between' boxShadow='0 1px 1px 0 rgba(0,0,0,.1)'>
-                        <Grid item xs={3} position='relative'>
-                            <Image
-                                src={product.thumbnail}
-                                alt={product.name}
-                                fill
-                                style={{ objectFit: 'contain' }}
-                            />
-                        </Grid>
-                        <Grid item xs={8.5}>
-                            <Typography fontSize={14}> {product.name} </Typography>
-                            <Typography variant="h6"> ${formatPrice(product.price)} </Typography>
-                            <Typography fontSize={14}> {product.quantity}x de ${formatPrice(product.amount)} </Typography>
-                            <Typography fontSize={14} color='#00a650' fontWeight={600}> Envío gratuito </Typography>
-                        </Grid>
+                data?.map(product => (
+                    <Grid item xs={xs} md={md} lg={lg} key={product.id}>
+                        <Card sx={{ display: 'flex', padding: 1, justifyContent: 'space-between', minHeight: 132 }}>
+                            <Grid item xs={3} position='relative'>
+                                <Image
+                                    src={product.thumbnail}
+                                    alt={product.name}
+                                    fill
+                                    style={{ objectFit: 'contain' }}
+                                />
+                            </Grid>
+                            <Grid item xs={8.5}>
+                                <Typography fontSize={14}
+                                    sx={{
+                                        overflow: "hidden",
+                                        display: "-webkit-box",
+                                        WebkitLineClamp: 2,
+                                        WebkitBoxOrient: "vertical",
+                                    }}
+                                > {product.name}
+                                </Typography>
+                                <Typography variant="h6"> ${formatPrice(product.price)} </Typography>
+                                <Typography fontSize={14}> {product.installments.quantity}x de ${formatPrice(product.installments.amount)} </Typography>
+                                <Typography fontSize={14} color='#00a650' fontWeight={600}> Envío gratuito </Typography>
+                            </Grid>
+                        </Card>
                     </Grid>
                 ))
             }
-        </Grid>
+        </Grid >
     )
 }
 
