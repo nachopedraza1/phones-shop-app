@@ -1,7 +1,8 @@
 "use client";
+import { SWRConfig } from 'swr'
+import { CartProvider } from '@/context/cart';
 import { appTheme } from '@/theme/theme';
 import { ThemeProvider, CssBaseline } from '@mui/material'
-import { SWRConfig } from 'swr'
 
 interface Props {
     children: React.ReactNode;
@@ -16,7 +17,9 @@ export const Providers = (Props: Props) => {
         >
             <ThemeProvider theme={appTheme}>
                 <CssBaseline />
-                {Props.children}
+                <CartProvider>
+                    {Props.children}
+                </CartProvider>
             </ThemeProvider>
         </SWRConfig>
     )

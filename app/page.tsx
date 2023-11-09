@@ -4,10 +4,10 @@ import { NextPage } from "next";
 import Main from "@/components/layouts/Main";
 import Categories from "@/components/products/Categories";
 import LatestProducts from "@/components/products/LatestProducts";
+import MacbooksCards from "@/components/products/MacbooksCards";
 
 import { carrousel } from "@/utils";
-import { Box, Button, Grid, Typography } from '@mui/material';
-import MacbooksCards from "@/components/products/MacbooksCards";
+import { Grid, Typography } from '@mui/material';
 
 const HomePage: NextPage = () => {
 
