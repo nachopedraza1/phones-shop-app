@@ -4,6 +4,9 @@ import { ICartProduct } from '@/interfaces/Cart';
 
 interface ContextProps {
     cart: ICartProduct[];
+    favoritesIds: string[];
+
+    addProductFavorite: (id: string) => void
 }
 
 

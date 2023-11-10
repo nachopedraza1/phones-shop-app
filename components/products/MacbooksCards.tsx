@@ -52,7 +52,7 @@ const MacbooksCards: React.FC = () => {
                             <Image src={card.image} alt="MacBook" fill style={{ objectFit: 'contain' }} />
                         </Box>
                         <Box display='flex' gap={1}>
-                            {card.color.map(color => (<Box width={11} height={11} bgcolor={color} borderRadius={5} key={card.title} />))}
+                            {card.color.map((color, index) => (<Box width={11} height={11} bgcolor={color} borderRadius={5} key={index} />))}
                         </Box>
                         <Box>
                             <Typography variant="h5" fontWeight={600}> {card.title} </Typography>

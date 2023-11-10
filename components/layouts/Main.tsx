@@ -7,7 +7,7 @@ const Main: React.FC<{ children: React.ReactNode, bgcolor?: string }> = ({ child
             <Navbar />
 
             <Container maxWidth='xl'>
-                {children}
+                <div>{children}</div>
             </Container>
         </div>
     )

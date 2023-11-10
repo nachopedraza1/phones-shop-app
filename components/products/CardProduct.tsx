@@ -1,19 +1,25 @@
 "use client"
+import { useContext } from "react";
 import { useRouter } from "next/navigation";
 
 import RatingProduct from "./RatingProduct";
-import { Products } from "@/interfaces/Response";
+
 import { formatPrice } from '@/utils/formatPrice';
+import { CartContext } from "@/context/cart";
 
 import { Favorite } from "@mui/icons-material";
-import { Card, CardContent, CardHeader, CardMedia, IconButton, Skeleton, Tooltip, Typography, Grid, Button } from '@mui/material';
+import { Card, CardContent, CardHeader, CardMedia, IconButton, Tooltip, Typography, Grid, Button } from '@mui/material';
+
+import { Products } from "@/interfaces/Response";
 
 const CardProduct: React.FC<{ product: Products }> = ({ product }) => {
 
     const router = useRouter();
 
+    const { addProductFavorite, favoritesIds } = useContext(CartContext);
+
     const navigateProduct = (slug: string) => {
-        router.push(`/products/${slug}`)
+        router.push(`/products/${slug}`);
     }
 
     return (
@@ -29,8 +35,8 @@ const CardProduct: React.FC<{ product: Products }> = ({ product }) => {
                 titleTypographyProps={{ noWrap: true }}
                 subheader={<RatingProduct rating={product.rating.positive} />}
                 action={
-                    <IconButton>
-                        <Favorite />
+                    <IconButton onClick={() => addProductFavorite(product.meli_id)}>
+                        <Favorite color={favoritesIds.includes(product.meli_id) ? 'primary' : 'inherit'} />
                     </IconButton>
                 }
             />
