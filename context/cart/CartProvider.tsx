@@ -33,6 +33,24 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
         dispatch({ type: '[Cart] - toggleFavorite', payload: parsedFavorites });
     }
 
+    const addCartProduct = (product: ICartProduct) => {
+        const productExist = state.cart.some(prodInCart => prodInCart.meli_id === product.meli_id);
+
+        if (!productExist) {
+            return dispatch({ type: '[Cart] - addProductInCart', payload: [...state.cart, product] })
+        }
+
+        const products = state.cart.map(prodInCart => {
+            prodInCart.quantity += product.quantity
+            return prodInCart;
+        });
+
+        dispatch({ type: '[Cart] - addProductInCart', payload: products })
+    }
+
+    console.log(state.cart);
+
+
     useEffect(() => {
         loadFavorites();
     }, [])
@@ -40,6 +58,8 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
     return (
         <CartContext.Provider value={{
             ...state,
+
+            addCartProduct,
             addProductFavorite,
         }}>
             {children}

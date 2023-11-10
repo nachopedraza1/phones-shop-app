@@ -10,11 +10,11 @@ import WarrantyList from "@/components/products/WarrantyList";
 import RatingProduct from "@/components/products/RatingProduct";
 import ImagesProduct from "@/components/products/ImagesProduct";
 import StatsProducts from "@/components/products/StatsProducts";
-import SelectQuantity from "@/components/products/SelectQuantity";
 import CustomBreadcrumbs from "@/components/ui/CustomBreadcrumbs";
 import PaymentMethods from "@/components/products/PaymentMethods";
 import RelatedProducts from "@/components/products/RelatedProducts";
-import { Button, Grid, Typography } from '@mui/material';
+import BuyProductButton from "@/components/products/BuyProductButton";
+import { Grid, Typography } from '@mui/material';
 
 import { Attribute } from "@/interfaces/MeliProduct";
 import { MySqlProduct, Products } from "@/interfaces/Response";
@@ -106,27 +106,7 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
                     }
                     <Typography color='#00a650' fontWeight={600}> Envío gratuito </Typography>
 
-                    <SelectQuantity totalStock={productProps.stock} />
-
-                    <Grid container gap={1} mt={1}>
-                        <Grid item xs={5.5}>
-                            <Button
-                                fullWidth
-                                variant="contained"
-                            >
-                                COMPRAR
-                            </Button>
-                        </Grid>
-                        <Grid item xs={5.5}>
-                            <Button
-                                fullWidth
-                                variant="outlined"
-                                sx={{ whiteSpace: 'nowrap' }}
-                            >
-                                AGREGAR AL CARRITO
-                            </Button>
-                        </Grid>
-                    </Grid>
+                    <BuyProductButton totalStock={productProps.stock} product={product} />
 
                     <WarrantyList warranty={productProps.warranty} />
                 </Grid>

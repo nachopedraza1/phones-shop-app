@@ -1,10 +1,14 @@
 "use client"
-import { useState } from "react";
-import { Button, Menu, MenuItem, Typography } from "@mui/material";
+import { useContext, useState } from "react";
+import { CartContext } from "@/context/cart";
+import { Button, Grid, Menu, MenuItem, Typography } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
+import { Products } from "@/interfaces/Response";
 
 
-const SelectQuantity: React.FC<{ totalStock: number }> = ({ totalStock }) => {
+const BuyProductButton: React.FC<{ totalStock: number, product: Products }> = ({ totalStock, product }) => {
+
+    const { addCartProduct } = useContext(CartContext);
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -15,9 +19,20 @@ const SelectQuantity: React.FC<{ totalStock: number }> = ({ totalStock }) => {
         setAnchorEl(null);
     };
 
+    const handleAddProduct = () => {
+        addCartProduct({
+            meli_id: product.meli_id,
+            name: product.name,
+            price: product.price,
+            thumbnail: product.thumbnail,
+            installments: product.installments,
+            quantity: 1
+        })
+    }
+
 
     return (
-        <div>
+        <>
             <Typography
                 onClick={handleClick}
                 component='span'
@@ -46,8 +61,29 @@ const SelectQuantity: React.FC<{ totalStock: number }> = ({ totalStock }) => {
                     ))
                 }
             </Menu>
-        </div>
+
+            <Grid container gap={1} mt={1}>
+                <Grid item xs={5.5}>
+                    <Button
+                        fullWidth
+                        variant="contained"
+                    >
+                        COMPRAR
+                    </Button>
+                </Grid>
+                <Grid item xs={5.5}>
+                    <Button
+                        onClick={handleAddProduct}
+                        fullWidth
+                        variant="outlined"
+                        sx={{ whiteSpace: 'nowrap' }}
+                    >
+                        AGREGAR AL CARRITO
+                    </Button>
+                </Grid>
+            </Grid>
+        </>
     )
 }
 
-export default SelectQuantity
+export default BuyProductButton;
