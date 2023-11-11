@@ -1,8 +1,8 @@
 "use client"
 import { useContext, useState } from "react";
 import { CartContext } from "@/context/cart";
-import { Button, Grid, Menu, MenuItem, Typography } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
+import { Button, Grid, Menu, MenuItem, Typography } from "@mui/material";
 import { Products } from "@/interfaces/Response";
 
 
@@ -10,14 +10,21 @@ const BuyProductButton: React.FC<{ totalStock: number, product: Products }> = ({
 
     const { addCartProduct } = useContext(CartContext);
 
+    const [quantity, setQuantity] = useState(1);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
-        setAnchorEl(null);
+        setAnchorEl(null)
     };
+
+    const changueQuantity = (quantitySelected: number) => {
+        setQuantity(quantitySelected);
+        handleClose();
+    }
 
     const handleAddProduct = () => {
         addCartProduct({
@@ -26,7 +33,7 @@ const BuyProductButton: React.FC<{ totalStock: number, product: Products }> = ({
             price: product.price,
             thumbnail: product.thumbnail,
             installments: product.installments,
-            quantity: 1
+            quantity
         })
     }
 
@@ -37,14 +44,15 @@ const BuyProductButton: React.FC<{ totalStock: number, product: Products }> = ({
                 onClick={handleClick}
                 component='span'
                 display={'flex'}
+                flexWrap='nowrap'
                 gap={1}
                 mt={2}
                 style={{ cursor: 'pointer' }}
             >
                 Cantidad:
-                <Typography component='span' fontWeight={600}> 1 unidad </Typography>
+                <Typography component='span' fontWeight={600} noWrap> {quantity} {quantity > 1 ? 'unidades' : 'unidad'}  </Typography>
                 <ExpandMore color='primary' />
-                <Typography component='span' color='text.secondary'> ({totalStock} disponibles)</Typography>
+                <Typography component='span' color='text.secondary' noWrap> ({totalStock} disponibles)</Typography>
             </Typography>
 
             <Menu
@@ -55,7 +63,7 @@ const BuyProductButton: React.FC<{ totalStock: number, product: Products }> = ({
             >
                 {
                     [...Array(totalStock)].map((_, index) => (
-                        <MenuItem onClick={handleClose} key={index}>
+                        <MenuItem onClick={() => changueQuantity(index + 1)} key={index}>
                             {index + 1} {index + 1 > 1 ? 'unidades' : 'unidad'}
                         </MenuItem>
                     ))

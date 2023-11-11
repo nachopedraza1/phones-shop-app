@@ -1,4 +1,4 @@
-export interface Megamenu {
+export interface IMegamenu {
     type: string;
     image: {
         url: string;
@@ -8,7 +8,7 @@ export interface Megamenu {
     models: string[];
 }
 
-export const megamenu: Megamenu[] = [
+export const megamenu: IMegamenu[] = [
     {
         type: 'iPhones',
         image: {

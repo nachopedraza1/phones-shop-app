@@ -27,32 +27,36 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
         dispatch({ type: '[Cart] - toggleFavorite', payload: updatedFavorites });
     }
 
-    const loadFavorites = () => {
+    const loadCartAndFavorites = () => {
         const favorites = localStorage.getItem('favorites');
+        const cart = localStorage.getItem('cart');
+
         const parsedFavorites = favorites ? JSON.parse(favorites) : [];
+        const parsedCart = cart ? JSON.parse(cart) : [];
+
         dispatch({ type: '[Cart] - toggleFavorite', payload: parsedFavorites });
+        dispatch({ type: '[Cart] - updateCart', payload: parsedCart });
     }
+
 
     const addCartProduct = (product: ICartProduct) => {
         const productExist = state.cart.some(prodInCart => prodInCart.meli_id === product.meli_id);
-
         if (!productExist) {
-            return dispatch({ type: '[Cart] - addProductInCart', payload: [...state.cart, product] })
+            localStorage.setItem('cart', JSON.stringify([...state.cart, product]));
+            return dispatch({ type: '[Cart] - updateCart', payload: [...state.cart, product] });
         }
-
+        
+        localStorage.setItem('cart', JSON.stringify([...state.cart, product]));
         const products = state.cart.map(prodInCart => {
             prodInCart.quantity += product.quantity
             return prodInCart;
         });
 
-        dispatch({ type: '[Cart] - addProductInCart', payload: products })
+        dispatch({ type: '[Cart] - updateCart', payload: products })
     }
 
-    console.log(state.cart);
-
-
     useEffect(() => {
-        loadFavorites();
+        loadCartAndFavorites();
     }, [])
 
     return (
