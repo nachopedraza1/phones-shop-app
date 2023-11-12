@@ -19,7 +19,9 @@ interface Props {
 
 const RelatedProducts: React.FC<Props> = ({ category, title, direction = 'column', limit = 3, xs, md, lg }) => {
 
-    const { data, isLoading } = useSWR<Products[]>(`http://localhost:3000/api/products?category=${category}&limit=${limit}random=true`)
+    const { data, isLoading } = useSWR<Products[]>(`http://localhost:3000/api/products?category=${category}&limit=${limit}random=true`, {
+        revalidateOnFocus: false,
+    })
 
     return (
         <Grid container justifyContent='center' direction={direction} spacing={2} padding={1}>
