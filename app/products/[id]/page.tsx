@@ -105,9 +105,11 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
                         <Typography color='#00a650'>Mismo precio en {product.installments.quantity} de ${formatPrice(product.installments.amount)} </Typography>
                     }
                     <Typography color='#00a650' fontWeight={600}> Envío gratuito </Typography>
-
+                    
                     <BuyProductButton product={product} totalStock={productProps.stock} />
-
+                    
+                    <Typography color='text.secondary' mt={1}>{productProps.stock} {productProps.stock > 1 ? 'unidades disponibles' : 'unidad disponible'}  </Typography>
+                    
                     <WarrantyList warranty={productProps.warranty} />
                 </Grid>
 

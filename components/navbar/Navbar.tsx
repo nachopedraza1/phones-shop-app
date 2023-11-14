@@ -2,9 +2,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useContext, useState } from "react";
-import { Container, Grid, TextField, Typography, Button, Divider, IconButton, Link as MuiLink, AppBar, Badge } from '@mui/material';
-import { IMegamenu, megamenu } from "@/utils/constants";
 import { CartContext } from "@/context/cart";
+import { IMegamenu, megamenu } from "@/utils/constants";
+
+import AccountButton from "@/components/navbar/AccountButton";
+import { Container, Grid, TextField, Typography, Button, Divider, IconButton, Link as MuiLink, AppBar, Badge } from '@mui/material';
 
 
 const Navbar: React.FC = () => {
@@ -90,22 +92,7 @@ const Navbar: React.FC = () => {
 
                                 <Divider flexItem variant="middle" orientation="vertical" />
 
-                                <Button
-                                    color="secondary"
-                                    disableRipple
-                                    startIcon={
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{ width: 20, height: 20, marginRight: 3 }}>
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                                        </svg>
-                                    }
-                                    endIcon={
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{ width: 17, height: 17, marginLeft: 3 }} >
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                        </svg>
-                                    }
-                                >
-                                    Account
-                                </Button>
+                                <AccountButton />
 
                                 <Divider flexItem variant="middle" orientation="vertical" />
 
