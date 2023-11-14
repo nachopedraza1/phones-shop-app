@@ -106,7 +106,7 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
                     }
                     <Typography color='#00a650' fontWeight={600}> Envío gratuito </Typography>
 
-                    <BuyProductButton totalStock={productProps.stock} product={product} />
+                    <BuyProductButton product={product} totalStock={productProps.stock} />
 
                     <WarrantyList warranty={productProps.warranty} />
                 </Grid>

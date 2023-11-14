@@ -1,15 +1,23 @@
 'use client';
-import { useContext } from "react";
-import { Grid, Typography, IconButton } from '@mui/material';
-import Main from "@/components/layouts/Main";
-import { CartContext } from "@/context/cart";
 import Image from "next/image";
-import { Add, Remove } from "@mui/icons-material";
+import { useContext } from "react";
+
+import { CartContext } from "@/context/cart";
 import { formatPrice } from "@/utils/formatPrice";
+
+import Main from "@/components/layouts/Main";
+import ChangueQuantity from "@/components/products/ChangueQuantity";
+import { Grid, Typography } from '@mui/material';
+import { ICartProduct } from "@/interfaces/Cart";
 
 const CartPage: React.FC = () => {
 
-    const { cart, total, subTotal } = useContext(CartContext);
+    const { cart, total, subTotal, totalProducts, updateQuantityCart } = useContext(CartContext);
+
+    const onUpdateQuantityFromCart = (product: ICartProduct, newQuantity: number) => {
+        product.quantity = newQuantity;
+        updateQuantityCart(product);
+    }
 
     return (
         <Main>
@@ -27,18 +35,11 @@ const CartPage: React.FC = () => {
                                 <Typography> {product.name} </Typography>
                             </Grid>
                             <Grid item xs={2} textAlign='center'>
-                                <Grid container gap={1} justifyContent='center' alignItems='center' border='1px solid rgba(0,0,0,.1)' borderRadius={1}>
-                                    <IconButton color="primary" >
-                                        <Remove fontSize="small" />
-                                    </IconButton>
-                                    <Typography variant="h6">
-                                        {product.quantity}
-                                    </Typography>
-                                    <IconButton color="primary">
-                                        <Add fontSize="small" />
-                                    </IconButton>
-                                </Grid>
-                                <Typography color='text.secondary' fontSize={13} mt={1}> {product.totalStock} disponibles </Typography>
+                                <ChangueQuantity
+                                    currentValue={product.quantity}
+                                    maxValue={product.totalStock}
+                                    onUpdateProduct={(value) => onUpdateQuantityFromCart(product, value)}
+                                />
                             </Grid>
                             <Grid item xs={2}>
                                 <Typography variant="h5" fontWeight={300}> ${formatPrice(product.price)} </Typography>
@@ -51,8 +52,8 @@ const CartPage: React.FC = () => {
                         <Typography fontWeight={600}> Resumen de compra </Typography>
                     </Grid>
                     <Grid display='flex' justifyContent='space-between' p={2} >
-                        <Typography> {cart.length > 1 ? 'Productos' : 'Producto'} ({cart.length}) </Typography>
-                        <Typography>  {subTotal} </Typography>
+                        <Typography> {totalProducts > 1 ? 'Productos' : 'Producto'} ({totalProducts}) </Typography>
+                        <Typography>  ${formatPrice(subTotal)} </Typography>
                     </Grid>
                 </Grid>
             </Grid>
