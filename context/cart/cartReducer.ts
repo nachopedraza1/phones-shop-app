@@ -5,6 +5,7 @@ import { ICartProduct } from '@/interfaces/Cart';
 type CartActionType =
     | { type: '[Cart] - toggleFavorite', payload: string[] }
     | { type: '[Cart] - updateCart', payload: ICartProduct[] }
+    | { type: '[Cart] - updateOrderSummary', payload: { total: number, subTotal: number } }
 
 
 export const cartReducer = (state: CartState, action: CartActionType): CartState => {
@@ -19,6 +20,12 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
             return {
                 ...state,
                 cart: action.payload
+            }
+        case '[Cart] - updateOrderSummary':
+            return {
+                ...state,
+                total: action.payload.total,
+                subTotal: action.payload.subTotal
             }
 
         default:

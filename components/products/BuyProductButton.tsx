@@ -33,6 +33,7 @@ const BuyProductButton: React.FC<{ totalStock: number, product: Products }> = ({
             price: product.price,
             thumbnail: product.thumbnail,
             installments: product.installments,
+            totalStock,
             quantity
         })
     }

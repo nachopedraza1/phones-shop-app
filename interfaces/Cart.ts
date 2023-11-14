@@ -6,5 +6,6 @@ export interface ICartProduct {
     price: number,
     thumbnail: string;
     installments: ProductInstallments;
+    totalStock: number;
     quantity: number;
 }

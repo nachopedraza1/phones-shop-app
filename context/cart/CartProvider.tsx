@@ -4,12 +4,18 @@ import { ICartProduct } from '@/interfaces/Cart';
 
 export interface CartState {
     cart: ICartProduct[];
+    iva: number;
+    total: number;
+    subTotal: number;
     favoritesIds: string[];
 }
 
 
 const CART_INITIAL_STATE: CartState = {
     cart: [],
+    iva: 0,
+    total: 0,
+    subTotal: 0,
     favoritesIds: [],
 }
 
@@ -45,7 +51,7 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
             localStorage.setItem('cart', JSON.stringify([...state.cart, product]));
             return dispatch({ type: '[Cart] - updateCart', payload: [...state.cart, product] });
         }
-        
+
         localStorage.setItem('cart', JSON.stringify([...state.cart, product]));
         const products = state.cart.map(prodInCart => {
             prodInCart.quantity += product.quantity
@@ -54,6 +60,14 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
 
         dispatch({ type: '[Cart] - updateCart', payload: products })
     }
+
+    useEffect(() => {
+        const subTotal = state.cart.reduce((prev, curr) => curr.price + prev, 0);
+        const ivaRate = Number(process.env.NEXT_PUBLIC_IVA_RATE || 21);
+        const total = subTotal * (ivaRate + 1);
+
+        dispatch({ type: '[Cart] - updateOrderSummary', payload: { total, subTotal } })
+    }, [])
 
     useEffect(() => {
         loadCartAndFavorites();
