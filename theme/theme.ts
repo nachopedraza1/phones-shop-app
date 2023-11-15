@@ -26,7 +26,6 @@ export const appTheme = createTheme({
         MuiOutlinedInput: {
             styleOverrides: {
                 root: {
-                    borderRadius: 30,
                     background: '#f9f9f9'
                 }
             }

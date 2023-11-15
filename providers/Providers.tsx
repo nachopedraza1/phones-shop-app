@@ -3,6 +3,7 @@ import { SWRConfig } from 'swr'
 import { CartProvider } from '@/context/cart';
 import { appTheme } from '@/theme/theme';
 import { ThemeProvider, CssBaseline } from '@mui/material'
+import { AuthProvider } from '@/context/auth';
 
 interface Props {
     children: React.ReactNode;
@@ -17,9 +18,11 @@ export const Providers = (Props: Props) => {
         >
             <ThemeProvider theme={appTheme}>
                 <CssBaseline />
-                <CartProvider>
-                    {Props.children}
-                </CartProvider>
+                <AuthProvider>
+                    <CartProvider>
+                        {Props.children}
+                    </CartProvider>
+                </AuthProvider>
             </ThemeProvider>
         </SWRConfig>
     )
