@@ -3,6 +3,7 @@ import { ICartProduct } from '@/interfaces/Cart';
 
 
 type CartActionType =
+    | { type: '[Cart] - LoadCart from localStorage', payload: ICartProduct[] }
     | { type: '[Cart] - toggleFavorite', payload: string[] }
     | { type: '[Cart] - updateCart', payload: ICartProduct[] }
     | { type: '[Cart] - updateOrderSummary', payload: { total: number, subTotal: number, totalProducts: number } }
@@ -11,16 +12,24 @@ type CartActionType =
 export const cartReducer = (state: CartState, action: CartActionType): CartState => {
 
     switch (action.type) {
+        case '[Cart] - LoadCart from localStorage':
+            return {
+                ...state,
+                cart: action.payload,
+            }
+
         case '[Cart] - toggleFavorite':
             return {
                 ...state,
                 favoritesIds: action.payload
             }
+
         case '[Cart] - updateCart':
             return {
                 ...state,
                 cart: action.payload
             }
+
         case '[Cart] - updateOrderSummary':
             return {
                 ...state,

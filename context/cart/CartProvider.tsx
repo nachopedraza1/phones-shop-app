@@ -1,4 +1,4 @@
-import { FC, useEffect, useReducer } from 'react';
+import { FC, useEffect, useReducer, useRef } from 'react';
 import { CartContext, cartReducer } from './';
 import { ICartProduct } from '@/interfaces/Cart';
 
@@ -31,31 +31,44 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
             ? state.favoritesIds.filter(productId => productId !== id)
             : [...state.favoritesIds, id];
 
-        localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
         dispatch({ type: '[Cart] - toggleFavorite', payload: updatedFavorites });
     }
 
-    const loadCartAndFavorites = () => {
-        const favorites = localStorage.getItem('favorites');
-        const cart = localStorage.getItem('cart');
+    let firstTimeLoad = useRef(true);
 
-        const parsedFavorites = favorites ? JSON.parse(favorites) : [];
-        const parsedCart = cart ? JSON.parse(cart) : [];
+    const loadCartAndFavorites = async () => {
+        try {
+            const cart = localStorage.getItem('cart');
+            const parsedCart = cart ? JSON.parse(cart) : [];
 
-        dispatch({ type: '[Cart] - toggleFavorite', payload: parsedFavorites });
-        dispatch({ type: '[Cart] - updateCart', payload: parsedCart });
+            /* seguir con favoritos */
+            const favorites = localStorage.getItem('favorites');
+            const parsedFavorites = favorites ? JSON.parse(favorites) : [];
+
+            await dispatch({ type: '[Cart] - LoadCart from localStorage', payload: parsedCart });
+            await dispatch({ type: '[Cart] - toggleFavorite', payload: parsedCart });
+        } catch (error) {
+            await dispatch({ type: '[Cart] - LoadCart from localStorage', payload: [] });
+        } finally {
+            firstTimeLoad.current = false;
+        }
     }
+
+    const saveCartToLocalStorage = () => {
+        if (!firstTimeLoad.current) {
+            localStorage.setItem('cart', JSON.stringify(state.cart));
+        }
+    };
 
 
     const addCartProduct = (product: ICartProduct) => {
         const productExist = state.cart.some(prodInCart => prodInCart.meli_id === product.meli_id);
         if (!productExist) {
-            localStorage.setItem('cart', JSON.stringify([...state.cart, product]));
             return dispatch({ type: '[Cart] - updateCart', payload: [...state.cart, product] });
         }
 
-        localStorage.setItem('cart', JSON.stringify([...state.cart, product]));
         const products = state.cart.map(prodInCart => {
+            if (prodInCart.meli_id != product.meli_id) return prodInCart;
             if (prodInCart.quantity >= prodInCart.totalStock) {
                 prodInCart.quantity = prodInCart.totalStock;
                 return prodInCart;
@@ -63,6 +76,7 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
             prodInCart.quantity += product.quantity;
             return prodInCart;
         });
+
 
         dispatch({ type: '[Cart] - updateCart', payload: products });
     }
@@ -88,6 +102,12 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
     useEffect(() => {
         loadCartAndFavorites();
     }, [])
+
+    useEffect(() => {
+        if (firstTimeLoad.current) return;
+        localStorage.setItem('cart', JSON.stringify(state.cart))
+    }, [state.cart])
+
 
     return (
         <CartContext.Provider value={{
