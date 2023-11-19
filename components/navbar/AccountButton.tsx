@@ -49,7 +49,7 @@ const AccountButton: React.FC = () => {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem onClick={() => navigateTo('/auth')}>Login</MenuItem>
+                <MenuItem onClick={() => navigateTo('/auth/login')}>Login</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
                 <MenuItem onClick={handleClose}>Logout</MenuItem>
             </Menu>

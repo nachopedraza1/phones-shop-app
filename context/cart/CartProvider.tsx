@@ -26,14 +26,6 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
 
     const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
-    const addProductFavorite = (id: string) => {
-        const updatedFavorites = state.favoritesIds.includes(id)
-            ? state.favoritesIds.filter(productId => productId !== id)
-            : [...state.favoritesIds, id];
-
-        dispatch({ type: '[Cart] - toggleFavorite', payload: updatedFavorites });
-    }
-
     let firstTimeLoad = useRef(true);
 
     const loadCartAndFavorites = async () => {
@@ -41,25 +33,33 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
             const cart = localStorage.getItem('cart');
             const parsedCart = cart ? JSON.parse(cart) : [];
 
-            /* seguir con favoritos */
             const favorites = localStorage.getItem('favorites');
             const parsedFavorites = favorites ? JSON.parse(favorites) : [];
 
             await dispatch({ type: '[Cart] - LoadCart from localStorage', payload: parsedCart });
-            await dispatch({ type: '[Cart] - toggleFavorite', payload: parsedCart });
+            await dispatch({ type: '[Cart] - toggleFavorite', payload: parsedFavorites });
         } catch (error) {
             await dispatch({ type: '[Cart] - LoadCart from localStorage', payload: [] });
+            await dispatch({ type: '[Cart] - toggleFavorite', payload: [] });
         } finally {
             firstTimeLoad.current = false;
         }
     }
 
-    const saveCartToLocalStorage = () => {
+    const saveToLocalStorage = () => {
         if (!firstTimeLoad.current) {
             localStorage.setItem('cart', JSON.stringify(state.cart));
+            localStorage.setItem('favorites', JSON.stringify(state.favoritesIds));
         }
     };
 
+    const addProductFavorite = (id: string) => {
+        const updatedFavorites = state.favoritesIds.includes(id)
+            ? state.favoritesIds.filter(productId => productId !== id)
+            : [...state.favoritesIds, id];
+
+        dispatch({ type: '[Cart] - toggleFavorite', payload: updatedFavorites });
+    }
 
     const addCartProduct = (product: ICartProduct) => {
         const productExist = state.cart.some(prodInCart => prodInCart.meli_id === product.meli_id);
@@ -77,7 +77,6 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
             return prodInCart;
         });
 
-
         dispatch({ type: '[Cart] - updateCart', payload: products });
     }
 
@@ -93,10 +92,9 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
     useEffect(() => {
         const totalProducts = state.cart.reduce((prev, curr) => curr.quantity + prev, 0)
         const subTotal = state.cart.reduce((prev, curr) => (curr.price * curr.quantity) + prev, 0);
-        const ivaRate = Number(process.env.NEXT_PUBLIC_IVA_RATE || 21);
-        const total = subTotal * (ivaRate + 1);
-
-        dispatch({ type: '[Cart] - updateOrderSummary', payload: { total, subTotal, totalProducts } });
+        /* const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 5);
+        const total = subTotal + ((subTotal * taxRate) / 100); */
+        dispatch({ type: '[Cart] - updateOrderSummary', payload: { subTotal, totalProducts } });
     }, [state.cart])
 
     useEffect(() => {
@@ -104,9 +102,8 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
     }, [])
 
     useEffect(() => {
-        if (firstTimeLoad.current) return;
-        localStorage.setItem('cart', JSON.stringify(state.cart))
-    }, [state.cart])
+        saveToLocalStorage();
+    }, [state.cart, state.favoritesIds])
 
 
     return (
