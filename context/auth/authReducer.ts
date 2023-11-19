@@ -1,18 +1,25 @@
+import { IUser } from '@/interfaces/User';
 import { AuthState } from './';
 
 
-type CartActionType =
-    | { type: '[Cart] - toggleFavorite', payload: string[] }
+type AuthActionType =
+    | { type: '[Auth] - Login', payload: IUser }
+    | { type: '[Auth] - Logout' }
 
-
-
-export const authReducer = (state: AuthState, action: CartActionType): AuthState => {
+export const authReducer = (state: AuthState, action: AuthActionType): AuthState => {
 
     switch (action.type) {
-        case '[Cart] - toggleFavorite':
+        case '[Auth] - Login':
             return {
                 ...state,
-                favoritesIds: action.payload
+                IsLoggedIn: true,
+                user: action.payload,
+            }
+        case '[Auth] - Logout':
+            return {
+                ...state,
+                IsLoggedIn: false,
+                user: undefined,
             }
 
         default:
