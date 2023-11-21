@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/database/connection";
+
 import { hashSync } from 'bcryptjs';
+import { ResultSetHeader } from "mysql2";
+
+import { signToken } from "@/utils/jwt";
 import { isValidEmail } from "@/utils/validations";
 import { registerQuery, searchUserQuery } from "@/utils/querys";
-import { ResultSetHeader } from "mysql2";
 
 export async function POST(req: NextRequest) {
 
@@ -36,7 +39,19 @@ export async function POST(req: NextRequest) {
 
         const [user] = await db.query<ResultSetHeader>(registerQuery, [trimmedName, trimmedEmail, hashPassword]);
 
-        return NextResponse.json({ msg: 'Usuario Registrado con éxito' }, { status: 200 })
+        const token = await signToken(user.insertId, trimmedEmail);
+
+        return NextResponse.json(
+            {
+                token,
+                user: {
+                    email: trimmedEmail,
+                    name: trimmedName,
+                    role: 'client'
+                }
+            },
+            { status: 200 }
+        )
 
     } catch (error) {
 

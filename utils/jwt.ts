@@ -1,14 +1,14 @@
 import jwt from 'jsonwebtoken';
 
 
-export const signToken = (_id: string, email: string) => {
+export const signToken = (id: number, email: string) => {
 
     if (!process.env.JWT_SECRET) {
         throw new Error('No hay variable de entorno para token.')
     }
 
     return jwt.sign(
-        { _id, email },
+        { id, email },
         process.env.JWT_SECRET,
         { expiresIn: '1d' }
     )
@@ -25,9 +25,9 @@ export const isValidToken = (token: string): Promise<string> => {
             jwt.verify(token, process.env.JWT_SECRET || '', (err, payload) => {
                 if (err) return reject('JWT no es válido');
 
-                const { _id } = payload as { _id: string };
+                const { email } = payload as { email: string };
 
-                resolve(_id);
+                resolve(email);
 
             })
         } catch (error) {
