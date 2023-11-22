@@ -27,7 +27,6 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-
         const [[user]] = await db.query<ResultSetHeader & IUser[]>(searchUserQuery, [email]);
 
         if (!user) {
@@ -53,11 +52,8 @@ export async function POST(req: NextRequest) {
         )
 
     } catch (error) {
-
+        console.log(error);
+        return NextResponse.json({ msg: 'Error.' }, { status: 500 })
     }
-
-
-
-    return NextResponse.json({ name }, { status: 200 })
 }
 

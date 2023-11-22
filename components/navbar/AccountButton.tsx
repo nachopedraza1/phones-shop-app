@@ -1,6 +1,6 @@
 'use client';
 import { useState, MouseEvent } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Button, Menu, MenuItem } from '@mui/material';
 
@@ -9,6 +9,7 @@ const AccountButton: React.FC = () => {
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const router = useRouter();
+    const pathname = usePathname();
     const open = Boolean(anchorEl);
 
     const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -49,7 +50,7 @@ const AccountButton: React.FC = () => {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem onClick={() => navigateTo('/auth/login')}>Login</MenuItem>
+                <MenuItem onClick={() => navigateTo(`/auth/login?p=${pathname}`)}>Login</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
                 <MenuItem onClick={handleClose}>Logout</MenuItem>
             </Menu>

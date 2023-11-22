@@ -26,9 +26,8 @@ export const isValidToken = (token: string): Promise<string> => {
                 if (err) return reject('JWT no es válido');
 
                 const { email } = payload as { email: string };
-
+                
                 resolve(email);
-
             })
         } catch (error) {
             reject('JWT no es válido');
