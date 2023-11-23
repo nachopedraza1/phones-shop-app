@@ -10,7 +10,7 @@ export const signToken = (id: number, email: string) => {
     return jwt.sign(
         { id, email },
         process.env.JWT_SECRET,
-        { expiresIn: '1d' }
+        { expiresIn: '10m' }
     )
 }
 

@@ -1,7 +1,10 @@
-import { FC, useReducer } from 'react';
+import { FC, useEffect, useReducer, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { AuthContext, authReducer } from './';
-import { IUser } from '@/interfaces/User';
+
 import phonecting from '@/api/phonecting';
+import { IUser, UserResponse } from '@/interfaces/User';
 
 export interface AuthState {
     IsLoggedIn: boolean;
@@ -19,30 +22,58 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
 
     const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
 
-    const loginAccount = async (email: string, password: string): Promise<boolean> => {
+    const router = useRouter();
+    const searchParams = useSearchParams()
+
+    const [loading, setLoading] = useState(false);
+
+    const loginAccount = async (email: string, password: string) => {
         try {
-            const { data } = await phonecting.post<{ user: IUser, token: string }>('/api/auth/login', { email, password });
+            setLoading(true);
+            const { data } = await phonecting.post<UserResponse>('/api/auth/login', { email, password });
+            setLoading(false);
+
             localStorage.setItem('token', data.token);
             dispatch({ type: '[Auth] - Login', payload: data.user });
-            return true;
-
+            router.replace(searchParams.get('p') || '/');
         } catch (error) {
-            return false;
+            setLoading(false);
         }
-
     }
 
     const registerAccount = async (name: string, email: string, password: string) => {
         try {
-            const { data } = await phonecting.post('/api/auth/register', { name, email, password });
+            setLoading(true);
+            const { data } = await phonecting.post<UserResponse>('/api/auth/register', { name, email, password });
+            setLoading(false);
+            
+            localStorage.setItem('token', data.token);
+            dispatch({ type: '[Auth] - Login', payload: data.user });
+            router.replace(searchParams.get('p') || '/');
         } catch (error) {
-
+            setLoading(false);
         }
     }
+
+    const checkToken = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            const { data } = await phonecting.get<UserResponse>(`/api/auth/validate-token?token=${token}`);
+            dispatch({ type: '[Auth] - Login', payload: data.user });
+        } catch (error) {
+            localStorage.removeItem('token');
+            dispatch({ type: '[Auth] - Logout' });
+        }
+    }
+
+    useEffect(() => {
+        checkToken();
+    }, []);
 
     return (
         <AuthContext.Provider value={{
             ...state,
+            loading,
             loginAccount,
             registerAccount
         }}>

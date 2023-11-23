@@ -1,9 +1,11 @@
+import { NextRequest, NextResponse } from "next/server";
+import { ResultSetHeader } from "mysql2";
 import db from "@/database/connection";
-import { IUser } from "@/interfaces/User";
+
 import { isValidToken, signToken } from "@/utils/jwt";
 import { searchUserQuery } from "@/utils/querys";
-import { ResultSetHeader } from "mysql2";
-import { NextRequest, NextResponse } from "next/server";
+
+import { IUser } from "@/interfaces/User";
 
 export async function GET(req: NextRequest) {
 

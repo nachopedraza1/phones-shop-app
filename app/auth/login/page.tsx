@@ -1,7 +1,6 @@
 'use client';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { NextPage } from 'next';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '@/context/auth';
 import { isEmail } from '@/utils/validations';
@@ -14,24 +13,12 @@ interface FormData {
 
 const LoginPage: NextPage = () => {
 
-    const router = useRouter();
-    const searchParams = useSearchParams()
-
-    const { loginAccount } = useContext(AuthContext);
-
-    const [loading, setLoading] = useState(false);
+    const { loginAccount, loading } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
     const startLogin = async ({ email, password }: FormData) => {
-        setLoading(true);
-        const validLogin = await loginAccount(email, password);
-        if (!validLogin) {
-            setLoading(false);
-            return;
-        }
-        setLoading(false);
-        router.replace(searchParams.get('p') || '/');
+        await loginAccount(email, password);
     }
 
     return (

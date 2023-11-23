@@ -8,6 +8,7 @@ import { signToken } from "@/utils/jwt";
 import { isValidEmail } from "@/utils/validations";
 import { registerQuery, searchUserQuery } from "@/utils/querys";
 
+
 export async function POST(req: NextRequest) {
 
     const { name = '', email = '', password = '' } = await req.json();

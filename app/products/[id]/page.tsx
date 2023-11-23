@@ -24,7 +24,7 @@ export const generateStaticParams = async () => {
     const products: Products[] = await fetch('http://localhost:3000/api/products').then(resp => resp.json());
     return products.map(prod => ({
         id: prod.meli_id
-    }))
+    }));
 }
 
 const getProduct = async (id: string): Promise<Products> => {
