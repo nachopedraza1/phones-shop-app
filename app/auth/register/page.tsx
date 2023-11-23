@@ -1,8 +1,11 @@
 'use client';
+import { useContext } from 'react';
 import { NextPage } from 'next';
+import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { isEmail } from '@/utils/validations';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
+import { AuthContext } from '@/context/auth';
 
 interface FormData {
     name: string,
@@ -12,10 +15,15 @@ interface FormData {
 
 const RegisterPage: NextPage = () => {
 
+    const searchParams = useSearchParams();
+    const param = searchParams.get('p');
+
+    const { registerAccount, loading } = useContext(AuthContext);
+
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
-    const startRegister = () => {
-
+    const startRegister = async ({ name, email, password }: FormData) => {
+        await registerAccount(name, email, password);
     }
 
     return (
@@ -72,12 +80,12 @@ const RegisterPage: NextPage = () => {
                     error={!!errors.password}
                     helperText={errors.password?.message}
                 />
-                <Button variant='contained' fullWidth type='submit'>
+                <Button variant='contained' fullWidth type='submit' disabled={loading}>
                     REGISTRARME
                 </Button>
                 <Typography textAlign='end'>
                     Ya tienes cuenta?
-                    <Link href='/auth/login'
+                    <Link href={param ? `/auth/login?p=${param}` : '/auth/login'}
                         ml={0.5}
                         color='primary.main'
                     >

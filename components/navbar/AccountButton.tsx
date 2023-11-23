@@ -50,7 +50,7 @@ const AccountButton: React.FC = () => {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem onClick={() => navigateTo(`/auth/login?p=${pathname}`)}>Login</MenuItem>
+                <MenuItem onClick={() => navigateTo(pathname !== '/' ? `/auth/login?p=${pathname}` : '/auth/login')}>Login</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
                 <MenuItem onClick={handleClose}>Logout</MenuItem>
             </Menu>

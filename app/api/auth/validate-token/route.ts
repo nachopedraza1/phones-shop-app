@@ -9,14 +9,14 @@ import { IUser } from "@/interfaces/User";
 
 export async function GET(req: NextRequest) {
 
-    const token = req.nextUrl.searchParams.get('token');
+    const token = req.cookies.get('token');
 
     if (!token) {
         return NextResponse.json({ msg: 'Token de autorización no válido' }, { status: 400 });
     }
 
     try {
-        const email = await isValidToken(token);
+        const email = await isValidToken(token.value);
 
         if (!email) return NextResponse.json({ msg: 'Token no válido.' }, { status: 400 });
 
@@ -31,8 +31,11 @@ export async function GET(req: NextRequest) {
         return NextResponse.json(
             {
                 token: renewToken,
-                name: user.name,
-                email: user.email
+                user: {
+                    email: user.email,
+                    name: user.name,
+                    role: 'client'
+                }
             },
             { status: 200 }
         )

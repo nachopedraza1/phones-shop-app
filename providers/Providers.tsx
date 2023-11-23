@@ -4,6 +4,7 @@ import { CartProvider } from '@/context/cart';
 import { appTheme } from '@/theme/theme';
 import { ThemeProvider, CssBaseline } from '@mui/material'
 import { AuthProvider } from '@/context/auth';
+import { SnackbarProvider } from 'notistack';
 
 interface Props {
     children: React.ReactNode;
@@ -20,7 +21,13 @@ export const Providers = (Props: Props) => {
                 <CssBaseline />
                 <AuthProvider>
                     <CartProvider>
-                        {Props.children}
+                        <SnackbarProvider
+                            anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                            preventDuplicate={true}
+                            autoHideDuration={2500}
+                        >
+                            {Props.children}
+                        </SnackbarProvider>
                     </CartProvider>
                 </AuthProvider>
             </ThemeProvider>

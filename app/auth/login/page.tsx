@@ -2,6 +2,7 @@
 import { useContext } from 'react';
 import { NextPage } from 'next';
 import { useForm } from 'react-hook-form';
+import { useSearchParams } from 'next/navigation';
 import { AuthContext } from '@/context/auth';
 import { isEmail } from '@/utils/validations';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
@@ -12,6 +13,9 @@ interface FormData {
 }
 
 const LoginPage: NextPage = () => {
+
+    const searchParams = useSearchParams();
+    const param = searchParams.get('p');
 
     const { loginAccount, loading } = useContext(AuthContext);
 
@@ -65,7 +69,7 @@ const LoginPage: NextPage = () => {
                 </Button>
                 <Typography textAlign='end'>
                     No tienes cuenta?
-                    <Link href='/auth/register'
+                    <Link href={param ? `/auth/register?p=${param}` : '/auth/register'}
                         ml={0.5}
                         color='primary.main'
                     >
