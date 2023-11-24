@@ -58,50 +58,44 @@ const AccountButton: React.FC = () => {
                 open={open}
                 onClose={handleClose}
             >
-                {
-                    !isLoggedIn ?
-                        (
-                            <>
-                                <MenuItem onClick={() => navigateTo(pathname !== '/' ? `/auth/login?p=${pathname}` : '/auth/login')}>
-                                    <ListItemIcon>
-                                        <LoginOutlined />
-                                    </ListItemIcon>
-                                    Ingresar
-                                </MenuItem>
-                                <MenuItem onClick={() => navigateTo(pathname !== '/' ? `/auth/login?p=${pathname}` : '/auth/login')}>
-                                    <ListItemIcon>
-                                        <HowToReg />
-                                    </ListItemIcon>
-                                    Registrate
-                                </MenuItem>
-                            </>
-                        )
-                        :
-                        (
-                            <>
-
-                                <MenuItem onClick={handleClose} disabled>
-                                    <ListItemIcon>
-                                        <AccountCircle />
-                                    </ListItemIcon>
-                                    Mi cuenta
-                                </MenuItem>
-                                <MenuItem onClick={handleClose}>
-                                    <ListItemIcon>
-                                        <ShoppingCart />
-                                    </ListItemIcon>
-                                    Carrito
-                                </MenuItem>
-                                <Divider />
-                                <MenuItem onClick={onLogout}>
-                                    <ListItemIcon>
-                                        <LogoutOutlined />
-                                    </ListItemIcon>
-                                    Cerrar sesión
-                                </MenuItem>
-                            </>
-                        )
-                }
+                {!isLoggedIn ? (
+                    [
+                        <MenuItem key="login" onClick={() => navigateTo(pathname !== '/' ? `/auth/login?p=${pathname}` : '/auth/login')}>
+                            <ListItemIcon>
+                                <LoginOutlined />
+                            </ListItemIcon>
+                            Ingresar
+                        </MenuItem>,
+                        <MenuItem key="register" onClick={() => navigateTo(pathname !== '/' ? `/auth/login?p=${pathname}` : '/auth/login')}>
+                            <ListItemIcon>
+                                <HowToReg />
+                            </ListItemIcon>
+                            Registrate
+                        </MenuItem>
+                    ]
+                ) : (
+                    [
+                        <MenuItem key="account" onClick={handleClose} disabled>
+                            <ListItemIcon>
+                                <AccountCircle />
+                            </ListItemIcon>
+                            Mi cuenta
+                        </MenuItem>,
+                        <MenuItem key="cart" onClick={handleClose}>
+                            <ListItemIcon>
+                                <ShoppingCart />
+                            </ListItemIcon>
+                            Carrito
+                        </MenuItem>,
+                        <Divider key="divider" />,
+                        <MenuItem key="logout" onClick={onLogout}>
+                            <ListItemIcon>
+                                <LogoutOutlined />
+                            </ListItemIcon>
+                            Cerrar sesión
+                        </MenuItem>
+                    ]
+                )}
             </Menu>
         </div >
     );
