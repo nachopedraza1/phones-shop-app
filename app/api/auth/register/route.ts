@@ -4,7 +4,6 @@ import db from "@/database/connection";
 import { hashSync } from 'bcryptjs';
 import { ResultSetHeader } from "mysql2";
 
-import { signToken } from "@/utils/jwt";
 import { isValidEmail } from "@/utils/validations";
 import { registerQuery, searchUserQuery } from "@/utils/querys";
 
@@ -13,9 +12,9 @@ export async function POST(req: NextRequest) {
 
     const { name = '', email = '', password = '' } = await req.json();
 
-    const trimmedName = name.trim();
-    const trimmedEmail = email.trim();
-    const trimmedPassword = password.trim();
+    const trimmedName = name.toLowerCase().trim();
+    const trimmedEmail = email.toLowerCase().trim();
+    const trimmedPassword = password.toLowerCase().trim();
 
     if (!trimmedName || trimmedName.length < 3 || trimmedName.length > 25) {
         return NextResponse.json({ msg: 'El nombre ingresado no es válido.' }, { status: 400 })
@@ -38,13 +37,10 @@ export async function POST(req: NextRequest) {
 
         const hashPassword = hashSync(trimmedPassword);
 
-        const [user] = await db.query<ResultSetHeader>(registerQuery, [trimmedName, trimmedEmail, hashPassword]);
-
-        const token = await signToken(user.insertId, trimmedEmail);
+        await db.query<ResultSetHeader>(registerQuery, [trimmedName, trimmedEmail, hashPassword]);
 
         return NextResponse.json(
             {
-                token,
                 user: {
                     email: trimmedEmail,
                     name: trimmedName,
@@ -55,7 +51,7 @@ export async function POST(req: NextRequest) {
         )
 
     } catch (error) {
-
+        return NextResponse.json({ msg: 'Algo falló, contactese con un administrador.' }, { status: 400 });
     }
 
     return NextResponse.json({ msg: name }, { status: 200 });

@@ -1,5 +1,5 @@
+import { AuthState } from '@/context/auth';
 import { IUser } from '@/interfaces/User';
-import { AuthState } from './';
 
 
 type AuthActionType =
@@ -12,13 +12,13 @@ export const authReducer = (state: AuthState, action: AuthActionType): AuthState
         case '[Auth] - Login':
             return {
                 ...state,
-                IsLoggedIn: true,
+                isLoggedIn: true,
                 user: action.payload,
             }
         case '[Auth] - Logout':
             return {
                 ...state,
-                IsLoggedIn: false,
+                isLoggedIn: false,
                 user: undefined,
             }
 

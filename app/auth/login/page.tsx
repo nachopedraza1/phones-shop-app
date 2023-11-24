@@ -1,8 +1,9 @@
 'use client';
 import { useContext } from 'react';
 import { NextPage } from 'next';
-import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+
 import { AuthContext } from '@/context/auth';
 import { isEmail } from '@/utils/validations';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';

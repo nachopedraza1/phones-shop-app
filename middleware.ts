@@ -1,19 +1,18 @@
+import { getToken } from 'next-auth/jwt';
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { UserResponse } from './interfaces/User';
+import { NextRequest } from 'next/server';
 
+export async function middleware(req: NextRequest) {
 
-export async function middleware(request: NextRequest) {
+    const redirectParameter = req.nextUrl.searchParams.get('p') || '/';
 
-    const redirectParameter = request.nextUrl.searchParams.get('p') || '/';
+    const session: any = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-    try {
-        await fetch('http://localhost:3000/api/auth/validate-token').then(resp => resp.json());
-        return NextResponse.redirect(new URL(redirectParameter, request.url));
-    } catch (error) {
-        return NextResponse.next();
+    if (session) {
+        return NextResponse.redirect(new URL(redirectParameter, req.url));
     }
 
+    return NextResponse.next();
 }
 
 export const config = {
