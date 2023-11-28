@@ -1,3 +1,13 @@
+::-webkit-scrollbar {
+    background: #ffffff;
+    width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3483fa;
+    border-radius: 10px;
+}
+
 .navbar {
     display: flex;
     flex-direction: column;

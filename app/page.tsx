@@ -49,7 +49,9 @@ const HomePage: NextPage = () => {
 
       <Categories />
 
-      <LatestProducts />
+      <LatestProducts title="ÚLTIMOS INGRESOS EN IPHONES" category='iphones' />
+
+      <LatestProducts title="ÚLTIMOS INGRESOS EN IPADS" category='ipads' />
 
       <MacbooksCards />
 

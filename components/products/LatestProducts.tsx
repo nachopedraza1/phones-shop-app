@@ -43,36 +43,20 @@ const getLatestsProducts = async (category: string): Promise<Products[]> => {
     return latestProducts;
 }
 
-const LatestProducts: React.FC = async () => {
+const LatestProducts: React.FC<{ title?: string, category: string }> = async ({ title, category }) => {
 
-    const latestsIphones = await getLatestsProducts('iphones');
-    const latestsIpads = await getLatestsProducts('ipads');
+    const latestProducts = await getLatestsProducts(category);
 
     return (
         <Grid container mt={3}>
             <Grid item xs={12} display='flex' alignItems='center' justifyContent='space-between' mb={2}>
-                <Typography variant="h6" fontWeight={600}>ÚLTIMOS INGRESOS EN IPHONES </Typography>
+                <Typography variant="h6" fontWeight={600}> {title} </Typography>
                 <Box width='70%' height={2} bgcolor='#e6e9e8'></Box>
             </Grid>
 
             <Grid container justifyContent='space-between'>
                 {
-                    latestsIphones.map(product => (
-                        <Grid item xs={12} sm={5.9} md={2.9} key={product.name}>
-                            <CardProduct product={product} />
-                        </Grid>
-                    ))
-                }
-            </Grid>
-
-            <Grid item xs={12} display='flex' alignItems='center' justifyContent='space-between' mb={2} mt={4}>
-                <Typography variant="h6" fontWeight={600}>ÚLTIMOS INGRESOS EN IPADS </Typography>
-                <Box width='70%' height={2} bgcolor='#e6e9e8'></Box>
-            </Grid>
-
-            <Grid container justifyContent='space-between'>
-                {
-                    latestsIpads.map(product => (
+                    latestProducts.map(product => (
                         <Grid item xs={12} sm={5.9} md={2.9} key={product.name}>
                             <CardProduct product={product} />
                         </Grid>

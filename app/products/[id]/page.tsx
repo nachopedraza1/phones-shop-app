@@ -1,9 +1,10 @@
 import { NextPage } from "next";
 import axios from "axios";
 
-import db from "@/database/connection";
 import { RowDataPacket } from "mysql2";
+import db from "@/database/connection";
 import { formatPrice } from "@/utils/formatPrice";
+import { getProductQuery } from "@/utils/querys";
 
 import Main from "@/components/layouts/Main";
 import WarrantyList from "@/components/products/WarrantyList";
@@ -20,6 +21,7 @@ import { Attribute } from "@/interfaces/MeliProduct";
 import { MySqlProduct, Products } from "@/interfaces/Response";
 import { MeliProduct, Picture } from "@/interfaces/MeliProduct";
 
+
 export const generateStaticParams = async () => {
     const products: Products[] = await fetch('http://localhost:3000/api/products').then(resp => resp.json());
     return products.map(prod => ({
@@ -28,14 +30,8 @@ export const generateStaticParams = async () => {
 }
 
 const getProduct = async (id: string): Promise<Products> => {
-    const query = `
-    SELECT * FROM Products 
-    LEFT JOIN Installments ON Products.id = Installments.productId
-    LEFT JOIN Rating ON Products.id = Rating.productId
-    WHERE Products.meli_id = ?;
-    `
 
-    const [[product]] = await db.query<MySqlProduct[] & RowDataPacket[][]>(query, [id])
+    const [[product]] = await db.query<MySqlProduct[] & RowDataPacket[][]>(getProductQuery, [id])
 
     return JSON.parse(JSON.stringify({
         id: product.id,
