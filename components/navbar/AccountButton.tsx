@@ -4,7 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { Button, Divider, ListItemIcon, Menu, MenuItem } from '@mui/material';
 import { AuthContext } from '@/context/auth';
-import { AccountCircle, HowToReg, LoginOutlined, LogoutOutlined, ShoppingCart, SupportAgent } from '@mui/icons-material';
+import { AccountCircle, HowToReg, LoginOutlined, LogoutOutlined, Receipt, ShoppingCart, SupportAgent } from '@mui/icons-material';
 
 
 const AccountButton: React.FC = () => {
@@ -86,6 +86,12 @@ const AccountButton: React.FC = () => {
                                 <ShoppingCart />
                             </ListItemIcon>
                             Carrito
+                        </MenuItem>,
+                        <MenuItem key="account" onClick={handleClose}>
+                            <ListItemIcon>
+                                <Receipt />
+                            </ListItemIcon>
+                            Mis ordenes
                         </MenuItem>,
                         <Divider key="divider" />,
                         <MenuItem key="logout" onClick={onLogout}>

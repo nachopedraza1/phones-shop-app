@@ -1,4 +1,5 @@
 import { FC, useEffect, useReducer, useRef } from 'react';
+import Cookie from 'js-cookie'
 import { CartContext, cartReducer } from './';
 import { ICartProduct } from '@/interfaces/Cart';
 
@@ -30,16 +31,16 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
 
     const loadCartAndFavorites = async () => {
         try {
-            const cart = localStorage.getItem('cart');
+            const cart = Cookie.get('cart')
             const parsedCart = cart ? JSON.parse(cart) : [];
 
-            const favorites = localStorage.getItem('favorites');
+            const favorites = Cookie.get('favorites');
             const parsedFavorites = favorites ? JSON.parse(favorites) : [];
 
-            await dispatch({ type: '[Cart] - LoadCart from localStorage', payload: parsedCart });
+            await dispatch({ type: '[Cart] - LoadCart from Cookies', payload: parsedCart });
             await dispatch({ type: '[Cart] - toggleFavorite', payload: parsedFavorites });
         } catch (error) {
-            await dispatch({ type: '[Cart] - LoadCart from localStorage', payload: [] });
+            await dispatch({ type: '[Cart] - LoadCart from Cookies', payload: [] });
             await dispatch({ type: '[Cart] - toggleFavorite', payload: [] });
         } finally {
             firstTimeLoad.current = false;
@@ -48,8 +49,8 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
 
     const saveToLocalStorage = () => {
         if (!firstTimeLoad.current) {
-            localStorage.setItem('cart', JSON.stringify(state.cart));
-            localStorage.setItem('favorites', JSON.stringify(state.favoritesIds));
+            Cookie.set('cart', JSON.stringify(state.cart));
+            Cookie.set('favorites', JSON.stringify(state.favoritesIds));
         }
     };
 
@@ -89,6 +90,11 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
         dispatch({ type: '[Cart] - updateCart', payload: updatedCart })
     }
 
+    const removeProduct = (id: string) => {
+        const products = state.cart.filter(prod => prod.meli_id !== id);
+        dispatch({ type: '[Cart] - updateCart', payload: products });
+    }
+
     useEffect(() => {
         const totalProducts = state.cart.reduce((prev, curr) => curr.quantity + prev, 0)
         const subTotal = state.cart.reduce((prev, curr) => (curr.price * curr.quantity) + prev, 0);
@@ -110,6 +116,7 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
         <CartContext.Provider value={{
             ...state,
 
+            removeProduct,
             addCartProduct,
             updateQuantityCart,
             addProductFavorite,

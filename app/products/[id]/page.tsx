@@ -81,10 +81,10 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
     const productProps = await getAtributesProduct(id);
 
     return (
-        <Main bgcolor="white">
+        <Main>
             <CustomBreadcrumbs productName={product.name} />
 
-            <Grid container mt={2} justifyContent='space-between' >
+            <Grid container mt={2} justifyContent='space-between' className="bgCard" padding={2} >
 
                 <Grid item xs={5}>
                     <ImagesProduct images={productProps.pictures} />
@@ -105,15 +105,15 @@ const ProductPage: NextPage<{ params: { id: string } }> = async ({ params }) => 
                         <Typography color='#00a650'>Mismo precio en {product.installments.quantity} de ${formatPrice(product.installments.amount)} </Typography>
                     }
                     <Typography color='#00a650' fontWeight={600}> Envío gratuito </Typography>
-                    
+
                     <BuyProductButton product={product} totalStock={productProps.stock} />
-                    
+
                     <Typography color='text.secondary' mt={1}>{productProps.stock} {productProps.stock > 1 ? 'unidades disponibles' : 'unidad disponible'}  </Typography>
-                    
+
                     <WarrantyList warranty={productProps.warranty} />
                 </Grid>
 
-                <Grid item xs={3.5} border='1px solid #bfbfbf' borderRadius='10px' padding={2}>
+                <Grid item xs={3.5} border='1px solid rgba(0,0,0,.1)' borderRadius='10px' padding={2}>
                     <RelatedProducts category={product.category} title="Productos relacionados" />
                 </Grid>
 

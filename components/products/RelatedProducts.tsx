@@ -2,7 +2,7 @@
 import useSWR from "swr";
 import Image from "next/image";
 import { formatPrice } from "@/utils/formatPrice";
-import { Card, Grid, Skeleton, Typography } from "@mui/material";
+import { Grid, Skeleton, Typography } from "@mui/material";
 import { Products } from "@/interfaces/Response";
 
 
@@ -30,7 +30,7 @@ const RelatedProducts: React.FC<Props> = ({ category, title, direction = 'column
                 data ?
                     data?.map(product => (
                         <Grid item xs={xs} md={md} lg={lg} key={product.id} className="fadeIn">
-                            <Card sx={{ display: 'flex', padding: 1, justifyContent: 'space-between', minHeight: 132 }}>
+                            <Grid container padding={1} gap={1}>
                                 <Grid item xs={3} position='relative'>
                                     <Image
                                         src={product.thumbnail}
@@ -53,13 +53,13 @@ const RelatedProducts: React.FC<Props> = ({ category, title, direction = 'column
                                     <Typography fontSize={14}> {product.installments.quantity}x de ${formatPrice(product.installments.amount)} </Typography>
                                     <Typography fontSize={14} color='#00a650' fontWeight={600}> Envío gratuito </Typography>
                                 </Grid>
-                            </Card>
+                            </Grid>
                         </Grid>
                     ))
                     :
                     [...Array(limit)].map((item, index) => (
                         <Grid item xs={xs} md={md} lg={lg} key={index}>
-                            <Card sx={{ display: 'flex', padding: 1, justifyContent: 'space-between', minHeight: 132 }}>
+                            <Grid container padding={1} gap={1}>
                                 <Grid item xs={3} position='relative'>
                                     <Skeleton height='100%' />
                                 </Grid>
@@ -69,7 +69,7 @@ const RelatedProducts: React.FC<Props> = ({ category, title, direction = 'column
                                     <Skeleton width='60%' />
                                     <Skeleton width='60%' />
                                 </Grid>
-                            </Card>
+                            </Grid>
                         </Grid>
                     ))
             }

@@ -3,7 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useContext, useState } from "react";
 import { CartContext } from "@/context/cart";
-import { IMegamenu, megamenu } from "@/utils/constants";
+
+import { megamenu } from '@/utils/constants';
+import { IMegamenu } from "@/interfaces/MegaMenu";
 
 import AccountButton from "@/components/navbar/AccountButton";
 import { Container, Grid, TextField, Typography, Button, Divider, IconButton, Link as MuiLink, AppBar, Badge } from '@mui/material';
@@ -23,9 +25,9 @@ const Navbar: React.FC = () => {
     }
 
     return (
-        <Grid position='relative' pb={20}>
+        <Grid position='relative' pb={16}>
             <AppBar>
-                <Grid bgcolor='#21003d'>
+                {/*  <Grid bgcolor='#21003d'>
                     <Container maxWidth='xl'>
                         <Grid container justifyContent='space-between' alignItems='center' padding={0.7}>
                             <Typography fontSize={15} color='white'>
@@ -34,7 +36,7 @@ const Navbar: React.FC = () => {
                             <Image src='/trustpilot-logo.svg' alt="trustpilot" width={180} height={21} />
                         </Grid>
                     </Container>
-                </Grid>
+                </Grid> */}
 
                 <Container maxWidth='xl'>
                     <Grid container justifyContent='space-between' alignItems='center' paddingTop={2} paddingBottom={2}>

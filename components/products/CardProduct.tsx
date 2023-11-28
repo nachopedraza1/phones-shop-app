@@ -2,12 +2,11 @@
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
 
-import RatingProduct from "./RatingProduct";
-
 import { formatPrice } from '@/utils/formatPrice';
 import { CartContext } from "@/context/cart";
 
 import { Favorite } from "@mui/icons-material";
+import RatingProduct from "@/components/products/RatingProduct";
 import { Card, CardContent, CardHeader, CardMedia, IconButton, Tooltip, Typography, Grid, Button } from '@mui/material';
 
 import { Products } from "@/interfaces/Response";

@@ -10,6 +10,7 @@ interface ContextProps {
     totalProducts: number;
     favoritesIds: string[];
 
+    removeProduct: (id: string) => void;
     addProductFavorite: (id: string) => void;
     addCartProduct: (product: ICartProduct) => void;
     updateQuantityCart: (product: ICartProduct) => void;

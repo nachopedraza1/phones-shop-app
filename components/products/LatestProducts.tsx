@@ -1,9 +1,9 @@
 
 import db from '@/database/connection';
 import { RowDataPacket } from 'mysql2';
-import CardProduct from '@/components/products/CardProduct';
 import { Box, Grid, Typography } from '@mui/material';
 import { MySqlProduct, Products } from '@/interfaces/Response';
+import CardProduct from '@/components/products/CardProduct';
 
 const getLatestsProducts = async (category: string): Promise<Products[]> => {
 

@@ -5,7 +5,7 @@ import { CreditCard } from '@mui/icons-material';
 
 const PaymentMethods: React.FC<{ installments: ProductInstallments }> = ({ installments }) => {
     return (
-        <Box border='1px solid #bfbfbf' borderRadius='10px' padding={2}>
+        <Box border='1px solid rgba(0,0,0,.1)' borderRadius='10px' padding={2}>
             <Typography variant="h6"> Medios de pago </Typography>
 
             {
