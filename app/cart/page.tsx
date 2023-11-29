@@ -3,10 +3,10 @@ import { useContext } from "react";
 
 import { CartContext } from "@/context/cart";
 
-import { Grid } from "@mui/material";
 import Cart from "@/components/cart/Cart";
 import Main from "@/components/layouts/Main";
 import EmptyCart from "@/components/cart/EmptyCart";
+import CookiesProducts from "@/components/products/CookiesProducts";
 
 const CartPage: React.FC = () => {
 
@@ -19,9 +19,7 @@ const CartPage: React.FC = () => {
                     ? <EmptyCart />
                     : <Cart />
             }
-            <Grid container>
-
-            </Grid>
+            <CookiesProducts />
         </Main>
     )
 }
