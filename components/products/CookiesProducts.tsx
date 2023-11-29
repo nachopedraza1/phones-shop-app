@@ -2,10 +2,13 @@ import { Grid, Skeleton } from "@mui/material";
 import { Products } from "@/interfaces/Response";
 import useSWR from "swr";
 import CardProduct from "./CardProduct";
+import CardProductLoading from "./CardProductLoading";
 
 const CookiesProducts: React.FC = () => {
 
-    const { data } = useSWR<Products[]>('http://localhost:3000/api/products?random=true&limit=4');
+    const { data } = useSWR<Products[]>('http://localhost:3000/api/products?random=true&limit=4', {
+        revalidateOnFocus: false,
+    });
 
     return (
         <Grid container mt={3}>
@@ -19,18 +22,8 @@ const CookiesProducts: React.FC = () => {
                         ))
                         :
                         [...Array(4)].map((item, index) => (
-                            <Grid item xs={4} key={index}>
-                                <Grid container direction='column' padding={1} gap={1}>
-                                    <Grid item xs={3} position='relative'>
-                                        <Skeleton height='100%' />
-                                    </Grid>
-                                    <Grid item xs={8.5}>
-                                        <Skeleton />
-                                        <Skeleton width='90%' />
-                                        <Skeleton width='60%' />
-                                        <Skeleton width='60%' />
-                                    </Grid>
-                                </Grid>
+                            <Grid item xs={12} sm={5.9} md={2.9} key={index}>
+                                <CardProductLoading />
                             </Grid>
                         ))
                 }
@@ -39,4 +32,4 @@ const CookiesProducts: React.FC = () => {
     )
 }
 
-export default CookiesProducts
+export default CookiesProducts;
