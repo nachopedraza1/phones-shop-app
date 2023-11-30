@@ -1,8 +1,6 @@
 import React from 'react'
-import { formatPrice } from '@/utils/formatPrice'
 import { Favorite } from '@mui/icons-material'
-import { Card, CardHeader, Tooltip, Typography, IconButton, CardMedia, CardContent, Grid, Button, Skeleton } from '@mui/material'
-import RatingProduct from './RatingProduct'
+import { Card, CardHeader, Typography, IconButton, CardContent, Button, Skeleton } from '@mui/material'
 
 const CardProductLoading = () => {
     return (
@@ -39,4 +37,4 @@ const CardProductLoading = () => {
     )
 }
 
-export default CardProductLoading
+export default CardProductLoading;
