@@ -1,8 +1,8 @@
-import { Grid, Skeleton } from "@mui/material";
-import { Products } from "@/interfaces/Response";
 import useSWR from "swr";
-import CardProduct from "./CardProduct";
-import CardProductLoading from "./CardProductLoading";
+import { Products } from "@/interfaces/Response";
+import { Grid } from "@mui/material";
+import CardProduct from "@/components/products/CardProduct";
+import CardProductLoading from "@/components/products/CardProductLoading";
 
 const CookiesProducts: React.FC = () => {
 

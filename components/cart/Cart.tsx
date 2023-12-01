@@ -3,9 +3,10 @@ import { useContext } from "react";
 import { CartContext } from "@/context/cart";
 import { formatPrice } from "@/utils/formatPrice";
 
+import StepperCart from "@/components/ui/StepperCart";
+import ProductInCart from "@/components/cart/ProductInCart";
 import { LocalActivity } from "@mui/icons-material";
 import { Grid, Typography, Box, Button } from "@mui/material";
-import ProductInCart from "@/components/cart/ProductInCart";
 
 const Cart: React.FC = () => {
 
@@ -15,7 +16,7 @@ const Cart: React.FC = () => {
         <Grid container justifyContent='space-between' alignItems='stretch' minHeight='70vh'>
             <Grid item xs={8.2} display='flex' flexDirection='column' className="bgCard" maxHeight='70vh'>
                 <Grid p={2} borderBottom='1px solid rgba(0,0,0,.1)'>
-                    <Typography fontWeight={600}>Carrito</Typography>
+                    <StepperCart />
                 </Grid>
                 <Grid maxHeight='70vh' sx={{ overflowY: 'scroll' }}>
                     {

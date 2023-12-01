@@ -12,7 +12,6 @@ const ProductInCart: React.FC<{ product: ICartProduct }> = ({ product }) => {
 
     const { removeProduct, updateQuantityCart } = useContext(CartContext);
 
-
     const onUpdateQuantityFromCart = (product: ICartProduct, newQuantity: number) => {
         product.quantity = newQuantity;
         updateQuantityCart(product);
