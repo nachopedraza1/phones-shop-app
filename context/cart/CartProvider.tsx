@@ -87,7 +87,7 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
             prod.quantity = product.quantity;
             return prod;
         });
-        dispatch({ type: '[Cart] - updateCart', payload: updatedCart })
+        dispatch({ type: '[Cart] - updateCart', payload: updatedCart });
     }
 
     const removeProduct = (id: string) => {
@@ -96,7 +96,7 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
     }
 
     useEffect(() => {
-        const totalProducts = state.cart.reduce((prev, curr) => curr.quantity + prev, 0)
+        const totalProducts = state.cart.reduce((prev, curr) => curr.quantity + prev, 0);
         const subTotal = state.cart.reduce((prev, curr) => (curr.price * curr.quantity) + prev, 0);
         /* const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 5);
         const total = subTotal + ((subTotal * taxRate) / 100); */

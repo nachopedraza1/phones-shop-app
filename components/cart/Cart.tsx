@@ -1,5 +1,6 @@
 import { useContext } from "react";
 
+import { UiContext } from "@/context/ui";
 import { CartContext } from "@/context/cart";
 import { formatPrice } from "@/utils/formatPrice";
 
@@ -11,6 +12,7 @@ import { Grid, Typography, Box, Button } from "@mui/material";
 const Cart: React.FC = () => {
 
     const { cart, subTotal, totalProducts } = useContext(CartContext);
+    const { step, nextStep } = useContext(UiContext);
 
     return (
         <Grid container justifyContent='space-between' alignItems='stretch' minHeight='70vh'>
@@ -52,7 +54,7 @@ const Cart: React.FC = () => {
                         <Typography fontWeight={600} variant="h6"> Total </Typography>
                         <Typography variant="h6"> ${formatPrice(subTotal)} </Typography>
                     </Box>
-                    <Button fullWidth variant="contained">
+                    <Button fullWidth variant="contained" onClick={() => nextStep(step)}>
                         Continuar compra
                     </Button>
                 </Grid>

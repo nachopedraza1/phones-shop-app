@@ -7,6 +7,7 @@ import { appTheme } from '@/theme/theme';
 import { AuthProvider } from '@/context/auth';
 import { CartProvider } from '@/context/cart';
 import { ThemeProvider, CssBaseline } from '@mui/material'
+import { UiProvider } from '@/context/ui';
 
 interface Props {
     children: React.ReactNode;
@@ -24,13 +25,15 @@ export const Providers = (Props: Props) => {
                     <CssBaseline />
                     <AuthProvider>
                         <CartProvider>
-                            <SnackbarProvider
-                                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                preventDuplicate={true}
-                                autoHideDuration={2500}
-                            >
-                                {Props.children}
-                            </SnackbarProvider>
+                            <UiProvider>
+                                <SnackbarProvider
+                                    anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                    preventDuplicate={true}
+                                    autoHideDuration={2500}
+                                >
+                                    {Props.children}
+                                </SnackbarProvider>
+                            </UiProvider>
                         </CartProvider>
                     </AuthProvider>
                 </ThemeProvider>

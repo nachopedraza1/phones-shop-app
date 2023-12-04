@@ -27,7 +27,6 @@ export const UiProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
 
     return (
         <UiContext.Provider value={{
-            
             ...state,
             nextStep,
             backStep,
