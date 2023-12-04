@@ -4,8 +4,8 @@ import { UiContext } from "@/context/ui";
 import { CartContext } from "@/context/cart";
 import { formatPrice } from "@/utils/formatPrice";
 
+import StepsCart from "@/components/cart/StepsCart";
 import StepperCart from "@/components/ui/StepperCart";
-import ProductInCart from "@/components/cart/ProductInCart";
 import { LocalActivity } from "@mui/icons-material";
 import { Grid, Typography, Box, Button } from "@mui/material";
 
@@ -21,11 +21,7 @@ const Cart: React.FC = () => {
                     <StepperCart />
                 </Grid>
                 <Grid maxHeight='70vh' sx={{ overflowY: 'scroll' }}>
-                    {
-                        cart.map(product => (
-                            <ProductInCart product={product} />
-                        ))
-                    }
+                    <StepsCart step={step} />
                 </Grid>
             </Grid>
             <Grid item xs={3.5} display='flex' flexDirection='column' className="bgCard">

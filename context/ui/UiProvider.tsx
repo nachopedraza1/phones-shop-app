@@ -15,6 +15,7 @@ export const UiProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
 
     const [state, dispatch] = useReducer(uiReducer, UI_INITIAL_STATE);
 
+
     const nextStep = (step: number) => {
         if (step > 3) return;
         dispatch({ type: '[Ui] - ChangeStep', payload: step + 1 });
