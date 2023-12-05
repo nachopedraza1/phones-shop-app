@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { CartContext } from "@/context/cart";
 import { Box, Typography } from "@mui/material";
 import ProductInCart from "@/components/cart/ProductInCart";
+import FormShipping from "./FormShipping";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -42,7 +43,7 @@ const StepsCart: React.FC<{ step: number }> = ({ step }) => {
                 }
             </CustomTabPanel>
             <CustomTabPanel value={step} index={1}>
-
+                <FormShipping />
             </CustomTabPanel>
             <CustomTabPanel value={step} index={2}>
                 Item Three
