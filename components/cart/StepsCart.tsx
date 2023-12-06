@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { CartContext } from "@/context/cart";
 import { Box, Typography } from "@mui/material";
+import FormShipping from "@/components/cart/FormShipping";
 import ProductInCart from "@/components/cart/ProductInCart";
-import FormShipping from "./FormShipping";
 
 interface TabPanelProps {
     children?: React.ReactNode;

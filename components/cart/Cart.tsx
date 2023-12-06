@@ -11,7 +11,7 @@ import { Grid, Typography, Box, Button } from "@mui/material";
 
 const Cart: React.FC = () => {
 
-    const { cart, subTotal, totalProducts } = useContext(CartContext);
+    const { subTotal, totalProducts } = useContext(CartContext);
     const { step, nextStep } = useContext(UiContext);
 
     return (
