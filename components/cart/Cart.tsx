@@ -7,11 +7,11 @@ import { formatPrice } from "@/utils/formatPrice";
 import StepsCart from "@/components/cart/StepsCart";
 import StepperCart from "@/components/ui/StepperCart";
 import { LocalActivity } from "@mui/icons-material";
-import { Grid, Typography, Box, Button } from "@mui/material";
+import { Grid, Typography, Box, Button, Divider } from "@mui/material";
 
 const Cart: React.FC = () => {
 
-    const { cart, subTotal, totalProducts } = useContext(CartContext);
+    const { subTotal, totalProducts } = useContext(CartContext);
     const { step, nextStep } = useContext(UiContext);
 
     return (
@@ -46,12 +46,29 @@ const Cart: React.FC = () => {
                             Ingresar código de cupón
                         </Button>
                     </Box>
+                    <Divider />
+                    <Box display='flex' justifyContent='space-between'>
+                        <Typography> Nombre </Typography>
+                        <Typography> Juan Ignacio Pedraza </Typography>
+                    </Box>
+                    <Box display='flex' justifyContent='space-between'>
+                        <Typography> Dirección </Typography>
+                        <Typography> Cordoba, Argentina </Typography>
+                    </Box>
+                    <Box display='flex' justifyContent='space-between'>
+                        <Typography> Teléfono </Typography>
+                        <Typography> +543513295515 </Typography>
+                    </Box>
+                    <Divider />
                     <Box display='flex' justifyContent='space-between'>
                         <Typography fontWeight={600} variant="h6"> Total </Typography>
                         <Typography variant="h6"> ${formatPrice(subTotal)} </Typography>
                     </Box>
-                    <Button fullWidth variant="contained" onClick={() => nextStep(step)}>
+                    <Button sx={{ display: step === 0 ? '' : 'none' }} fullWidth variant="contained" onClick={() => nextStep(step)}>
                         Continuar compra
+                    </Button>
+                    <Button sx={{ display: step === 1 ? '' : 'none' }} fullWidth variant="contained" onClick={() => nextStep(step)} type="submit">
+                        Pagar
                     </Button>
                 </Grid>
             </Grid>
