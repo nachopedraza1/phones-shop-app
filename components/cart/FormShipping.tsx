@@ -13,6 +13,7 @@ const FormShipping: React.FC = () => {
                     type="text"
                     label="País"
                     select
+                    
                 >
                     <MenuItem value={'Argentina'}>
                         Argentina
