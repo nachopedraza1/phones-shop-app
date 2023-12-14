@@ -64,11 +64,8 @@ const Cart: React.FC = () => {
                         <Typography fontWeight={600} variant="h6"> Total </Typography>
                         <Typography variant="h6"> ${formatPrice(subTotal)} </Typography>
                     </Box>
-                    <Button sx={{ display: step === 0 ? '' : 'none' }} fullWidth variant="contained" onClick={() => nextStep(step)}>
+                    <Button disabled={step === 1} fullWidth variant="contained" onClick={() => nextStep(step)}>
                         Continuar compra
-                    </Button>
-                    <Button sx={{ display: step === 1 ? '' : 'none' }} fullWidth variant="contained" onClick={() => nextStep(step)} type="submit">
-                        Pagar
                     </Button>
                 </Grid>
             </Grid>

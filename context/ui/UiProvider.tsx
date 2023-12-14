@@ -1,5 +1,6 @@
 import { FC, useReducer } from 'react';
 import { UiContext, uiReducer } from './';
+import { Data } from '@/interfaces/Cart';
 
 export interface UiState {
     step: number;
@@ -25,11 +26,17 @@ export const UiProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
         dispatch({ type: '[Ui] - ChangeStep', payload: step - 1 });
     }
 
+    const setShippingAddress = (data: Data) => {
+        console.log(data);
+
+    }
+
     return (
         <UiContext.Provider value={{
             ...state,
             nextStep,
             backStep,
+            setShippingAddress,
         }}>
             {children}
         </UiContext.Provider>

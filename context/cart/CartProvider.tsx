@@ -1,7 +1,7 @@
 import { FC, useEffect, useReducer, useRef } from 'react';
 import Cookie from 'js-cookie'
 import { CartContext, cartReducer } from './';
-import { ICartProduct } from '@/interfaces/Cart';
+import { Data, ICartProduct } from '@/interfaces/Cart';
 
 export interface CartState {
     cart: ICartProduct[];
