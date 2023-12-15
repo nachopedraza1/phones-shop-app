@@ -11,7 +11,7 @@ import { Grid, Typography, Box, Button, Divider } from "@mui/material";
 
 const Cart: React.FC = () => {
 
-    const { subTotal, totalProducts } = useContext(CartContext);
+    const { subTotal, totalProducts, shippingAddress } = useContext(CartContext);
     const { step, nextStep } = useContext(UiContext);
 
     return (
@@ -49,15 +49,15 @@ const Cart: React.FC = () => {
                     <Divider />
                     <Box display='flex' justifyContent='space-between'>
                         <Typography> Nombre </Typography>
-                        <Typography> Juan Ignacio Pedraza </Typography>
+                        <Typography> {shippingAddress?.name || '...'} </Typography>
                     </Box>
                     <Box display='flex' justifyContent='space-between'>
                         <Typography> Dirección </Typography>
-                        <Typography> Cordoba, Argentina </Typography>
+                        <Typography> {shippingAddress?.country}, {shippingAddress?.city} </Typography>
                     </Box>
                     <Box display='flex' justifyContent='space-between'>
                         <Typography> Teléfono </Typography>
-                        <Typography> +543513295515 </Typography>
+                        <Typography> {shippingAddress?.phone || '...'} </Typography>
                     </Box>
                     <Divider />
                     <Box display='flex' justifyContent='space-between'>

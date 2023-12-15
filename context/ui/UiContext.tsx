@@ -1,4 +1,4 @@
-import { Data } from '@/interfaces/Cart';
+
 import { createContext } from 'react';
 
 
@@ -7,7 +7,6 @@ interface ContextProps {
 
     nextStep: (step: number) => void;
     backStep: (step: number) => void;
-    setShippingAddress: (data: Data) => void;
 }
 
 

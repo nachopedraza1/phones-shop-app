@@ -1,7 +1,8 @@
 import { FC, useEffect, useReducer, useRef } from 'react';
-import Cookie from 'js-cookie'
-import { CartContext, cartReducer } from './';
-import { Data, ICartProduct } from '@/interfaces/Cart';
+import { CartContext, cartReducer } from '@/context/cart';
+import { ShippingAddress, ICartProduct } from '@/interfaces/Cart';
+import Cookie from 'js-cookie';
+import { getAddress } from '@/utils/getAddress';
 
 export interface CartState {
     cart: ICartProduct[];
@@ -10,6 +11,7 @@ export interface CartState {
     subTotal: number;
     totalProducts: number;
     favoritesIds: string[];
+    shippingAddress: ShippingAddress | undefined;
 }
 
 
@@ -20,6 +22,7 @@ const CART_INITIAL_STATE: CartState = {
     subTotal: 0,
     totalProducts: 0,
     favoritesIds: [],
+    shippingAddress: undefined,
 }
 
 
@@ -95,31 +98,47 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
         dispatch({ type: '[Cart] - updateCart', payload: products });
     }
 
+    const updateAddress = (data: ShippingAddress) => {
+        Cookie.set('zip', data.zip);
+        Cookie.set('name', data.name);
+        Cookie.set('city', data.city);
+        Cookie.set('phone', data.phone);
+        Cookie.set('country', data.country);
+        Cookie.set('address', data.address);
+        dispatch({ type: '[Cart] - Update Address', payload: data })
+    }
+
     useEffect(() => {
         const totalProducts = state.cart.reduce((prev, curr) => curr.quantity + prev, 0);
         const subTotal = state.cart.reduce((prev, curr) => (curr.price * curr.quantity) + prev, 0);
         /* const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 5);
         const total = subTotal + ((subTotal * taxRate) / 100); */
         dispatch({ type: '[Cart] - updateOrderSummary', payload: { subTotal, totalProducts } });
-    }, [state.cart])
+    }, [state.cart]);
+
+    useEffect(() => {
+        const shippingAddress = getAddress();
+        dispatch({ type: '[Cart] - Load Address', payload: shippingAddress })
+    }, [])
+
 
     useEffect(() => {
         loadCartAndFavorites();
-    }, [])
+    }, []);
 
     useEffect(() => {
         saveToLocalStorage();
-    }, [state.cart, state.favoritesIds])
+    }, [state.cart, state.favoritesIds]);
 
 
     return (
         <CartContext.Provider value={{
             ...state,
-
             removeProduct,
             addCartProduct,
             updateQuantityCart,
             addProductFavorite,
+            updateAddress,
         }}>
             {children}
         </CartContext.Provider>

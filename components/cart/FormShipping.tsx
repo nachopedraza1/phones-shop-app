@@ -2,17 +2,17 @@ import { useContext } from 'react';
 import { provincias } from '@/utils';
 import { Grid, TextField, MenuItem, Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { Data } from '@/interfaces/Cart';
-import { UiContext } from '@/context/ui';
+import { ShippingAddress } from '@/interfaces/Cart';
+import { CartContext } from '@/context/cart';
 
 const FormShipping: React.FC = () => {
 
-    const { setShippingAddress } = useContext(UiContext);
+    const { updateAddress } = useContext(CartContext);
 
-    const { register, handleSubmit, formState } = useForm<Data>();
+    const { register, handleSubmit, formState } = useForm<ShippingAddress>();
 
-    const setData = (data: Data) => {
-        setShippingAddress(data)
+    const setData = (data: ShippingAddress) => {
+        updateAddress(data);
     }
 
     return (

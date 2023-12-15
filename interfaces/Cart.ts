@@ -1,7 +1,7 @@
 import { ProductInstallments } from "./Response";
 
 
-export interface Data {
+export interface ShippingAddress {
     name: string,
     country: string,
     city: string,
@@ -14,8 +14,8 @@ export interface ICartProduct {
     meli_id: string,
     name: string,
     price: number,
-    thumbnail: string;
-    installments: ProductInstallments;
-    totalStock: number;
-    quantity: number;
+    thumbnail: string,
+    installments: ProductInstallments,
+    totalStock: number,
+    quantity: number,
 }
