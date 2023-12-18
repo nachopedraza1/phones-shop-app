@@ -8,7 +8,6 @@ type CartActionType =
     | { type: '[Cart] - updateCart', payload: ICartProduct[] }
     | { type: '[Cart] - updateOrderSummary', payload: { subTotal: number, totalProducts: number } }
     | { type: '[Cart] - Update Address', payload: ShippingAddress }
-    | { type: '[Cart] - Load Address', payload: ShippingAddress }
 
 export const cartReducer = (state: CartState, action: CartActionType): CartState => {
 
@@ -37,14 +36,7 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
                 subTotal: action.payload.subTotal,
                 totalProducts: action.payload.totalProducts,
             }
-
-        case '[Cart] - Load Address':
-            return {
-                ...state,
-                shippingAddress: action.payload
-            }
         case '[Cart] - Update Address':
-        case '[Cart] - Load Address':
             return {
                 ...state,
                 shippingAddress: action.payload

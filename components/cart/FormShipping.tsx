@@ -4,15 +4,18 @@ import { Grid, TextField, MenuItem, Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { ShippingAddress } from '@/interfaces/Cart';
 import { CartContext } from '@/context/cart';
+import { UiContext } from '@/context/ui';
 
 const FormShipping: React.FC = () => {
 
     const { updateAddress } = useContext(CartContext);
+    const { nextStep, step } = useContext(UiContext);
 
-    const { register, handleSubmit, formState } = useForm<ShippingAddress>();
+    const { register, handleSubmit } = useForm<ShippingAddress>();
 
     const setData = (data: ShippingAddress) => {
         updateAddress(data);
+        nextStep(step);
     }
 
     return (
@@ -25,7 +28,9 @@ const FormShipping: React.FC = () => {
                     type="text"
                     label="País"
                     select
-                    {...register('country')}
+                    {...register('country', {
+                        required: 'Este campo es requerido'
+                    })}
                 >
                     <MenuItem value={'Argentina'}>
                         Argentina
@@ -40,7 +45,9 @@ const FormShipping: React.FC = () => {
                     type="text"
                     label="Ciudad"
                     select
-                    {...register('city')}
+                    {...register('city', {
+                        required: 'Este campo es requerido'
+                    })}
                 >
                     {
                         provincias.map((prov) => (
@@ -58,7 +65,9 @@ const FormShipping: React.FC = () => {
                     fullWidth
                     type="text"
                     label="Dirección"
-                    {...register('address')}
+                    {...register('address', {
+                        required: 'Este campo es requerido'
+                    })}
                 />
             </Grid>
             <Grid item xs={2}>
@@ -68,7 +77,9 @@ const FormShipping: React.FC = () => {
                     fullWidth
                     type="text"
                     label="Código postal"
-                    {...register('zip')}
+                    {...register('zip', {
+                        required: 'Este campo es requerido'
+                    })}
                 />
             </Grid>
             <Grid item xs={4}>
@@ -78,7 +89,9 @@ const FormShipping: React.FC = () => {
                     fullWidth
                     type="text"
                     label="Teléfono"
-                    {...register('phone')}
+                    {...register('phone', {
+                        required: 'Este campo es requerido'
+                    })}
                 />
             </Grid>
             <Grid item xs={12}>

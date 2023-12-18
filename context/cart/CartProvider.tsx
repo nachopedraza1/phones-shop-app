@@ -99,12 +99,6 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
     }
 
     const updateAddress = (data: ShippingAddress) => {
-        Cookie.set('zip', data.zip);
-        Cookie.set('name', data.name);
-        Cookie.set('city', data.city);
-        Cookie.set('phone', data.phone);
-        Cookie.set('country', data.country);
-        Cookie.set('address', data.address);
         dispatch({ type: '[Cart] - Update Address', payload: data })
     }
 
@@ -115,11 +109,6 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
         const total = subTotal + ((subTotal * taxRate) / 100); */
         dispatch({ type: '[Cart] - updateOrderSummary', payload: { subTotal, totalProducts } });
     }, [state.cart]);
-
-    useEffect(() => {
-        const shippingAddress = getAddress();
-        dispatch({ type: '[Cart] - Load Address', payload: shippingAddress })
-    }, [])
 
 
     useEffect(() => {
