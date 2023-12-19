@@ -1,6 +1,6 @@
 import { FC, useEffect, useReducer, useRef } from 'react';
 import { CartContext, cartReducer } from '@/context/cart';
-import { ShippingAddress, ICartProduct } from '@/interfaces/Cart';
+import { ShippingAddress, ICartProduct, CartOrder } from '@/interfaces/Cart';
 import Cookie from 'js-cookie';
 import { getAddress } from '@/utils/getAddress';
 
