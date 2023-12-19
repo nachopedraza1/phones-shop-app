@@ -46,7 +46,11 @@ const StepsCart: React.FC<{ step: number }> = ({ step }) => {
                 <FormShipping />
             </CustomTabPanel>
             <CustomTabPanel value={step} index={2}>
-                Item Three
+                {
+                    cart.map(product => (
+                        <ProductInCart product={product} modify={false} />
+                    ))
+                }
             </CustomTabPanel>
         </>
     );

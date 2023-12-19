@@ -48,12 +48,12 @@ const Cart: React.FC = () => {
                     </Box>
                     <Divider />
                     <Box display='flex' justifyContent='space-between'>
-                        <Typography> Nombre </Typography>
-                        <Typography> {shippingAddress?.name || '...'} </Typography>
+                        <Typography> Pais </Typography>
+                        <Typography> {shippingAddress?.country || '...'} </Typography>
                     </Box>
                     <Box display='flex' justifyContent='space-between'>
-                        <Typography> Dirección </Typography>
-                        <Typography> {shippingAddress?.country}, {shippingAddress?.city} </Typography>
+                        <Typography> Ciudad </Typography>
+                        <Typography> {shippingAddress?.city ? `${shippingAddress?.city}, ${shippingAddress?.zip}` : '...'} </Typography>
                     </Box>
                     <Box display='flex' justifyContent='space-between'>
                         <Typography> Teléfono </Typography>
@@ -64,8 +64,21 @@ const Cart: React.FC = () => {
                         <Typography fontWeight={600} variant="h6"> Total </Typography>
                         <Typography variant="h6"> ${formatPrice(subTotal)} </Typography>
                     </Box>
-                    <Button disabled={step === 1} fullWidth variant="contained" onClick={() => nextStep(step)}>
+                    <Button sx={{ display: step === 2 ? 'none' : '' }}
+                        disabled={step === 1}
+                        fullWidth
+                        variant="contained"
+                        onClick={() => nextStep(step)}
+                    >
                         Continuar compra
+                    </Button>
+                    <Button sx={{ display: step != 2 ? 'none' : '' }}
+                        disabled={step === 1}
+                        fullWidth
+                        variant="contained"
+                        onClick={() => nextStep(step)}
+                    >
+                        Completar Orden
                     </Button>
                 </Grid>
             </Grid>

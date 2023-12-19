@@ -5,7 +5,7 @@ import { Stepper, Step, StepLabel, Grid } from "@mui/material";
 const steps = [
     'Carrito',
     'Envío',
-    'Pago',
+    'Resumen',
 ];
 
 const StepperCart: React.FC = () => {

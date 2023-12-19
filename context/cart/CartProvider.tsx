@@ -102,6 +102,10 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
         dispatch({ type: '[Cart] - Update Address', payload: data })
     }
 
+    const generateOrder = (order: CartOrder) => {
+
+    }
+
     useEffect(() => {
         const totalProducts = state.cart.reduce((prev, curr) => curr.quantity + prev, 0);
         const subTotal = state.cart.reduce((prev, curr) => (curr.price * curr.quantity) + prev, 0);
