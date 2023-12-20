@@ -11,7 +11,7 @@ import { Grid, Typography, Box, Button, Divider } from "@mui/material";
 
 const Cart: React.FC = () => {
 
-    const { subTotal, totalProducts, shippingAddress } = useContext(CartContext);
+    const { subTotal, totalProducts, shippingAddress, generateOrder } = useContext(CartContext);
     const { step, nextStep } = useContext(UiContext);
 
     return (
@@ -76,7 +76,7 @@ const Cart: React.FC = () => {
                         disabled={step === 1}
                         fullWidth
                         variant="contained"
-                        onClick={() => nextStep(step)}
+                        onClick={() => generateOrder()}
                     >
                         Completar Orden
                     </Button>

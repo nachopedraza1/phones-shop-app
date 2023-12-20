@@ -2,7 +2,6 @@ import { FC, useEffect, useReducer, useRef } from 'react';
 import { CartContext, cartReducer } from '@/context/cart';
 import { ShippingAddress, ICartProduct, CartOrder } from '@/interfaces/Cart';
 import Cookie from 'js-cookie';
-import { getAddress } from '@/utils/getAddress';
 
 export interface CartState {
     cart: ICartProduct[];
@@ -102,8 +101,8 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
         dispatch({ type: '[Cart] - Update Address', payload: data })
     }
 
-    const generateOrder = (order: CartOrder) => {
-
+    const generateOrder = () => {
+        console.log('asda');
     }
 
     useEffect(() => {
@@ -131,6 +130,7 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
             addCartProduct,
             updateQuantityCart,
             addProductFavorite,
+            generateOrder,
             updateAddress,
         }}>
             {children}

@@ -22,5 +22,5 @@ export interface ICartProduct {
 
 export interface CartOrder {
     products: ICartProduct[];
-    
+    shippingAddress: ShippingAddress;
 }

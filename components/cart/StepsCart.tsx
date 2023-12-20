@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { CartContext } from "@/context/cart";
-import { Box, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import FormShipping from "@/components/cart/FormShipping";
 import ProductInCart from "@/components/cart/ProductInCart";
 
@@ -21,7 +21,7 @@ const CustomTabPanel = (props: TabPanelProps) => {
         >
             {value === index && (
                 <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
+                    {children}
                 </Box>
             )}
         </div>
@@ -38,7 +38,10 @@ const StepsCart: React.FC<{ step: number }> = ({ step }) => {
             <CustomTabPanel value={step} index={0}>
                 {
                     cart.map(product => (
-                        <ProductInCart product={product} />
+                        <ProductInCart
+                            key={product.meli_id}
+                            product={product}
+                        />
                     ))
                 }
             </CustomTabPanel>
@@ -48,7 +51,11 @@ const StepsCart: React.FC<{ step: number }> = ({ step }) => {
             <CustomTabPanel value={step} index={2}>
                 {
                     cart.map(product => (
-                        <ProductInCart product={product} modify={false} />
+                        <ProductInCart
+                            key={product.meli_id}
+                            product={product}
+                            modify={false}
+                        />
                     ))
                 }
             </CustomTabPanel>
