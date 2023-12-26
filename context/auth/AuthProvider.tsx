@@ -46,6 +46,7 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
     }, [status]);
 
     const loginAccount = async (email: string, password: string) => {
+        setLoading(true);
         try {
             const resp = await signIn('credentials', {
                 email,
@@ -57,7 +58,9 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
             } else {
                 router.replace(searchParams.get('p') || '/');
             }
+            setLoading(false);
         } catch (error) {
+            setLoading(false);
             console.log(error);
             errorAlert('Error del servidor, comunicarse con un administrador.');
         }
