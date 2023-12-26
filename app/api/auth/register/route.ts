@@ -54,6 +54,4 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ msg: 'Algo falló, contactese con un administrador.' }, { status: 400 });
     }
 
-    return NextResponse.json({ msg: name }, { status: 200 });
-
 }

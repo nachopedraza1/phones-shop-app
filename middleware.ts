@@ -8,9 +8,18 @@ export async function middleware(req: NextRequest) {
 
     const session: any = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-    if (session) {
-        return NextResponse.redirect(new URL(redirectParameter, req.url));
+    if (req.nextUrl.pathname.includes('/auth')) {
+        if (session) {
+            return NextResponse.redirect(new URL(redirectParameter, req.url));
+        }
     }
+
+    if (req.nextUrl.pathname.includes('/cart')) {
+        if (!session) {
+            return NextResponse.redirect(new URL(redirectParameter, req.url));
+        }
+    }
+
 
     return NextResponse.next();
 }

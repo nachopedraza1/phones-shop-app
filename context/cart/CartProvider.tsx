@@ -1,7 +1,8 @@
 import { FC, useEffect, useReducer, useRef } from 'react';
 import { CartContext, cartReducer } from '@/context/cart';
-import { ShippingAddress, ICartProduct, CartOrder } from '@/interfaces/Cart';
+import { ShippingAddress, ICartProduct } from '@/interfaces/Cart';
 import Cookie from 'js-cookie';
+import phonecting from '@/api/phonecting';
 
 export interface CartState {
     cart: ICartProduct[];
@@ -101,8 +102,15 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
         dispatch({ type: '[Cart] - Update Address', payload: data })
     }
 
-    const generateOrder = () => {
-        console.log('asda');
+    const generateOrder = async () => {
+
+        const body = {
+            data: 'asdasd'
+        }
+
+        const { data } = await phonecting.post('/orders', body)
+        console.log(data);
+
     }
 
     useEffect(() => {
