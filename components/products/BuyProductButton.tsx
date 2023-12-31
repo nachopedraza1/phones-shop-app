@@ -3,11 +3,13 @@ import { useContext } from "react";
 import { CartContext } from "@/context/cart";
 import { Button, Grid, } from "@mui/material";
 import { Products } from "@/interfaces/Response";
+import { useSession } from "next-auth/react";
 
 
 const BuyProductButton: React.FC<{ totalStock: number, product: Products }> = ({ totalStock, product }) => {
 
     const { addCartProduct } = useContext(CartContext);
+    const { status } = useSession();
 
     const handleAddProduct = () => {
         addCartProduct({
@@ -23,6 +25,9 @@ const BuyProductButton: React.FC<{ totalStock: number, product: Products }> = ({
                 <Grid item xs={5.5}>
                     <Button
                         fullWidth
+                        onClick={handleAddProduct}
+                        href="/cart"
+                        disabled={status === 'unauthenticated'}
                         variant="contained"
                     >
                         COMPRAR
@@ -33,6 +38,7 @@ const BuyProductButton: React.FC<{ totalStock: number, product: Products }> = ({
                         onClick={handleAddProduct}
                         fullWidth
                         variant="outlined"
+                        disabled={status === 'unauthenticated'}
                         sx={{ whiteSpace: 'nowrap' }}
                     >
                         AGREGAR AL CARRITO

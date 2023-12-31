@@ -105,12 +105,11 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
     const generateOrder = async () => {
 
         const body = {
-            data: 'asdasd'
+            products: state.cart,
+            buyer: state.shippingAddress,
         }
 
-        const { data } = await phonecting.post('/orders', body)
-        console.log(data);
-
+        const { data } = await phonecting.post('/orders', body);
     }
 
     useEffect(() => {

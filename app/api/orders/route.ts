@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
+import { CartOrder } from "@/interfaces/Cart";
+
 
 export async function POST(req: NextRequest) {
 
-    const body = await req.json();
+    const body: CartOrder = await req.json();
+
+    
+
     return NextResponse.json({ data: 'ok' }, { status: 200 })
 }
