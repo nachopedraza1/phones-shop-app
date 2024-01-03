@@ -1,8 +1,11 @@
-import { FC, useEffect, useReducer, useRef } from 'react';
+import { FC, useContext, useEffect, useReducer, useRef } from 'react';
 import { CartContext, cartReducer } from '@/context/cart';
-import { ShippingAddress, ICartProduct } from '@/interfaces/Cart';
-import Cookie from 'js-cookie';
+import { AuthContext } from '@/context/auth';
+
+import { ShippingAddress, ICartProduct, CartOrder } from '@/interfaces/Cart';
+
 import phonecting from '@/api/phonecting';
+import Cookie from 'js-cookie';
 
 export interface CartState {
     cart: ICartProduct[];
@@ -28,6 +31,7 @@ const CART_INITIAL_STATE: CartState = {
 
 export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
 
+    const { user } = useContext(AuthContext);
     const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
     let firstTimeLoad = useRef(true);
@@ -104,12 +108,16 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
 
     const generateOrder = async () => {
 
-        const body = {
+        const order: CartOrder = {
+            userId: user!.id,
+            total: state.total,
+            city: state.shippingAddress!.city,
+            country: state.shippingAddress!.country,
+            zip: state.shippingAddress!.zip,
             products: state.cart,
-            buyer: state.shippingAddress,
         }
 
-        const { data } = await phonecting.post('/orders', body);
+        const { data } = await phonecting.post('/orders', order);
     }
 
     useEffect(() => {
