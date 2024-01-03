@@ -110,7 +110,7 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
 
         const order: CartOrder = {
             userId: user!.id,
-            total: state.total,
+            subTotal: state.subTotal,
             city: state.shippingAddress!.city,
             country: state.shippingAddress!.country,
             zip: state.shippingAddress!.zip,

@@ -18,24 +18,24 @@ export async function POST(req: NextRequest) {
 
     const { data } = await axios.get<MeliProducts>(`https://api.mercadolibre.com/sites/MLA/search?q=${productTitle}&limit=${limit}`);
 
-    console.log(data);
+    const products = data.results.map(product => {
 
+        const { ratings } = generarRatingsAlAzar();
 
-    const { ratings } = generarRatingsAlAzar();
-
-    const products = data.results.map(product => ({
-        meli_id: product.id,
-        name: product.title,
-        price: product.price,
-        condition: product.condition,
-        thumbnail: product.thumbnail,
-        thumbnail_id: product.thumbnail_id,
-        totalSold: Math.floor(Math.random() * 501),
-        brand: product.attributes.find(att => att.id === 'BRAND')?.value_name || '',
-        category,
-        ratings,
-        installments: product.installments,
-    }));
+        return {
+            meli_id: product.id,
+            name: product.title,
+            price: product.price,
+            condition: product.condition,
+            thumbnail: product.thumbnail,
+            thumbnail_id: product.thumbnail_id,
+            totalSold: Math.floor(Math.random() * 501),
+            brand: product.attributes.find(att => att.id === 'BRAND')?.value_name || '',
+            category,
+            ratings,
+            installments: product.installments,
+        }
+    });
 
     try {
 
@@ -56,8 +56,6 @@ export async function POST(req: NextRequest) {
                     product.category
                 ]);
 
-            console.log(result);
-
             const productId = (result as ResultSetHeader).insertId;
 
 
@@ -75,9 +73,9 @@ export async function POST(req: NextRequest) {
                 INSERT INTO Rating(negative, neutral, positive, productId)
                 VALUES(?, ?, ?, ?)`,
                 [
-                    ratings.negative,
-                    ratings.neutral,
-                    ratings.positive,
+                    product.ratings.negative,
+                    product.ratings.neutral,
+                    product.ratings.positive,
                     productId
                 ]);
 
@@ -87,5 +85,33 @@ export async function POST(req: NextRequest) {
         console.log(error);
         return NextResponse.json({ message: 'ERROR' })
     }
+}
+
+
+export async function GET(req: NextRequest) {
+
+    const query = `
+    SELECT
+    Orders.id AS orderID,
+    JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'productID', Products.id,
+            'name', Products.name,
+            'quantity', OrderProducts.quantity
+        )
+    ) AS products
+    FROM Users
+    JOIN Orders ON Users.id = Orders.userId
+    JOIN OrderProducts ON Orders.id = OrderProducts.orderId
+    JOIN Products ON OrderProducts.productId = Products.id
+    WHERE Users.id = 7
+    GROUP BY Orders.id;`;
+
+    const [result] = await db.query(query);
+
+    console.log(result);
+
+    return NextResponse.json({ result })
+
 }
 

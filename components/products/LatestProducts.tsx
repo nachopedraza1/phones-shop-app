@@ -12,6 +12,7 @@ const getLatestsProducts = async (category: string): Promise<Products[]> => {
     LEFT JOIN Installments ON Products.id = Installments.productId
     LEFT JOIN Rating ON Products.id = Rating.productId
     WHERE category = ?
+    ORDER BY Products.id DESC
     LIMIT 4;
     `
 

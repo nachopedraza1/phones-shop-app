@@ -22,7 +22,7 @@ export interface ICartProduct {
 
 export interface CartOrder {
     userId: number;
-    total: number;
+    subTotal: number;
     city: string;
     country: string;
     zip: number;

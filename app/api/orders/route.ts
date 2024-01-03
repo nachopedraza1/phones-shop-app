@@ -10,25 +10,21 @@ export async function POST(req: NextRequest) {
     const order: CartOrder = await req.json();
 
     try {
-        /* const [result] = await db.query<ResultSetHeader>(newOrder, [
+        const [result] = await db.query<ResultSetHeader>(newOrder, [
             order.userId,
-            order.total,
+            order.subTotal,
             order.city,
             order.country,
             order.zip,
             false,
         ]);
 
-        console.log(result); */
-
         for (const product of order.products) {
-            /* const data = await db.query(newOrderProduct, [
+            await db.query(newOrderProduct, [
                 product.quantity,
                 result.insertId,
                 product.id,
-            ]); */
-            console.log(product);
-
+            ]);
         }
 
         return NextResponse.json({ data: 'ok' }, { status: 200 });
