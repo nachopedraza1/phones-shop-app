@@ -7,7 +7,7 @@ import { isAxiosError } from 'axios';
 import Cookie from 'js-cookie';
 
 import { AuthContext, authReducer } from '@/context/auth';
-import { errorAlert, successAlert } from '@/utils/alerts';
+import { errorAlert, welcomeAlert } from '@/utils/alerts';
 import { IUser, UserResponse } from '@/interfaces/User';
 import phonecting from '@/api/phonecting';
 
@@ -38,7 +38,7 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
             const alertWelcome = Cookie.get('welcomeAlert');
             if (!alertWelcome) {
                 setTimeout(() => {
-                    successAlert(data.user?.name!);
+                    welcomeAlert(data.user?.name!);
                 }, 1500);
                 Cookie.set('welcomeAlert', 'true');
             }
@@ -76,7 +76,7 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
             router.replace(searchParams.get('p') || '/');
 
             dispatch({ type: '[Auth] - Login', payload: data.user });
-            successAlert(data.user.name);
+            welcomeAlert(data.user.name);
         } catch (error) {
             setLoading(false);
             if (isAxiosError(error)) {

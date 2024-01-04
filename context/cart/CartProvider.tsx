@@ -1,9 +1,13 @@
 import { FC, useContext, useEffect, useReducer, useRef } from 'react';
-import { CartContext, cartReducer } from '@/context/cart';
+import { useRouter } from 'next/navigation';
+
+
 import { AuthContext } from '@/context/auth';
+import { CartContext, cartReducer } from '@/context/cart';
 
 import { ShippingAddress, ICartProduct, CartOrder } from '@/interfaces/Cart';
 
+import { errorAlert, successAlert } from '@/utils/alerts';
 import phonecting from '@/api/phonecting';
 import Cookie from 'js-cookie';
 
@@ -31,6 +35,7 @@ const CART_INITIAL_STATE: CartState = {
 
 export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
 
+    const router = useRouter();
     const { user } = useContext(AuthContext);
     const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
@@ -117,7 +122,13 @@ export const CartProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
             products: state.cart,
         }
 
-        const { data } = await phonecting.post('/orders', order);
+        try {
+            const { data } = await phonecting.post('/orders', order);
+            successAlert('Orden creada con éxito.');
+            router.push('/orders');
+        } catch (error) {
+            errorAlert('Algo salio mal');
+        }
     }
 
     useEffect(() => {

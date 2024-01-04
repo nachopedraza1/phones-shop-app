@@ -1,3 +1,16 @@
+CREATE TABLE Products (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    meli_id VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    price FLOAT NOT NULL,
+    prod_condition VARCHAR(255) NOT NULL,
+    thumbnail VARCHAR(255) NOT NULL,
+    thumbnail_id VARCHAR(255) NOT NULL,
+    totalSold INT NOT NULL,
+    brand VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE Installments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     quantity INT NOT NULL,

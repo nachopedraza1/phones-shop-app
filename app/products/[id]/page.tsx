@@ -33,7 +33,7 @@ const getProduct = async (id: string): Promise<Products> => {
 
     const [[product]] = await db.query<MySqlProduct[] & RowDataPacket[][]>(getProductQuery, [id])
 
-    return JSON.parse(JSON.stringify({
+    return {
         id: product.id,
         meli_id: product.meli_id,
         name: product.name,
@@ -54,7 +54,7 @@ const getProduct = async (id: string): Promise<Products> => {
             amount: product.amount,
             rate: product.rate,
         }
-    }))
+    }
 }
 
 const getAtributesProduct = async (id: string): Promise<{ attributes: Attribute[], pictures: Picture[], stock: number, warranty: string }> => {
