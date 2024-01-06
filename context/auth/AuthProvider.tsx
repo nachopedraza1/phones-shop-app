@@ -61,7 +61,6 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            console.log(error);
             errorAlert('Error del servidor, comunicarse con un administrador.');
         }
     }
@@ -72,11 +71,8 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
             const { data } = await phonecting.post<UserResponse>('/auth/register', { name, email, password });
             setLoading(false);
 
-            Cookie.set('token', data.token);
-            router.replace(searchParams.get('p') || '/');
-
+            await signIn('credentials', { email, password });
             dispatch({ type: '[Auth] - Login', payload: data.user });
-            welcomeAlert(data.user.name);
         } catch (error) {
             setLoading(false);
             if (isAxiosError(error)) {
