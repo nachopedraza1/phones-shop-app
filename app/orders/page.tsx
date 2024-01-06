@@ -4,13 +4,13 @@ import { getServerSession } from "next-auth";
 
 import db from "@/database/connection";
 import Main from "@/components/layouts/Main";
+import UserOrder from "@/components/orders/Order";
 
 import { authOptions } from "@/utils/authOptions";
 import { getOrders } from "@/utils/querys";
 import { Order } from "@/interfaces/Orders";
 import { RowDataPacket } from "mysql2";
 import { Grid, Typography } from "@mui/material";
-import UserOrder from "@/components/orders/Order";
 
 const getUserOrders = async (): Promise<Order[] | null> => {
     const session: any = await getServerSession(authOptions);

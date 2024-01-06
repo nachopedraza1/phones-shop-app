@@ -28,7 +28,7 @@ export const getOrders = `SELECT Orders.*,
 		                            'quantity',OrderProducts.quantity, 
                                     'image',Products.thumbnail
 	                            )
-                            ) AS Products
+                            ) AS products
                         FROM Users
                         JOIN Orders ON Orders.userId = Users.id
                         JOIN OrderProducts ON Orders.id = OrderProducts.orderId
