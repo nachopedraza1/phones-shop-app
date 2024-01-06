@@ -69,7 +69,7 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
     const registerAccount = async (name: string, email: string, password: string) => {
         try {
             setLoading(true);
-            const { data } = await phonecting.post<UserResponse>('/api/auth/register', { name, email, password });
+            const { data } = await phonecting.post<UserResponse>('/auth/register', { name, email, password });
             setLoading(false);
 
             Cookie.set('token', data.token);
