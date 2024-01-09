@@ -24,7 +24,9 @@ export const getOrders = `SELECT Orders.*,
                             JSON_ARRAYAGG(
 	                            JSON_OBJECT(
 		                            'productId', Products.id,
+                                    'meli_id',Products.meli_id,
                                     'name', Products.name,
+                                    'price',Products.price,
 		                            'quantity',OrderProducts.quantity, 
                                     'image',Products.thumbnail
 	                            )
@@ -35,3 +37,21 @@ export const getOrders = `SELECT Orders.*,
                         JOIN Products ON Products.id = OrderProducts.ProductId
                         WHERE Users.id = ?
                         GROUP BY Orders.id`;
+
+export const getOrderDetail = `SELECT Orders.*,
+                                    JSON_ARRAYAGG(
+	                                    JSON_OBJECT(
+		                                    'productId', Products.id,
+                                            'meli_id',Products.meli_id,
+                                            'name', Products.name,
+                                            'price',Products.price,
+		                                    'quantity',OrderProducts.quantity, 
+                                            'image',Products.thumbnail
+	                                    )
+                                    ) AS products
+                                FROM Users
+                                JOIN Orders ON Orders.userId = Users.id
+                                JOIN OrderProducts ON Orders.id = OrderProducts.orderId
+                                JOIN Products ON Products.id = OrderProducts.ProductId
+                                WHERE Users.id = ? AND Orders.id = ? AND Users.id = Orders.userId
+                                GROUP BY Orders.id`;

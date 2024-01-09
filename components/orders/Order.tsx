@@ -1,6 +1,6 @@
 import { Order } from '@/interfaces/Orders'
 import { formatPrice } from '@/utils/formatPrice'
-import { Grid, Typography, Button, AvatarGroup, Avatar, Tooltip } from '@mui/material'
+import { Grid, Typography, AvatarGroup, Avatar, Tooltip, Chip, Button } from '@mui/material'
 import Image from 'next/image'
 
 const UserOrder: React.FC<{ order: Order }> = ({ order }) => {
@@ -25,8 +25,22 @@ const UserOrder: React.FC<{ order: Order }> = ({ order }) => {
                     }
                 </AvatarGroup>
             </Grid>
-            <Grid item xs={5}>
-                <Typography> {order.userId} </Typography>
+            <Grid item xs={2}>
+                <Typography variant='h6' fontWeight={600}> ${formatPrice(order.total)} </Typography>
+            </Grid>
+
+            <Grid item xs={2}>
+                <Chip
+                    variant='outlined'
+                    color={order.isPaid >= 1 ? 'success' : 'error'}
+                    label={order.isPaid >= 1 ? 'Pagada' : 'No pagada'}
+                />
+            </Grid>
+
+            <Grid item xs={2}>
+                    <Button variant='contained'>
+                        Ver detalle
+                    </Button>
             </Grid>
 
         </Grid>

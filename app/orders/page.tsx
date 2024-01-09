@@ -34,7 +34,7 @@ const OrdersPage: NextPage = async () => {
                     <Grid maxHeight='70vh' sx={{ overflowY: 'scroll' }}>
                         {
                             orders.map(order => (
-                                <UserOrder order={order} />
+                                <UserOrder order={order} key={order.id} />
                             ))
                         }
                     </Grid>
