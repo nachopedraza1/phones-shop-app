@@ -35,7 +35,14 @@ const PayOrder: NextPage<{ params: { id: string } }> = async ({ params }) => {
                     <Grid maxHeight='70vh' sx={{ overflowY: 'scroll' }}>
                         {
                             order.products.map(product => (
-                                <Grid container justifyContent='space-between' p={2} alignItems='center' borderBottom='1px solid rgba(0,0,0,.1)'>
+                                <Grid
+                                    container
+                                    justifyContent='space-between'
+                                    p={2}
+                                    alignItems='center'
+                                    borderBottom='1px solid rgba(0,0,0,.1)'
+                                    key={product.productId}
+                                >
                                     <Grid item xs={1} position='relative'>
                                         {/* <Image src={product.image} alt={product.name} width={64} height={64} style={{ objectFit: 'contain' }} /> */}
                                     </Grid>

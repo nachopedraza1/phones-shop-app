@@ -13,11 +13,11 @@ const UserOrder: React.FC<{ order: Order }> = ({ order }) => {
                         order.products.map(prod => {
 
                             if (order.products.length === 1) {
-                                return <Image src={order.products[0].image} alt={order.products[0].name} width={64} height={64} style={{ objectFit: 'contain' }} />
+                                return <Image key={prod.productId} src={order.products[0].image} alt={order.products[0].name} width={64} height={64} style={{ objectFit: 'contain' }} />
                             }
 
                             return (
-                                <Tooltip title={prod.name}>
+                                <Tooltip key={prod.productId} title={prod.name}>
                                     <Avatar src={prod.image} key={prod.name} sx={{ border: '1px solid red' }} />
                                 </Tooltip>
                             )
@@ -38,9 +38,9 @@ const UserOrder: React.FC<{ order: Order }> = ({ order }) => {
             </Grid>
 
             <Grid item xs={2}>
-                    <Button variant='contained'>
-                        Ver detalle
-                    </Button>
+                <Button variant='contained'>
+                    Ver detalle
+                </Button>
             </Grid>
 
         </Grid>
